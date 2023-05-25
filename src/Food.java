@@ -2,15 +2,24 @@ import javafx.scene.image.Image;
 
 public class Food {
     
-    public static enum foodType{FASTFOOD, IRANIAN, FORIEGN};
+    public static enum foodType{FASTFOOD, IRANIAN, CHINESE, ITALIAN};
     private String foodName;
     private double foodWeight, foodPrice;
+    private foodType foodType;
     private Image foodImage;
 
-    public Food(String foodName, double foodWeight, double foodPrice, Image foodImage){
+    public Food(String foodName, double foodWeight, double foodPrice, foodType foodType){
         this.foodName = foodName;
         this.foodWeight = foodWeight;
         this.foodPrice = foodPrice;
+        this.foodType = foodType;
+    }
+
+    public Food(String foodName, double foodWeight, double foodPrice, foodType foodType, Image foodImage){
+        this.foodName = foodName;
+        this.foodWeight = foodWeight;
+        this.foodPrice = foodPrice;
+        this.foodType = foodType;
         this.foodImage = foodImage;
     }
 
@@ -46,6 +55,14 @@ public class Food {
         else{
             // have to implement this section
         }
+    }
+
+    public foodType getFoodType(){
+        return foodType;
+    }
+
+    public void setFoodType(foodType foodType){
+        this.foodType = foodType;
     }
 
     public Image getFoodImage() {
