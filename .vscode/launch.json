@@ -2,6 +2,13 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
+			"type": "java",
+			"name": "Server",
+			"request": "launch",
+			"mainClass": "Server",
+			"projectName": "restaurantManagement_38d85a9b"
+		},
+		{
 			"vmArgs": "--module-path \"/home/sajad/A/java/javafx/dependencies/openjfx-20.0.1_linux-x64_bin-sdk/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml",
 			"type": "java",
 			"name": "Launch Current File",

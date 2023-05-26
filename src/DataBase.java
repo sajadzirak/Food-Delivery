@@ -1,3 +1,4 @@
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.io.*;
 
@@ -7,6 +8,7 @@ public class DataBase {
     private static String password = "123";
 
     public DataBase() throws ClassNotFoundException, IOException{
+        restaurantList = FXCollections.observableArrayList();
         readRestaurants();
     }
     
