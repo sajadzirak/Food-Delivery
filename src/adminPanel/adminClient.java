@@ -1,7 +1,6 @@
 package adminPanel;
 
 import java.io.IOException;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,7 +16,7 @@ public class adminClient extends Application {
     public void start(Stage primaryStage) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("adminLoginPage.fxml"));
         primaryStage.setTitle("Admin Login");
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setScene(new Scene(root, 1280, 720));
         primaryStage.show();
     }
 }

@@ -1,18 +1,24 @@
 #loginLabel{
-    -fx-text-fill: #ff7700;
-    -fx-font-weight: 600;
+    /* -fx-text-fill: #ff7700; */
+    -fx-text-fill: black;
+    -fx-font-weight: 900;
     -fx-font-size: 30px;
 }
 
-AnchorPane{
-    /* -fx-background-color: #fff; */
-    /* -fx-background-image: url("../DB/images/pngwing.com(1).png");
-    -fx-background-size: cover; */
+#background{
+    -fx-background-image: url("../DB/images/pexels-pixabay-326278.jpg");
+    -fx-background-size: cover;
+}
+
+#container{
+    -fx-background-color: #fff;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.275), 20, 0, 0, 0);
 }
 
 
 #passwordField{
-    /* -fx-background-color: rgba(209, 208, 208, 0.98); */
     -fx-background-color: #fff;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.275), 15, 0, 3, 3);
     -fx-border: 1px;
@@ -25,10 +31,16 @@ AnchorPane{
     -fx-text-fill: #fff;
     -fx-border-radius: 20;
     -fx-background-radius: 20;
-    -fx-background-color: #ff7700;
+    -fx-background-color: #fd8114;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.500), 10, 0, 3, 3);
 }
 
 #loginButton:hover{
     -fx-background-color: linear-gradient(to bottom, #ff7700, #ff9538);
+}
+
+#reportLabel{
+    -fx-text-fill: #e33636;
+    -fx-font-weight: 500;
+    -fx-font-size: 20px;
 }
