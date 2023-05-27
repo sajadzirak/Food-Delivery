@@ -1,4 +1,3 @@
-package server;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -9,23 +8,26 @@ import java.util.Scanner;
 
 public class Server{
     
-    public static void main(String[] args) throws IOException{
+    static String stringRespond = "";
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException{
         String request;
         ArrayList<String> requestList = new ArrayList<>();
         ServerSocket serverSocket = new ServerSocket(8000);
         ObjectOutputStream output;
         ObjectInputStream input;
         Socket socket;
-
+        
         do{
             socket = serverSocket.accept();
             output = new ObjectOutputStream(socket.getOutputStream());
             input = new ObjectInputStream(socket.getInputStream());
-            request = input.readUTF();    
-            System.out.println(request);
-            // requestList = seperateDetails(request);
+            request = (String) input.readObject();    
+            requestList = seperateDetails(request);
             // System.out.println(requestList);
-            // callAppropriateMethod(requestList);
+            callAppropriateMethod(requestList);
+            output.writeObject(stringRespond);
+            stringRespond = "";
         }while(!request.equals("exit"));
         
     }
@@ -42,14 +44,19 @@ public class Server{
 
     private static void callAppropriateMethod(ArrayList<String> requestList){
         if(requestList.get(0).equals("Login")){
-            if(requestList.get(1).equals("admin")){
+            if(requestList.get(1).equals("Admin")){
                 adminLogin(requestList.get(2));
             }
         }
     }
 
     private static void adminLogin(String password){
-
+        if(password.equals(DataBase.getPassword())){
+            stringRespond = "true";
+        }
+        else{
+            stringRespond = "false";
+        }
     }
 
 }

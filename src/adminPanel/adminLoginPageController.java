@@ -16,15 +16,24 @@ public class adminLoginPageController {
     public void loginButtonClicked() throws UnknownHostException, IOException, ClassNotFoundException{
         String password = passwordField.getText();
         String request = "Login Admin ";
-        boolean respond;
+        String respond;
+
         if(password.length() != 0){
+            System.out.println(password);
             Socket socket = new Socket("127.0.0.1", 8000);
             ObjectOutputStream toServer = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream fromServer = new ObjectInputStream(socket.getInputStream());
-
             request += password;
             toServer.writeObject(request);
-            respond = (Boolean) fromServer.readObject();
+            toServer.flush();
+            respond = (String) fromServer.readObject();
+            if(respond.equals("true")){
+                reportLabel.setText("Logged in");
+            }
+            else{
+                reportLabel.setText("Wrong password!!");
+            }
+            socket.close();
         }    
     }
 }
