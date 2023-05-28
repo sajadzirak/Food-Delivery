@@ -12,7 +12,7 @@ public class Server{
 
     public static void main(String[] args) throws IOException, ClassNotFoundException{
         String request;
-        ArrayList<String> requestList = new ArrayList<>();
+        ArrayList<String> requestList = new ArrayList<String>();
         ServerSocket serverSocket = new ServerSocket(8000);
         ObjectOutputStream output;
         ObjectInputStream input;
