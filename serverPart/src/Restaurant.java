@@ -4,27 +4,26 @@ import javafx.scene.image.Image;
 
 public class Restaurant{
 
-    public static enum restaurantType{FASTFOOD, IRANIAN, CHINESE, ITALIAN};
+    public static enum restaurantType{fastfood, Iranian, Chinese, Italian};
     private String name, restaurantAddress;
     private restaurantType restauranType;
     private ObservableList<Food> foodList;
     private HashMap<Food, Integer> foodQuantity;
-    private boolean open, takeout;
+    private boolean outdoor;
     private Image restaurantImage;
     private int chairNumber, deliveryNumber;
     // implement score for every restaurnat
 
     
     public Restaurant(String name, String restaurantAddress, Restaurant.restaurantType restauranType,
-            ObservableList<Food> foodList, HashMap<Food, Integer> foodQuantity, boolean open, boolean takeout,
+            ObservableList<Food> foodList, HashMap<Food, Integer> foodQuantity, boolean outdoor,
             Image restaurantImage, int chairNumber, int deliveryNumber) {
         this.name = name;
         this.restaurantAddress = restaurantAddress;
         this.restauranType = restauranType;
         this.foodList = foodList;
         this.foodQuantity = foodQuantity;
-        this.open = open;
-        this.takeout = takeout;
+        this.outdoor = outdoor;
         this.restaurantImage = restaurantImage;
         this.chairNumber = chairNumber;
         this.deliveryNumber = deliveryNumber;
@@ -70,20 +69,12 @@ public class Restaurant{
         this.foodQuantity = foodQuantity;
     }
 
-    public boolean isOpen() {
-        return open;
+    public boolean isOutdoor() {
+        return outdoor;
     }
 
-    public void setOpen(boolean open) {
-        this.open = open;
-    }
-
-    public boolean isTakeout() {
-        return takeout;
-    }
-
-    public void setTakeout(boolean takeout) {
-        this.takeout = takeout;
+    public void setOutdoor(boolean outdoor) {
+        this.outdoor = outdoor;
     }
 
     public Image getRestaurantImage() {
@@ -113,7 +104,5 @@ public class Restaurant{
             this.deliveryNumber = deliveryNumber;
         }
     }
-
-    
 
 }
