@@ -5,23 +5,8 @@
 			"type": "java",
 			"name": "Server",
 			"request": "launch",
-			"mainClass": "server.src.Server",
-			"projectName": "restaurantManagement_38d85a9b"
-		},
-		{
-			"type": "java",
-			"name": "Server",
-			"request": "launch",
-			"mainClass": "server.Server",
-			"projectName": "restaurantManagement_38d85a9b"
-		},
-		{
-			"vmArgs": "--module-path \"/home/sajad/A/java/javafx/dependencies/openjfx-20.0.1_linux-x64_bin-sdk/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml",
-			"type": "java",
-			"name": "adminClient",
-			"request": "launch",
-			"mainClass": "adminPanel.adminClient",
-			"projectName": "restaurantManagement_38d85a9b"
+			"mainClass": "Server",
+			"projectName": "server_32aa01c2"
 		},
 		{
 			"vmArgs": "--module-path \"/home/sajad/A/java/javafx/dependencies/openjfx-20.0.1_linux-x64_bin-sdk/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml",
@@ -29,7 +14,13 @@
 			"name": "Launch Current File",
 			"request": "launch",
 			"mainClass": "${file}"
+		},
+		{
+			"vmArgs": "--module-path \"/home/sajad/A/java/javafx/dependencies/openjfx-20.0.1_linux-x64_bin-sdk/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml",
+			"type": "java",
+			"name": "Launch App",
+			"request": "launch",
+			"mainClass": "App"
 		}
 	]
-	
 }

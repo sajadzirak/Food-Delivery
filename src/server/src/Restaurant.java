@@ -1,3 +1,5 @@
+package server.src;
+
 import java.util.HashMap;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;

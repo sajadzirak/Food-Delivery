@@ -1,3 +1,5 @@
+package server.src;
+
 import javafx.scene.image.Image;
 
 public class Food {

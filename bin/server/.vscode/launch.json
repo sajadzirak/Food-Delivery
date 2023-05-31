@@ -6,14 +6,7 @@
 			"name": "Server",
 			"request": "launch",
 			"mainClass": "Server",
-			"projectName": "serverPart_560005ca"
-		},
-		{
-			"type": "java",
-			"name": "Server",
-			"request": "launch",
-			"mainClass": "server.Server",
-			"projectName": "serverPart_560005ca"
+			"projectName": "server_32aa01c2"
 		},
 		{
 			"vmArgs": "--module-path \"/home/sajad/A/java/javafx/dependencies/openjfx-20.0.1_linux-x64_bin-sdk/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml",
