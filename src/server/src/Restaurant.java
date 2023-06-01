@@ -8,7 +8,7 @@ public class Restaurant{
 
     public static enum restaurantType{fastfood, Iranian, Chinese, Italian};
     private String name, restaurantAddress;
-    private restaurantType restauranType;
+    private restaurantType restaurantType;
     private ObservableList<Food> foodList;
     private HashMap<Food, Integer> foodQuantity;
     private boolean outdoor;
@@ -17,14 +17,25 @@ public class Restaurant{
     // implement score for every restaurnat
 
     
-    public Restaurant(String name, String restaurantAddress, Restaurant.restaurantType restauranType,
+    public Restaurant(String name, String restaurantAddress, Restaurant.restaurantType restaurantType,
             ObservableList<Food> foodList, HashMap<Food, Integer> foodQuantity, boolean outdoor,
             Image restaurantImage, int chairNumber, int deliveryNumber) {
         this.name = name;
         this.restaurantAddress = restaurantAddress;
-        this.restauranType = restauranType;
+        this.restaurantType = restaurantType;
         this.foodList = foodList;
         this.foodQuantity = foodQuantity;
+        this.outdoor = outdoor;
+        this.restaurantImage = restaurantImage;
+        this.chairNumber = chairNumber;
+        this.deliveryNumber = deliveryNumber;
+    }
+
+    public Restaurant(String name, String restaurantAddress, Restaurant.restaurantType restaurantType,
+    boolean outdoor, Image restaurantImage, int chairNumber, int deliveryNumber) {
+        this.name = name;
+        this.restaurantAddress = restaurantAddress;
+        this.restaurantType = restaurantType;
         this.outdoor = outdoor;
         this.restaurantImage = restaurantImage;
         this.chairNumber = chairNumber;
@@ -47,12 +58,12 @@ public class Restaurant{
         this.restaurantAddress = restaurantAddress;
     }
 
-    public restaurantType getRestauranType() {
-        return restauranType;
+    public restaurantType getrestaurantType() {
+        return restaurantType;
     }
 
-    public void setRestauranType(restaurantType restauranType) {
-        this.restauranType = restauranType;
+    public void setrestaurantType(restaurantType restaurantType) {
+        this.restaurantType = restaurantType;
     }
 
     public ObservableList<Food> getFoodList() {
@@ -107,4 +118,12 @@ public class Restaurant{
         }
     }
 
+    @Override
+    public boolean equals(Object o){
+        Restaurant r = (Restaurant) o;
+        if(this.getName().equals(r.getName())){
+            return true;
+        }
+        return false;
+    }
 }

@@ -31,18 +31,31 @@ public class DataBase {
     }
     
 
-    public void readRestaurants() throws IOException, ClassNotFoundException{
-        FileInputStream restaurantF = new FileInputStream("DB/files/restaurants.dat");
-        ObjectInputStream input = new ObjectInputStream(restaurantF);
-        restaurantList =  (ObservableList<Restaurant>) input.readObject();
-        input.close();
+    private void readRestaurants() throws IOException, ClassNotFoundException{
+        FileInputStream restaurantF = new FileInputStream("/home/sajad/A/java/myProjects/restaurantManagement/src/DB/files/restaurants.dat");
+        try{
+            ObjectInputStream input = new ObjectInputStream(restaurantF);
+            restaurantList =  (ObservableList<Restaurant>) input.readObject();
+            input.close();
+        }catch (EOFException e){
+            
+        }
     }
 
     public void writeRestaurants() throws IOException{
-        FileOutputStream restaurantF = new FileOutputStream("DB/files/restaurants.dat");
+        FileOutputStream restaurantF = new FileOutputStream("/home/sajad/A/java/myProjects/restaurantManagement/src/DB/files/restaurants.dat");
         ObjectOutputStream output = new ObjectOutputStream(restaurantF);
         output.writeObject(restaurantList);
         output.close();
+    }
+
+    public boolean addRestaurant(Restaurant newRestaurant){
+        if(restaurantList.contains(newRestaurant))
+            return false;
+        else{
+            restaurantList.add(newRestaurant);
+            return true;
+        }
     }
 
 

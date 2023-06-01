@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 public class AdminRestaurantsPageController {
     
+    public static Stage addBox;
     // public TilePane tilePane;
     // public ListItem listItem;
     public void logoLabelClicked() throws IOException{
@@ -19,7 +20,7 @@ public class AdminRestaurantsPageController {
     }
 
     public void addButton() throws IOException{
-        Stage addBox = new Stage();
+        addBox = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("addRestaurantBox.fxml"));
         addBox.setScene(new Scene(root));
         addBox.setTitle("Add Restaurant");
@@ -29,4 +30,8 @@ public class AdminRestaurantsPageController {
         // tilePane.getChildren().add(listItem);
         // System.out.println("clicked");
     }
+
+    // public Stage getAddBox(){
+    //     return addBox;
+    // }
 }

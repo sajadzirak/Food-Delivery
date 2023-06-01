@@ -3,24 +3,27 @@ package adminPanel;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.*;
+import javafx.scene.image.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 
 public class AddRestaurantBoxController implements Initializable{
     
+    public File selectedFile;
     public ImageView selectedImageView;
     public Label selectedImageLabel, reportLabel, chairNumberLabel, deliveryNumberLabel;
     public GridPane mainGrid;
@@ -52,16 +55,45 @@ public class AddRestaurantBoxController implements Initializable{
         fileChooser.setInitialDirectory(new File("/~"));
         fileChooser.getExtensionFilters().addAll(new ExtensionFilter("jpg", "*.jpg"),
         new ExtensionFilter("png", "*.png"), new ExtensionFilter("jpeg", "*.jpeg"));
-        File selectedFile = fileChooser.showOpenDialog(null);
+        selectedFile = fileChooser.showOpenDialog(null);
         InputStream inputStream = new FileInputStream(selectedFile.getAbsolutePath());
         selectedImageLabel.setText("");
         selectedImageView.setImage(new Image(inputStream));
     }
 
-    public void confirmButtonClicked(){
-        boolean checkAnswer;
+    public void confirmButtonClicked() throws UnknownHostException, IOException, ClassNotFoundException{
+        boolean checkAnswer, respond;
+        String request;
         checkAnswer = checkItems();
-
+        if(checkAnswer){
+            Socket socket = new Socket("127.0.0.1", 8000);
+            ObjectInputStream fromServer = new ObjectInputStream(socket.getInputStream());
+            ObjectOutputStream toServer = new ObjectOutputStream(socket.getOutputStream());
+            request = "New Restaurant ";
+            request += (restaurantNameTextField.getText()).replace(' ', '-');
+            request += " "+(addressTextField.getText()).replace(' ', '-');
+            request += " "+typeChoiceBox.getValue();
+            request += " "+outdoorRadioButton.isSelected();
+            request += " file:"+selectedFile.getAbsolutePath();
+            if(!outdoorRadioButton.isSelected()){
+                request += " "+chairNumberTextField.getText();
+                request += " "+"0";
+            }
+            else{
+                request += " "+"0";
+                request += " "+deliveryNumberTextField.getText(); 
+            }
+            toServer.writeObject(request);
+            respond = (boolean)fromServer.readObject();
+            if(respond){
+                MessageBox.display("Restaurant added successfully.", "adding restaurant");
+                AdminRestaurantsPageController.addBox.close();
+            }
+            else{
+                MessageBox.display("some thing went wrong!\nmaybe the restaurant already exists.", "adding restaurant");                
+            }
+            socket.close();
+        }
     }
 
     @Override
@@ -71,7 +103,6 @@ public class AddRestaurantBoxController implements Initializable{
 
     private boolean checkItems(){
         boolean status = true;
-
         // turn back normal text for labels if their values are valid
         if(!outdoorRadioButton.isSelected() && checkNumberFields(chairNumberTextField)){
             chairNumberLabel.setStyle("-fx-text-fill: orange");
