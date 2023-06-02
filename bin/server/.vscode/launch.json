@@ -2,13 +2,6 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"type": "java",
-			"name": "Server",
-			"request": "launch",
-			"mainClass": "Server",
-			"projectName": "server_32aa01c2"
-		},
-		{
 			"vmArgs": "--module-path \"/home/sajad/A/java/javafx/dependencies/openjfx-20.0.1_linux-x64_bin-sdk/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml",
 			"type": "java",
 			"name": "Launch Current File",
@@ -20,7 +13,7 @@
 			"type": "java",
 			"name": "Launch App",
 			"request": "launch",
-			"mainClass": "App"
+			"mainClass": "server.src.App"
 		}
 	]
 }

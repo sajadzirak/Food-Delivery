@@ -1,5 +1,6 @@
 package adminPanel;
 
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,8 +24,9 @@ public class MessageBox {
         );
 
         VBox layout = new VBox();
-        layout.getChildren().addAll(okButton, messageLabel);
-        Scene scene = new Scene(layout, 600, 400);
+        layout.setAlignment(Pos.CENTER);
+        layout.getChildren().addAll(messageLabel, okButton);
+        Scene scene = new Scene(layout, 300, 200);
         window.setTitle(title);
         window.setScene(scene);
         window.initModality(Modality.APPLICATION_MODAL);

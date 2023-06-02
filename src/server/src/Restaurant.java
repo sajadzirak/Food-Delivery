@@ -41,6 +41,16 @@ public class Restaurant{
         this.chairNumber = chairNumber;
         this.deliveryNumber = deliveryNumber;
     }
+
+    public Restaurant(String name, String restaurantAddress, Restaurant.restaurantType restaurantType,
+    boolean outdoor, int chairNumber, int deliveryNumber) {
+        this.name = name;
+        this.restaurantAddress = restaurantAddress;
+        this.restaurantType = restaurantType;
+        this.outdoor = outdoor;
+        this.chairNumber = chairNumber;
+        this.deliveryNumber = deliveryNumber;
+    }
     
     public String getName() {
         return name;
