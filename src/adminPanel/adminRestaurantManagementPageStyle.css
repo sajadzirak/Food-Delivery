@@ -1,13 +1,13 @@
-#logoLabel{
+/* #logoLabel{
     -fx-background-image: url("../DB/images/logo.png");
     -fx-background-size: 65px;
 }
 
 #mainAnchorPane{
     -fx-background-color: rgba(34, 38, 46, 0.935);
-}
+} */
 
-#leftMenu{
+/* #leftMenu{
     -fx-background-color: rgb(27, 32, 40);
     -fx-border-radius: 0 10 10 0;
     -fx-background-radius: 0 10 10 0;
@@ -17,23 +17,29 @@
 #restaurantsLabel{
     -fx-background-image: url("../DB/images/restaurant-256.png");
     -fx-background-size: 100%;
-}
+} */
 
 #topMenu{
-    /* -fx-background-color: rgba(34, 38, 46, 0.935); */
-    /* -fx-background-color: linear-gradient(to right, rgba(34, 38, 46, 0.935), rgb(27, 32, 40)); */
+    -fx-padding: 20px;
+    -fx-background-color: -fx-cream;
+    /* -fx-background-color: -fx-very-pale-blue; */
 }
 
 #addRestaurantButton{
     -fx-border-radius: 20;
     -fx-background-radius: 20;
-    -fx-background-color: #fa9033;
+    -fx-background-color: -fx-red;
     -fx-text-fill: #fff;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.500), 8, 0, 3, 3);
+    -fx-effect: dropshadow(three-pass-box, -fx-grey, 8, 0, 3, 3);
 }
 
 #addRestaurantButton:hover{
-    -fx-background-color: linear-gradient(to bottom, #fa9033, #fe9d48);
+    -fx-background-color: -fx-red-hover;
+}
+
+#centerPane{
+    -fx-background-color: -fx-very-pale-blue;
+    /* -fx-background-color: -fx-cream; */
 }
 
 #restaurantsIcon{

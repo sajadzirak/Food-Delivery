@@ -9,26 +9,23 @@ import javafx.scene.layout.TilePane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class AdminRestaurantsPageController {
+public class adminRestaurantManagementPageController {
     
     public static Stage addBox;
-    // public TilePane tilePane;
-    // public ListItem listItem;
-    public void logoLabelClicked() throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("adminWelcomePage.fxml"));
-        adminClient.window.setScene(new Scene(root));
-    }
+    public TilePane centerTilePane;
+    public ImageTile imageTile;
 
-    public void addButton() throws IOException{
+    public void addRestaurantButtonClicked() throws IOException{
         addBox = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("addRestaurantBox.fxml"));
         addBox.setScene(new Scene(root));
         addBox.setTitle("Add Restaurant");
         addBox.initModality(Modality.APPLICATION_MODAL);
         addBox.showAndWait();
-        // listItem = new ListItem();
-        // tilePane.getChildren().add(listItem);
-        // System.out.println("clicked");
+        imageTile = new ImageTile();
+        imageTile.setStyle("-fx-background-color: #000;");
+        centerTilePane.getChildren().add(imageTile);
+        System.out.println("clicked");
     }
 
     // public Stage getAddBox(){

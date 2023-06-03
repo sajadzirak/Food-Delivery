@@ -1,0 +1,72 @@
+#mainAnchor{
+    /* -fx-background-color: -fx-very-pale-blue;     */
+    -fx-background-color: -fx-cream;
+    /* -fx-background-color: -fx-dark; */
+}
+
+#mainGrid{
+    /* -fx-background-color: -fx-cream; */
+    -fx-background-color: -fx-very-pale-blue;
+    -fx-padding: 20px;
+    -fx-border-radius: 25;
+    -fx-background-radius: 25;
+    -fx-effect: dropshadow(three-pass-box, -fx-grey, 5, 0, 0, 0);
+}
+
+.label{
+    -fx-text-fill: -fx-dark;
+    -fx-font-size: 17px;
+    -fx-font-family: Ubuntu;
+}
+
+#typeChoiceBox{
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+#typeChoiceBox .label{
+    -fx-text-fill: -fx-dark;
+}
+
+.button{
+    -fx-text-fill: #fff;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-background-color: -fx-red;
+    -fx-effect: dropshadow(three-pass-box, -fx-grey, 8, 0, 3, 3);
+}
+
+.button:hover{
+    -fx-background-color: -fx-red-hover;
+}
+
+#reportLabel{
+    -fx-text-fill: rgb(255, 21, 21);
+    -fx-font-size: 18px;
+}
+
+.textField{
+    -fx-background-color: #fff;
+    -fx-effect: dropshadow(three-pass-box, -fx-grey, 10, 0, 3, 3);
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+}
+
+#selectedImageLabel{
+    -fx-border-color: -fx-dark;
+    -fx-border-style: dashed;
+}
+
+/* #selectImageButton{
+    -fx-text-fill: #fff;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-background-color: #ff8820;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.500), 8, 0, 3, 3);
+} */
+
+/*
+#selectImageButton:hover{
+    -fx-background-color: linear-gradient(to bottom, #ff8820, #fa953d);
+} */
+

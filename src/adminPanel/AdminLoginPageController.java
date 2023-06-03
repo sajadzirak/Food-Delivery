@@ -22,7 +22,6 @@ public class AdminLoginPageController {
         String respond;
 
         if(password.length() != 0){
-            System.out.println(password);
             Socket socket = new Socket("127.0.0.1", 8000);
             ObjectOutputStream toServer = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream fromServer = new ObjectInputStream(socket.getInputStream());
@@ -32,7 +31,7 @@ public class AdminLoginPageController {
             respond = (String) fromServer.readObject();
             if(respond.equals("true")){
                 adminClient.window.close();
-                Parent root = FXMLLoader.load(getClass().getResource("adminWelcomePage.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("adminMainPage.fxml"));
                 adminClient.window.setTitle("Admin Panel");
                 adminClient.window.setScene(new Scene(root, 1280, 720));
                 adminClient.window.show();

@@ -9,7 +9,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
@@ -21,6 +20,7 @@ import server.src.Restaurant.restaurantType;
 
 public class Server extends Application{
 
+    public static final int PORT = 8000;
     private static DataBase db;
     private static String request;
     private static ArrayList<String> requestList = new ArrayList<String>();
@@ -29,21 +29,6 @@ public class Server extends Application{
     private static ObjectInputStream input;
     private static Socket socket;
     private ListView<String> listView;
-    // public static void main(String[] args) throws IOException, ClassNotFoundException{
-    //     db = new DataBase();
-    //     serverSocket = new ServerSocket(8000);
-    //     do{
-    //         socket = serverSocket.accept();
-    //         output = new ObjectOutputStream(socket.getOutputStream());
-    //         input = new ObjectInputStream(socket.getInputStream());
-    //         request = (String) input.readObject(); 
-    //         requestList = seperateDetails(request);
-    //         System.out.println(requestList);
-    //         callAppropriateMethod(requestList, output);
-    //     }while(!request.equals("exit"));
-        
-    // }
-
     public static void main(String[] args){
         launch(args);
     }
@@ -57,6 +42,7 @@ public class Server extends Application{
         // primaryStage.setScene(scene);
         // primaryStage.show();
         db = new DataBase();
+        System.out.println(db.getRestaurantList());
         serverSocket = new ServerSocket(8000);
         do{
             socket = serverSocket.accept();
@@ -68,7 +54,8 @@ public class Server extends Application{
             // listView.getItems().add(request);
             callAppropriateMethod(requestList, output);
         }while(!request.equals("exit"));
-
+        System.out.println("out");
+        db.writeRestaurants();
     }
 
 
@@ -90,7 +77,6 @@ public class Server extends Application{
         }
         if(requestList.get(0).equals("New")){
             if(requestList.get(1).equals("Restaurant")){
-                System.out.println(requestList.size()-1);
                 newRestaurant(requestList.subList(2, requestList.size()), output);
             }
         }
@@ -108,16 +94,12 @@ public class Server extends Application{
     }
 
     private static void newRestaurant(List<String> parametersList, ObjectOutputStream toClient) throws IOException{
-        System.out.println("before");
-        System.out.println(parametersList);
         File file = new File(parametersList.get(4));
         Image image = new Image(file.toURI().toString());
         Restaurant nr = new Restaurant(parametersList.get(0), parametersList.get(1), 
         restaurantType.valueOf(parametersList.get(2)), Boolean.parseBoolean(parametersList.get(3)), image,
         Integer.parseInt(parametersList.get(5)), Integer.parseInt(parametersList.get(6)));
-        System.out.println("object created");
         boolean result = db.addRestaurant(nr);
-        System.out.println("result : "+result);
         toClient.writeObject(result);
     }
 }

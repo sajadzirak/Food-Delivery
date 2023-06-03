@@ -1,10 +1,11 @@
 package server.src;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 
-public class Restaurant{
+public class Restaurant implements Serializable{
 
     public static enum restaurantType{fastfood, Iranian, Chinese, Italian};
     private String name, restaurantAddress;
@@ -38,16 +39,6 @@ public class Restaurant{
         this.restaurantType = restaurantType;
         this.outdoor = outdoor;
         this.restaurantImage = restaurantImage;
-        this.chairNumber = chairNumber;
-        this.deliveryNumber = deliveryNumber;
-    }
-
-    public Restaurant(String name, String restaurantAddress, Restaurant.restaurantType restaurantType,
-    boolean outdoor, int chairNumber, int deliveryNumber) {
-        this.name = name;
-        this.restaurantAddress = restaurantAddress;
-        this.restaurantType = restaurantType;
-        this.outdoor = outdoor;
         this.chairNumber = chairNumber;
         this.deliveryNumber = deliveryNumber;
     }

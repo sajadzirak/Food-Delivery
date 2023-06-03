@@ -3,6 +3,7 @@ package server.src;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.io.*;
+import java.util.ArrayList;
 
 public class DataBase {
     
@@ -35,7 +36,8 @@ public class DataBase {
         FileInputStream restaurantF = new FileInputStream("/home/sajad/A/java/myProjects/restaurantManagement/src/DB/files/restaurants.dat");
         try{
             ObjectInputStream input = new ObjectInputStream(restaurantF);
-            restaurantList =  (ObservableList<Restaurant>) input.readObject();
+            // restaurantList =  (ObservableList<Restaurant>) input.readObject();
+            restaurantList = FXCollections.observableArrayList((ObservableList<Restaurant>) input.readObject());
             input.close();
         }catch (EOFException e){
             
@@ -45,7 +47,7 @@ public class DataBase {
     public void writeRestaurants() throws IOException{
         FileOutputStream restaurantF = new FileOutputStream("/home/sajad/A/java/myProjects/restaurantManagement/src/DB/files/restaurants.dat");
         ObjectOutputStream output = new ObjectOutputStream(restaurantF);
-        output.writeObject(restaurantList);
+        output.writeObject(new ArrayList<Restaurant>(restaurantList));
         output.close();
     }
 

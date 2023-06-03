@@ -36,14 +36,14 @@ public class AddRestaurantBoxController implements Initializable{
         if(outdoorRadioButton.isSelected()){
             chairNumberTextField.setText("");
             chairNumberTextField.setDisable(true);
-            chairNumberLabel.setStyle("-fx-text-fill: orange;");
+            chairNumberLabel.setStyle("-fx-text-fill: #04030f;");
             chairNumberLabel.setText("chair number:");
             deliveryNumberTextField.setDisable(false);
         }
         else{
             deliveryNumberTextField.setText("");
             deliveryNumberTextField.setDisable(true);
-            deliveryNumberLabel.setStyle("-fx-text-fill: orange;");
+            deliveryNumberLabel.setStyle("-fx-text-fill: #04030f;");
             deliveryNumberLabel.setText("delivery number:");
             chairNumberTextField.setDisable(false);
         }
@@ -57,7 +57,7 @@ public class AddRestaurantBoxController implements Initializable{
         new ExtensionFilter("png", "*.png"), new ExtensionFilter("jpeg", "*.jpeg"));
         selectedFile = fileChooser.showOpenDialog(null);
         InputStream inputStream = new FileInputStream(selectedFile.getAbsolutePath());
-        selectedImageLabel.setText("");
+        selectedImageLabel.setVisible(false);
         selectedImageView.setImage(new Image(inputStream));
     }
 
@@ -86,11 +86,11 @@ public class AddRestaurantBoxController implements Initializable{
             toServer.writeObject(request);
             respond = (boolean)fromServer.readObject();
             if(respond){
-                MessageBox.display("Restaurant added successfully.", "adding restaurant");
-                AdminRestaurantsPageController.addBox.close();
+                ConfirmBox.display("Restaurant added successfully.", "adding restaurant");
+                adminRestaurantManagementPageController.addBox.close();
             }
             else{
-                MessageBox.display("some thing went wrong!\nmaybe the restaurant already exists.", "adding restaurant");                
+                ConfirmBox.display("some thing went wrong!\nmaybe the restaurant already exists.", "adding restaurant");                
             }
             socket.close();
         }
@@ -105,11 +105,11 @@ public class AddRestaurantBoxController implements Initializable{
         boolean status = true;
         // turn back normal text for labels if their values are valid
         if(!outdoorRadioButton.isSelected() && checkNumberFields(chairNumberTextField)){
-            chairNumberLabel.setStyle("-fx-text-fill: orange");
+            chairNumberLabel.setStyle("-fx-text-fill: #04030f");
             chairNumberLabel.setText("chair number:");
         }
         if(outdoorRadioButton.isSelected() && checkNumberFields(deliveryNumberTextField)){
-            deliveryNumberLabel.setStyle("-fx-text-fill: orange");
+            deliveryNumberLabel.setStyle("-fx-text-fill: #04030f");
             deliveryNumberLabel.setText("delivery number:");
         }
         // restaurant name field should fill

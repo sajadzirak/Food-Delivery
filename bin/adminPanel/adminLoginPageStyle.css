@@ -1,7 +1,8 @@
 #loginLabel{
-    -fx-text-fill: black;
+    -fx-text-fill: -fx-dark;
     -fx-font-weight: 900;
-    -fx-font-size: 30px;
+    -fx-font-size: 35px;
+    -fx-font-family: Ubuntu;
 }
 
 #background{
@@ -10,36 +11,42 @@
 }
 
 #container{
-    -fx-background-color: #fff;
+    -fx-background-color: -fx-very-pale-blue;
     -fx-border-radius: 20;
     -fx-background-radius: 20;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.275), 20, 0, 0, 0);
+    -fx-padding: 15px;
+    -fx-spacing: 35;
 }
 
 
 #passwordField{
     -fx-background-color: #fff;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.275), 15, 0, 3, 3);
+    -fx-effect: dropshadow(three-pass-box, -fx-grey, 12, 0, 3, 3);
     -fx-border: 1px;
     -fx-border-radius: 20;
     -fx-background-radius: 20;
+    -fx-margin: 0 50;
 }
 
 #loginButton{
-    -fx-font-size: 18;
+    -fx-font-size: 20;
+    -fx-font-family: Ubuntu;
     -fx-text-fill: #fff;
     -fx-border-radius: 20;
     -fx-background-radius: 20;
-    -fx-background-color: #fd8114;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.500), 10, 0, 3, 3);
+    -fx-background-color: -fx-red;
+    -fx-effect: dropshadow(three-pass-box, -fx-grey, 15, 0, 3, 3);
 }
 
 #loginButton:hover{
-    -fx-background-color: linear-gradient(to bottom, #ff7700, #ff9538);
+    -fx-background-color: -fx-red-hover;
 }
 
 #reportLabel{
     -fx-text-fill: #e33636;
     -fx-font-weight: 500;
     -fx-font-size: 20px;
+    -fx-font-family: -fx--font;
+    -fx-font-family: Ubuntu;
 }
