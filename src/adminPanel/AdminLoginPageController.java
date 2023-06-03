@@ -18,7 +18,7 @@ public class AdminLoginPageController {
     
     public void loginButtonClicked() throws UnknownHostException, IOException, ClassNotFoundException{
         String password = passwordField.getText();
-        String request = "Login Admin ";
+        String request = "Login Admin";
         String respond;
 
         if(password.length() != 0){

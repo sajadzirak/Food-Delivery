@@ -13,32 +13,32 @@ public class Restaurant implements Serializable{
     private ObservableList<Food> foodList;
     private HashMap<Food, Integer> foodQuantity;
     private boolean outdoor;
-    private Image restaurantImage;
+    private String restaurantImagePath;
     private int chairNumber, deliveryNumber;
     // implement score for every restaurnat
 
     
     public Restaurant(String name, String restaurantAddress, Restaurant.restaurantType restaurantType,
             ObservableList<Food> foodList, HashMap<Food, Integer> foodQuantity, boolean outdoor,
-            Image restaurantImage, int chairNumber, int deliveryNumber) {
+            String restaurantImagePath, int chairNumber, int deliveryNumber) {
         this.name = name;
         this.restaurantAddress = restaurantAddress;
         this.restaurantType = restaurantType;
         this.foodList = foodList;
         this.foodQuantity = foodQuantity;
         this.outdoor = outdoor;
-        this.restaurantImage = restaurantImage;
+        this.restaurantImagePath = restaurantImagePath;
         this.chairNumber = chairNumber;
         this.deliveryNumber = deliveryNumber;
     }
 
     public Restaurant(String name, String restaurantAddress, Restaurant.restaurantType restaurantType,
-    boolean outdoor, Image restaurantImage, int chairNumber, int deliveryNumber) {
+    boolean outdoor, String restaurantImagePath, int chairNumber, int deliveryNumber) {
         this.name = name;
         this.restaurantAddress = restaurantAddress;
         this.restaurantType = restaurantType;
         this.outdoor = outdoor;
-        this.restaurantImage = restaurantImage;
+        this.restaurantImagePath = restaurantImagePath;
         this.chairNumber = chairNumber;
         this.deliveryNumber = deliveryNumber;
     }
@@ -91,12 +91,12 @@ public class Restaurant implements Serializable{
         this.outdoor = outdoor;
     }
 
-    public Image getRestaurantImage() {
-        return restaurantImage;
+    public String getRestaurantImagePath() {
+        return restaurantImagePath;
     }
 
-    public void setRestaurantImage(Image restaurantImage) {
-        this.restaurantImage = restaurantImage;
+    public void setRestaurantImagePath(String restaurantImagePath) {
+        this.restaurantImagePath = restaurantImagePath;
     }
 
     public int getChairNumber() {

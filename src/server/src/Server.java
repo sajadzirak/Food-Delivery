@@ -95,9 +95,9 @@ public class Server extends Application{
 
     private static void newRestaurant(List<String> parametersList, ObjectOutputStream toClient) throws IOException{
         File file = new File(parametersList.get(4));
-        Image image = new Image(file.toURI().toString());
+        // SerializableImage image = new SerializableImage(file.toURI().toString());
         Restaurant nr = new Restaurant(parametersList.get(0), parametersList.get(1), 
-        restaurantType.valueOf(parametersList.get(2)), Boolean.parseBoolean(parametersList.get(3)), image,
+        restaurantType.valueOf(parametersList.get(2)), Boolean.parseBoolean(parametersList.get(3)), file.toURI().toString(),
         Integer.parseInt(parametersList.get(5)), Integer.parseInt(parametersList.get(6)));
         boolean result = db.addRestaurant(nr);
         toClient.writeObject(result);

@@ -34,20 +34,23 @@ public class DataBase {
 
     private void readRestaurants() throws IOException, ClassNotFoundException{
         FileInputStream restaurantF = new FileInputStream("/home/sajad/A/java/myProjects/restaurantManagement/src/DB/files/restaurants.dat");
+        ObjectInputStream input;
         try{
-            ObjectInputStream input = new ObjectInputStream(restaurantF);
-            // restaurantList =  (ObservableList<Restaurant>) input.readObject();
-            restaurantList = FXCollections.observableArrayList((ObservableList<Restaurant>) input.readObject());
-            input.close();
+            input = new ObjectInputStream(restaurantF);
+            while(true){
+                restaurantList.add((Restaurant)input.readObject());
+            }
         }catch (EOFException e){
-            
         }
     }
 
     public void writeRestaurants() throws IOException{
         FileOutputStream restaurantF = new FileOutputStream("/home/sajad/A/java/myProjects/restaurantManagement/src/DB/files/restaurants.dat");
         ObjectOutputStream output = new ObjectOutputStream(restaurantF);
-        output.writeObject(new ArrayList<Restaurant>(restaurantList));
+        // output.writeObject(new ArrayList<Restaurant>(restaurantList));
+        for(Restaurant r : restaurantList){
+            output.writeObject(r);
+        }
         output.close();
     }
 
