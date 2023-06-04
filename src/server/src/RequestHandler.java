@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import javax.swing.text.AsyncBoxView.ChildLocator;
+import javax.naming.spi.DirStateFactory.Result;
 
 import server.src.Restaurant.restaurantType;
 
@@ -75,31 +75,35 @@ public class RequestHandler {
         toClient.writeObject(Server.db.getRestaurantList());
     }
 
-    private static void newRestaurant(ObjectInputStream fromClient, ObjectOutputStream toClient) throws IOException, ClassNotFoundException{
+    private void newRestaurant(ObjectInputStream fromClient, ObjectOutputStream toClient) throws IOException, ClassNotFoundException{
         int chairNumber, deliveryNumber;
         String name, address, imagePath;
         restaurantType type;
         boolean outdoor;
 
         name = (String)fromClient.readObject();
-        System.out.println("1");
+        // System.out.println("1");
         address = (String) fromClient.readObject();
-        System.out.println("2");
+        // System.out.println("2");
         type = restaurantType.valueOf((String) fromClient.readObject());
-        System.out.println("3");
+        // System.out.println("3");
         outdoor = (Boolean) fromClient.readObject();
-        System.out.println("4");
+        // System.out.println("4");
         imagePath = (String) fromClient.readObject();
-        System.out.println("5");
+        // System.out.println("5");
         chairNumber = (Integer) fromClient.readObject();
-        System.out.println("6");
+        // System.out.println("6");
         deliveryNumber = (Integer) fromClient.readObject();
-        System.out.println("7");
+        // System.out.println("7");
         File file = new File(imagePath);
 
         Restaurant nr = new Restaurant(name, address, type, outdoor, file.toURI().toString(), chairNumber, deliveryNumber);
+        System.out.println("before adding");
         boolean result = Server.db.addRestaurant(nr);
         toClient.writeObject(result);
+        // fromClient.readObject();
+        // sendRestaurantsList(fromClient, toClient);
+        System.out.println("end of new res result: "+result);
     }
     
     

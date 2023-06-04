@@ -17,9 +17,10 @@ public class ImageTile extends AnchorPane{
     Label imageLabel;
     Label nameLabel, typeLabel;
     Button disableButton;
+
     public ImageTile(Restaurant r){
         File file = new  File(r.getRestaurantImagePath());
-        disableButton = new Button("Hello");
+        disableButton = new Button("Disable");
         layout = new VBox();
         imageView = new ImageView(new Image(DataBase.imageAbsolutePath+file.getName()));
         imageView.setFitHeight(200);
@@ -29,8 +30,9 @@ public class ImageTile extends AnchorPane{
         nameLabel = new Label(r.getName());
         typeLabel = new Label(r.getrestaurantType().name());
         layout.getChildren().addAll(imageLabel, nameLabel, typeLabel, disableButton);
-        this.setPrefWidth(500);
-        this.setPrefHeight(500);
+        this.setDisable(true);
+        this.setPrefWidth(300);
+        this.setPrefHeight(300);
         this.getChildren().add(layout);
     }
 }

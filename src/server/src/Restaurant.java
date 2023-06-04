@@ -127,4 +127,8 @@ public class Restaurant implements Serializable{
         }
         return false;
     }
+
+    // public String toString(){
+    //     return name;
+    // }
 }

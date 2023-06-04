@@ -27,7 +27,7 @@
    <center>
       <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <content>
-            <TilePane fx:id="centerTilePane" nodeOrientation="LEFT_TO_RIGHT" prefColumns="2" prefHeight="619.0" prefRows="3" prefWidth="1178.0" tileAlignment="TOP_CENTER" />
+            <TilePane fx:id="centerTilePane" nodeOrientation="LEFT_TO_RIGHT" prefColumns="4" prefHeight="619.0" prefRows="3" prefWidth="1178.0" tileAlignment="TOP_CENTER" />
          </content>
       </ScrollPane>
    </center>

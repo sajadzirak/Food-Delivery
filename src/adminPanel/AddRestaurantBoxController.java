@@ -73,22 +73,16 @@ public class AddRestaurantBoxController implements Initializable{
             ObjectOutputStream toServer = new ObjectOutputStream(socket.getOutputStream());
             request = "New Restaurant";
             toServer.writeObject(request);
-            System.out.println("pre request sent");
             toServer.writeObject(restaurantNameTextField.getText());
-            System.out.println("1");
+            // System.out.println("1");
             toServer.writeObject(addressTextField.getText());
-            System.out.println("2");
+            // System.out.println("2");
             toServer.writeObject(typeChoiceBox.getValue());
-            System.out.println("3");
+            // System.out.println("3");
             toServer.writeObject(outdoorRadioButton.isSelected());
-            System.out.println("4");
+            // System.out.println("4");
             toServer.writeObject("file:"+selectedFile.getAbsolutePath());
-            System.out.println("5");
-            // request += (restaurantNameTextField.getText()).replace(' ', '-');
-            // request += " "+(addressTextField.getText()).replace(' ', '-');
-            // request += " "+typeChoiceBox.getValue();
-            // request += " "+outdoorRadioButton.isSelected();
-            // request += " file:"+selectedFile.getAbsolutePath();
+            // System.out.println("5");
             if(!outdoorRadioButton.isSelected()){
                 toServer.writeObject(Integer.parseInt(chairNumberTextField.getText()));
                 toServer.writeObject(0);
@@ -97,7 +91,6 @@ public class AddRestaurantBoxController implements Initializable{
                 toServer.writeObject(0);
                 toServer.writeObject(Integer.parseInt(deliveryNumberTextField.getText()));
             }
-            // toServer.writeObject(request);
             respond = (boolean)fromServer.readObject();
             if(respond){
                 alert = new Alert(AlertType.INFORMATION);
@@ -106,6 +99,7 @@ public class AddRestaurantBoxController implements Initializable{
                 alert.setContentText("Restaurant added succesfully!");
                 alert.showAndWait();
                 adminRestaurantManagementPageController.addBox.close();
+
             }
             else{
                 alert = new Alert(AlertType.ERROR);
