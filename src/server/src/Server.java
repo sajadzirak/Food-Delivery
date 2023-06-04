@@ -22,7 +22,7 @@ public class Server extends Application{
 
     public static final int PORT = 8000;
     public static String IP = "127.0.0.1";
-    private static DataBase db;
+    public static DataBase db;
     private static String request;
     private static ArrayList<String> requestList = new ArrayList<String>();
     private static ServerSocket serverSocket;
@@ -36,12 +36,6 @@ public class Server extends Application{
 
     @Override
     public void start(Stage primaryStage) throws IOException, ClassNotFoundException{
-        // StackPane layout = new StackPane();
-        // listView = new ListView<>();
-        // layout.getChildren().add(listView);
-        // Scene scene = new Scene(layout, 420, 420);
-        // primaryStage.setScene(scene);
-        // primaryStage.show();
         db = new DataBase();
         System.out.println(db.getRestaurantList());
         serverSocket = new ServerSocket(8000);
@@ -49,57 +43,56 @@ public class Server extends Application{
             socket = serverSocket.accept();
             output = new ObjectOutputStream(socket.getOutputStream());
             input = new ObjectInputStream(socket.getInputStream());
-            System.out.println("server here");
             request = (String) input.readObject(); 
-            requestList = seperateDetails(request);
-            System.out.println(requestList);
-            // listView.getItems().add(request);
-            callAppropriateMethod(requestList, input, output);
+            new RequestHandler(request, output, input);
+            // requestList = seperateDetails(request);
+            // System.out.println(requestList);
+            // callAppropriateMethod(requestList, input, output);
         }while(!request.equals("exit"));
         System.out.println("out");
         db.writeRestaurants();
     }
 
 
-    private static ArrayList<String> seperateDetails(String str){
-        Scanner scanner = new Scanner(str);
-        ArrayList<String> list = new ArrayList<>();
-        while(scanner.hasNext()){
-            list.add(scanner.next());
-        }
-        scanner.close();
-        return list;
-    }
+    // private static ArrayList<String> seperateDetails(String str){
+    //     Scanner scanner = new Scanner(str);
+    //     ArrayList<String> list = new ArrayList<>();
+    //     while(scanner.hasNext()){
+    //         list.add(scanner.next());
+    //     }
+    //     scanner.close();
+    //     return list;
+    // }
 
-    private static void callAppropriateMethod(ArrayList<String> requestList, ObjectInputStream input, ObjectOutputStream output) throws IOException, ClassNotFoundException{
-        if(requestList.get(0).equals("Login")){
-            if(requestList.get(1).equals("Admin")){
-                adminLogin(input, output);
-            }
-        }
-        else if(requestList.get(0).equals("New")){
-            if(requestList.get(1).equals("Restaurant")){
-                newRestaurant(requestList.subList(2, requestList.size()), output);
-            }
-        }
-        else if(requestList.get(0).equals("Get")){
-            if(requestList.get(1).equals("Restaurants")){
-                sendRestaurantsList(input, output);
-            }
-        }
-    }
+    // private static void callAppropriateMethod(ArrayList<String> requestList, ObjectInputStream input, ObjectOutputStream output) throws IOException, ClassNotFoundException{
+    //     if(requestList.get(0).equals("Login")){
+    //         if(requestList.get(1).equals("Admin")){
+    //             adminLogin(input, output);
+    //         }
+    //     }
+    //     else if(requestList.get(0).equals("New")){
+    //         if(requestList.get(1).equals("Restaurant")){
+    //             newRestaurant(requestList.subList(2, requestList.size()), output);
+    //         }
+    //     }
+    //     else if(requestList.get(0).equals("Get")){
+    //         if(requestList.get(1).equals("Restaurants")){
+    //             sendRestaurantsList(input, output);
+    //         }
+    //     }
+    // }
 
-    private static void adminLogin(ObjectInputStream fromClient, ObjectOutputStream toClient) throws IOException, ClassNotFoundException{
-        String respond;
-        String password = (String) fromClient.readObject();
-        if(password.equals(DataBase.getPassword())){
-            respond = "true";
-        }
-        else{
-            respond = "false";
-        }
-        toClient.writeObject(respond);
-    }
+    // private static void adminLogin(ObjectInputStream fromClient, ObjectOutputStream toClient) throws IOException, ClassNotFoundException{
+    //     String respond;
+    //     String password = (String) fromClient.readObject();
+    //     if(password.equals(DataBase.getPassword())){
+    //         respond = "true";
+    //     }
+    //     else{
+    //         respond = "false";
+    //     }
+    //     toClient.writeObject(respond);
+    // }
 
     private static void newRestaurant(List<String> parametersList, ObjectOutputStream toClient) throws IOException{
         File file = new File(parametersList.get(4));

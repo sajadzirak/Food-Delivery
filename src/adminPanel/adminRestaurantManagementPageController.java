@@ -54,18 +54,11 @@ public class adminRestaurantManagementPageController implements Initializable {
             restaurantsList = (ArrayList<Restaurant>)fromServer.readObject();
             tiles = FXCollections.observableArrayList(restaurantsList);
             System.out.println("list recieved");
-            // for(Restaurant r : restaurantsList){
-            //     centerTilePane.getChildren().add(new ImageTile(r));
-            // }
-            centerTilePane.getChildren().addAll(tiles);
-            System.out.println("after for");
-        } catch (UnknownHostException e) {
+            for(Restaurant r : restaurantsList){
+                centerTilePane.getChildren().add(new ImageTile(r));
+            }
+        } catch (Exception e){
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        catch (ClassNotFoundException e){
-
         }
     }
 

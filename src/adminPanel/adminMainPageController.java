@@ -1,6 +1,8 @@
 package adminPanel;
 
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -20,7 +22,6 @@ public class adminMainPageController implements Initializable{
     }
 
     public void restaurantsLabelClicked(){
-        // mainPane.getCenter().setVisible(false);
         try {
             mainPane.setCenter(new FxmlLoader().getPage("adminRestaurantManagementPage.fxml"));
         } catch (IOException e) {
@@ -28,8 +29,11 @@ public class adminMainPageController implements Initializable{
         }
     }
 
-    public void exitLabelClicked(){
-        
+    public void exitLabelClicked() throws IOException{
+        Socket socket = new Socket("127.0.0.1", server.src.Server.PORT);
+        ObjectOutputStream toServer = new ObjectOutputStream(socket.getOutputStream());
+        toServer.writeObject("exit");
+        adminClient.window.close();
     }
 
     @Override

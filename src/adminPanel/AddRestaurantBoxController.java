@@ -15,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
@@ -23,6 +24,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 
 public class AddRestaurantBoxController implements Initializable{
     
+    private Alert alert;
     public File selectedFile;
     public ImageView selectedImageView;
     public Label selectedImageLabel, reportLabel, chairNumberLabel, deliveryNumberLabel;
@@ -69,28 +71,48 @@ public class AddRestaurantBoxController implements Initializable{
             Socket socket = new Socket("127.0.0.1", 8000);
             ObjectInputStream fromServer = new ObjectInputStream(socket.getInputStream());
             ObjectOutputStream toServer = new ObjectOutputStream(socket.getOutputStream());
-            request = "New Restaurant ";
-            request += (restaurantNameTextField.getText()).replace(' ', '-');
-            request += " "+(addressTextField.getText()).replace(' ', '-');
-            request += " "+typeChoiceBox.getValue();
-            request += " "+outdoorRadioButton.isSelected();
-            request += " file:"+selectedFile.getAbsolutePath();
+            request = "New Restaurant";
+            toServer.writeObject(request);
+            System.out.println("pre request sent");
+            toServer.writeObject(restaurantNameTextField.getText());
+            System.out.println("1");
+            toServer.writeObject(addressTextField.getText());
+            System.out.println("2");
+            toServer.writeObject(typeChoiceBox.getValue());
+            System.out.println("3");
+            toServer.writeObject(outdoorRadioButton.isSelected());
+            System.out.println("4");
+            toServer.writeObject("file:"+selectedFile.getAbsolutePath());
+            System.out.println("5");
+            // request += (restaurantNameTextField.getText()).replace(' ', '-');
+            // request += " "+(addressTextField.getText()).replace(' ', '-');
+            // request += " "+typeChoiceBox.getValue();
+            // request += " "+outdoorRadioButton.isSelected();
+            // request += " file:"+selectedFile.getAbsolutePath();
             if(!outdoorRadioButton.isSelected()){
-                request += " "+chairNumberTextField.getText();
-                request += " "+"0";
+                toServer.writeObject(Integer.parseInt(chairNumberTextField.getText()));
+                toServer.writeObject(0);
             }
             else{
-                request += " "+"0";
-                request += " "+deliveryNumberTextField.getText(); 
+                toServer.writeObject(0);
+                toServer.writeObject(Integer.parseInt(deliveryNumberTextField.getText()));
             }
-            toServer.writeObject(request);
+            // toServer.writeObject(request);
             respond = (boolean)fromServer.readObject();
             if(respond){
-                ConfirmBox.display("Restaurant added successfully.", "adding restaurant");
+                alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Adding restaurant");
+                alert.setHeaderText(null);
+                alert.setContentText("Restaurant added succesfully!");
+                alert.showAndWait();
                 adminRestaurantManagementPageController.addBox.close();
             }
             else{
-                ConfirmBox.display("some thing went wrong!\nmaybe the restaurant already exists.", "adding restaurant");                
+                alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Adding restaurant");
+                alert.setHeaderText(null);
+                alert.setContentText("something went wrong!\nmaybe the restaurant already exists");
+                alert.showAndWait();
             }
             socket.close();
         }

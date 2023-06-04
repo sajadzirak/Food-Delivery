@@ -40,8 +40,6 @@ public class AdminLoginPageController {
                 adminClient.window.show();
             }
             else{
-                // reportLabel.setStyle("-fx-text-fill: red;");
-                // reportLabel.setText("Wrong password!!");
                 alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error message");
                 alert.setHeaderText(null);
