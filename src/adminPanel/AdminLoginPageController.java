@@ -25,9 +25,9 @@ public class AdminLoginPageController {
             Socket socket = new Socket("127.0.0.1", 8000);
             ObjectOutputStream toServer = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream fromServer = new ObjectInputStream(socket.getInputStream());
-            request += password;
             toServer.writeObject(request);
             toServer.flush();
+            toServer.writeObject(password);
             respond = (String) fromServer.readObject();
             if(respond.equals("true")){
                 adminClient.window.close();

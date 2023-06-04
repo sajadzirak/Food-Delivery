@@ -21,6 +21,7 @@ import server.src.Restaurant.restaurantType;
 public class Server extends Application{
 
     public static final int PORT = 8000;
+    public static String IP = "127.0.0.1";
     private static DataBase db;
     private static String request;
     private static ArrayList<String> requestList = new ArrayList<String>();
@@ -48,11 +49,12 @@ public class Server extends Application{
             socket = serverSocket.accept();
             output = new ObjectOutputStream(socket.getOutputStream());
             input = new ObjectInputStream(socket.getInputStream());
+            System.out.println("server here");
             request = (String) input.readObject(); 
             requestList = seperateDetails(request);
             System.out.println(requestList);
             // listView.getItems().add(request);
-            callAppropriateMethod(requestList, output);
+            callAppropriateMethod(requestList, input, output);
         }while(!request.equals("exit"));
         System.out.println("out");
         db.writeRestaurants();
@@ -69,21 +71,27 @@ public class Server extends Application{
         return list;
     }
 
-    private static void callAppropriateMethod(ArrayList<String> requestList, ObjectOutputStream output) throws IOException{
+    private static void callAppropriateMethod(ArrayList<String> requestList, ObjectInputStream input, ObjectOutputStream output) throws IOException, ClassNotFoundException{
         if(requestList.get(0).equals("Login")){
             if(requestList.get(1).equals("Admin")){
-                adminLogin(requestList.get(2), output);
+                adminLogin(input, output);
             }
         }
-        if(requestList.get(0).equals("New")){
+        else if(requestList.get(0).equals("New")){
             if(requestList.get(1).equals("Restaurant")){
                 newRestaurant(requestList.subList(2, requestList.size()), output);
             }
         }
+        else if(requestList.get(0).equals("Get")){
+            if(requestList.get(1).equals("Restaurants")){
+                sendRestaurantsList(input, output);
+            }
+        }
     }
 
-    private static void adminLogin(String password, ObjectOutputStream toClient) throws IOException{
+    private static void adminLogin(ObjectInputStream fromClient, ObjectOutputStream toClient) throws IOException, ClassNotFoundException{
         String respond;
+        String password = (String) fromClient.readObject();
         if(password.equals(DataBase.getPassword())){
             respond = "true";
         }
@@ -101,5 +109,10 @@ public class Server extends Application{
         Integer.parseInt(parametersList.get(5)), Integer.parseInt(parametersList.get(6)));
         boolean result = db.addRestaurant(nr);
         toClient.writeObject(result);
+    }
+
+    private static void sendRestaurantsList(ObjectInputStream fromServer, ObjectOutputStream toServer) throws IOException{
+        toServer.writeObject(db.getRestaurantList());
+        System.out.println("after sending object");
     }
 }

@@ -28,7 +28,7 @@ public class adminClient extends Application {
                 try {
                     Socket socket = new Socket("127.0.0.1", server.src.Server.PORT);
                     ObjectOutputStream toServer = new ObjectOutputStream(socket.getOutputStream());
-                    ObjectInputStream fromServer = new ObjectInputStream(socket.getInputStream());
+                    // ObjectInputStream fromServer = new ObjectInputStream(socket.getInputStream());
                     toServer.writeObject("exit");
                 } catch (UnknownHostException e1) {
                     e1.printStackTrace();

@@ -7,19 +7,20 @@ import java.util.ArrayList;
 
 public class DataBase {
     
-    private ObservableList<Restaurant> restaurantList;
+    public static String imageAbsolutePath = "file:/home/sajad/A/java/myProjects/restaurantManagement/src/DB/images/";
+    private ArrayList<Restaurant> restaurantList;
     private static String password = "123";
 
     public DataBase() throws ClassNotFoundException, IOException{
-        restaurantList = FXCollections.observableArrayList();
+        restaurantList = new ArrayList<Restaurant>();
         readRestaurants();
     }
     
-    public ObservableList<Restaurant> getRestaurantList() {
+    public ArrayList<Restaurant> getRestaurantList() {
         return restaurantList;
     }
 
-    public void setRestaurantList(ObservableList<Restaurant> restaurantList) {
+    public void setRestaurantList(ArrayList<Restaurant> restaurantList) {
         this.restaurantList = restaurantList;
     }
 
