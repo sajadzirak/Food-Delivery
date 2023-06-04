@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -25,7 +26,7 @@ public class adminRestaurantManagementPageController implements Initializable {
     public static ArrayList<Restaurant> restaurantsList;
     public static Stage addBox;
     public TilePane centerTilePane;
-    private ObservableList<ImageTile> tiles;
+    private ObservableList tiles;
 
     public void addRestaurantButtonClicked() throws IOException{
         addBox = new Stage();
@@ -51,10 +52,12 @@ public class adminRestaurantManagementPageController implements Initializable {
             request = "Get Restaurants";
             toServer.writeObject(request);
             restaurantsList = (ArrayList<Restaurant>)fromServer.readObject();
+            tiles = FXCollections.observableArrayList(restaurantsList);
             System.out.println("list recieved");
-            for(Restaurant r : restaurantsList){
-                centerTilePane.getChildren().add(new ImageTile(r));
-            }
+            // for(Restaurant r : restaurantsList){
+            //     centerTilePane.getChildren().add(new ImageTile(r));
+            // }
+            centerTilePane.getChildren().addAll(tiles);
             System.out.println("after for");
         } catch (UnknownHostException e) {
             e.printStackTrace();

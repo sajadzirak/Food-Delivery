@@ -23,6 +23,8 @@ public class adminClient extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException{
         window = primaryStage;
+        window.setMinHeight(720);
+        window.setMinWidth(1280);
         window.setOnCloseRequest(
             e->{
                 try {

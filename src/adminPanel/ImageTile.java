@@ -22,6 +22,8 @@ public class ImageTile extends AnchorPane{
         disableButton = new Button("Hello");
         layout = new VBox();
         imageView = new ImageView(new Image(DataBase.imageAbsolutePath+file.getName()));
+        imageView.setFitHeight(200);
+        imageView.setFitWidth(200);
         imageLabel = new Label();
         imageLabel.setGraphic(imageView);
         nameLabel = new Label(r.getName());

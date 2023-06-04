@@ -8,8 +8,10 @@ import java.net.UnknownHostException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.Alert.AlertType;
 
 public class AdminLoginPageController {
 
@@ -20,6 +22,7 @@ public class AdminLoginPageController {
         String password = passwordField.getText();
         String request = "Login Admin";
         String respond;
+        Alert alert;
 
         if(password.length() != 0){
             Socket socket = new Socket("127.0.0.1", 8000);
@@ -38,7 +41,12 @@ public class AdminLoginPageController {
             }
             else{
                 // reportLabel.setStyle("-fx-text-fill: red;");
-                reportLabel.setText("Wrong password!!");
+                // reportLabel.setText("Wrong password!!");
+                alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error message");
+                alert.setHeaderText(null);
+                alert.setContentText("Wrong password!");
+                alert.showAndWait();
             }
             socket.close();
         }    
