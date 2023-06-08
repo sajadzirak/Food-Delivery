@@ -6,8 +6,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import server.src.Restaurant.restaurantType;
-
 public class RequestHandler {
     
     private String request;
@@ -56,6 +54,12 @@ public class RequestHandler {
         else if(request.equals("New Restaurant")){
             newRestaurant(input, output);
         }
+        else if(request.equals("Get Restaurant")){
+            sendRestaurant(input, output);
+        }
+        else if(request.equals("Edit Restaurant")){
+            editRestaurant(input, output);
+        }
     }
 
     private void adminLogin(ObjectInputStream fromClient, ObjectOutputStream toClient) throws IOException, ClassNotFoundException{
@@ -80,37 +84,46 @@ public class RequestHandler {
     }
 
     private void newRestaurant(ObjectInputStream fromClient, ObjectOutputStream toClient) throws IOException, ClassNotFoundException{
-        int chairNumber, deliveryNumber;
-        String name, address, imagePath;
-        restaurantType type;
-        boolean outdoor;
+        // int chairNumber, deliveryNumber;
+        // String name, address, imagePath;
+        // restaurantType type;
+        // boolean outdoor;
 
-        name = (String)fromClient.readObject();
-        // System.out.println("1");
-        address = (String) fromClient.readObject();
-        // System.out.println("2");
-        type = restaurantType.valueOf((String) fromClient.readObject());
-        // System.out.println("3");
-        outdoor = (Boolean) fromClient.readObject();
-        // System.out.println("4");
-        imagePath = (String) fromClient.readObject();
-        // System.out.println("5");
-        chairNumber = (Integer) fromClient.readObject();
-        // System.out.println("6");
-        deliveryNumber = (Integer) fromClient.readObject();
-        // System.out.println("7");
-        File file = new File(imagePath);
+        // name = (String)fromClient.readObject();
+        // address = (String) fromClient.readObject();
+        // type = restaurantType.valueOf((String) fromClient.readObject());
+        // outdoor = (Boolean) fromClient.readObject();
+        // imagePath = (String) fromClient.readObject();
+        // chairNumber = (Integer) fromClient.readObject();
+        // deliveryNumber = (Integer) fromClient.readObject();
+        // File file = new File(imagePath);
 
-        Restaurant nr = new Restaurant(name, address, type, outdoor, file.toURI().toString(), chairNumber, deliveryNumber);
+        // Restaurant nr = new Restaurant(name, address, type, outdoor, file.toURI().toString(), chairNumber, deliveryNumber);
+        Restaurant nr = (Restaurant) fromClient.readObject();
         System.out.println("before adding");
         boolean result = Server.db.addRestaurant(nr);
         toClient.writeObject(result);
-        // fromClient.readObject();
-        // sendRestaurantsList(fromClient, toClient);
         System.out.println("end of new res result: "+result);
     }
     
+    private void sendRestaurant(ObjectInputStream fromClient, ObjectOutputStream toClient) throws ClassNotFoundException, IOException{
+        String name;
+        name = (String) fromClient.readObject();
+        int index;
+        index = Server.db.findRestaurant(name);
+        toClient.writeObject(Server.db.getRestaurantList().get(index));
+    }
     
-    
+    private void editRestaurant(ObjectInputStream fromClient, ObjectOutputStream toClient) throws ClassNotFoundException, IOException{
+        Restaurant edited;
+        String previousName;
+        previousName = (String)fromClient.readObject();
+        System.out.println("prev name recieved: "+previousName);
+        edited = (Restaurant)fromClient.readObject();
+        System.out.println("res recieved: "+edited);
+        boolean result = Server.db.replaceRestaurant(previousName, edited);
+        toClient.writeObject(result);
+    }
+
 
 }

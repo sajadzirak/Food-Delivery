@@ -19,9 +19,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import server.src.DataBase;
 import server.src.Restaurant;
-import server.src.Server;
 
 public class RestaurantTile extends AnchorPane {
+    Restaurant restaurant;
     VBox layout;
     HBox buttonBox;
     ImageView imageView;
@@ -30,7 +30,8 @@ public class RestaurantTile extends AnchorPane {
     Button disableButton, editButton;
 
     public RestaurantTile(Restaurant r) {
-        File file = new File(r.getRestaurantImagePath());
+        restaurant = r;
+        File file = new File(restaurant.getRestaurantImagePath());
         buttonBox = new HBox(20);
         editButton = new Button("Edit");
         disableButton = new Button("Disable");
@@ -41,11 +42,22 @@ public class RestaurantTile extends AnchorPane {
         disableButton.setOnAction(
                 e -> {
                     try {
-                        disableButtonClicked(r);
+                        disableButtonClicked(restaurant);
                     } catch (Exception e1) {
                         e1.printStackTrace();
                     }
                 });
+        editButton.setOnAction(
+            e -> {
+                try{
+                    adminClient.toServer.writeObject("Get Restaurant");
+                    adminClient.toServer.writeObject(restaurant.getName());
+                    editButtonClicked();
+                }catch(Exception e1){
+                    e1.printStackTrace();
+                }
+            }
+        );
         layout = new VBox(20);
         layout.setAlignment(Pos.CENTER);
         imageView = new ImageView(new Image(DataBase.imageAbsolutePath + file.getName()));
@@ -57,18 +69,18 @@ public class RestaurantTile extends AnchorPane {
         this.setOnMouseClicked(
             e->{
                 layout.setDisable(false);
-                r.setDisable(false);
+                restaurant.setDisable(false);
                 this.setCursor(Cursor.DEFAULT);
             }
         );
-        if(r.isDisable()){
+        if(restaurant.isDisable()){
             layout.setDisable(true);
             this.setCursor(Cursor.HAND);
         }
-        nameLabel = new Label(r.getName());
+        nameLabel = new Label(restaurant.getName());
         nameLabel.setStyle("-fx-text-fill:#04030f;-fx-font-size:18px;-fx-font-family:Ubuntu;"+
         "-fx-font-weight:700;");
-        typeLabel = new Label(r.getrestaurantType().name());
+        typeLabel = new Label(restaurant.getrestaurantType().name());
         typeLabel.setStyle("-fx-text-fill:#04030f;-fx-font-size:15px;-fx-font-family:Ubuntu;"+
         "-fx-font-weight:500;");
         editButton.setStyle("-fx-background-color: #ff0022;-fx-text-fill:#fff;-fx-border-radius:20;" +
@@ -94,9 +106,11 @@ public class RestaurantTile extends AnchorPane {
     private void editButtonClicked() throws IOException{
         Stage editBox;
         editBox = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("addRestaurantBox.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("editRestaurantBox.fxml"));
         editBox.setScene(new Scene(root));
-        editBox.setTitle("Add Restaurant");
+        editBox.setTitle("Edit Restaurant");
+        // adminClient.toServer.writeObject("Get Restaurant");
+        // adminClient.toServer.writeObject(restaurant.getName());
         editBox.initModality(Modality.APPLICATION_MODAL);
         editBox.showAndWait();
     }

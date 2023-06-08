@@ -5,38 +5,117 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
 import java.net.URL;
-import java.net.UnknownHostException;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
+import server.src.DataBase;
 import server.src.Restaurant;
 import server.src.Restaurant.restaurantType;
 
-public class AddRestaurantBoxController implements Initializable{
-    
-    private Alert alert;
-    public File selectedFile;
-    public ImageView selectedImageView;
-    public Label selectedImageLabel, reportLabel, chairNumberLabel, deliveryNumberLabel;
-    public GridPane mainGrid;
-    public TextField restaurantNameTextField, chairNumberTextField, deliveryNumberTextField, addressTextField;
-    public RadioButton outdoorRadioButton;
-    public ChoiceBox<String> typeChoiceBox;
-    ObservableList<String> types = FXCollections.observableArrayList("fastfood", "Iranian", "Chinese", "Italian");
+public class EditRestaurantBoxController implements Initializable{
 
-    public void outdoorClicked(){
+    private Restaurant restaurant;
+    private File selectedFile;
+    private Alert alert;
+    private String previousName;
+
+    @FXML
+    private TextField addressTextField;
+
+    @FXML
+    private Label chairNumberLabel;
+
+    @FXML
+    private TextField chairNumberTextField;
+
+    @FXML
+    private Button confirmButton;
+
+    @FXML
+    private Label deliveryNumberLabel;
+
+    @FXML
+    private TextField deliveryNumberTextField;
+
+    @FXML
+    private AnchorPane mainAnchor;
+
+    @FXML
+    private GridPane mainGrid;
+
+    @FXML
+    private RadioButton outdoorRadioButton;
+
+    @FXML
+    private Label reportLabel;
+
+    @FXML
+    private TextField restaurantNameTextField;
+
+    @FXML
+    private Button selectImageButton;
+
+    @FXML
+    private Label selectedImageLabel;
+
+    @FXML
+    private ImageView selectedImageView;
+
+    @FXML
+    private ChoiceBox<String> typeChoiceBox;
+
+    @FXML
+    void confirmButtonClicked(ActionEvent event) throws IOException, ClassNotFoundException {
+        boolean checkAnswer, respond;
+        String request = "Edit Restaurant";
+        checkAnswer = checkItems();
+        if(checkAnswer){
+            Restaurant newRestaurant;
+            File f = new File("file:"+selectedFile.getAbsolutePath());
+            newRestaurant = new Restaurant(restaurantNameTextField.getText(), addressTextField.getText(), 
+            restaurantType.valueOf(typeChoiceBox.getValue()), outdoorRadioButton.isSelected(), 
+            f.toURI().toString(), outdoorRadioButton.isSelected()?0:Integer.parseInt(chairNumberTextField.getText()), 
+            outdoorRadioButton.isSelected()?Integer.parseInt(deliveryNumberTextField.getText()):0);
+            adminClient.toServer.writeObject(request);
+            adminClient.toServer.writeObject(previousName);
+            adminClient.toServer.writeObject(newRestaurant);
+        }
+        respond = (boolean)adminClient.fromServer.readObject();
+        if(respond){
+            alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Editing restaurant");
+            alert.setHeaderText(null);
+            alert.setContentText("Restaurant edited succesfully!");
+            alert.showAndWait();
+            adminRestaurantManagementPageController.addBox.close();
+
+        }
+        else{
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Editing restaurant");
+            alert.setHeaderText(null);
+            alert.setContentText("something went wrong!\nmaybe the restaurant already exists");
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    void outdoorClicked(ActionEvent event) {
         if(outdoorRadioButton.isSelected()){
             chairNumberTextField.setText("");
             chairNumberTextField.setDisable(true);
@@ -53,7 +132,8 @@ public class AddRestaurantBoxController implements Initializable{
         }
     }
 
-    public void selectImageButtonClicked() throws FileNotFoundException{
+    @FXML
+    void selectImageButtonClicked(ActionEvent event) throws FileNotFoundException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose an image");
         fileChooser.setInitialDirectory(new File("/~"));
@@ -65,60 +145,31 @@ public class AddRestaurantBoxController implements Initializable{
         selectedImageView.setImage(new Image(inputStream));
     }
 
-    public void confirmButtonClicked() throws UnknownHostException, IOException, ClassNotFoundException{
-        boolean checkAnswer, respond;
-        String request;
-        checkAnswer = checkItems();
-        if(checkAnswer){
-        //     Socket socket = new Socket("127.0.0.1", 8000);
-        //     ObjectInputStream fromServer = new ObjectInputStream(socket.getInputStream());
-        //     ObjectOutputStream toServer = new ObjectOutputStream(socket.getOutputStream());
-            request = "New Restaurant";
-            Restaurant newRestaurant;
-            File f = new File("file:"+selectedFile.getAbsolutePath());
-            newRestaurant = new Restaurant(restaurantNameTextField.getText(), addressTextField.getText(), 
-            restaurantType.valueOf(typeChoiceBox.getValue()), outdoorRadioButton.isSelected(), 
-            f.toURI().toString(), outdoorRadioButton.isSelected()?0:Integer.parseInt(chairNumberTextField.getText()), 
-            outdoorRadioButton.isSelected()?Integer.parseInt(deliveryNumberTextField.getText()):0);
-            adminClient.toServer.writeObject(request);
-            adminClient.toServer.writeObject(newRestaurant);
-            // adminClient.toServer.writeObject(restaurantNameTextField.getText());
-            // adminClient.toServer.writeObject(addressTextField.getText());
-            // adminClient.toServer.writeObject(typeChoiceBox.getValue());
-            // adminClient.toServer.writeObject(outdoorRadioButton.isSelected());;
-            // adminClient.toServer.writeObject("file:"+selectedFile.getAbsolutePath());
-            // if(!outdoorRadioButton.isSelected()){
-            //     adminClient.toServer.writeObject(Integer.parseInt(chairNumberTextField.getText()));
-            //     adminClient.toServer.writeObject(0);
-            // }
-            // else{
-            //     adminClient.toServer.writeObject(0);
-            //     adminClient.toServer.writeObject(Integer.parseInt(deliveryNumberTextField.getText()));
-            // }
-            respond = (boolean)adminClient.fromServer.readObject();
-            if(respond){
-                alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle("Adding restaurant");
-                alert.setHeaderText(null);
-                alert.setContentText("Restaurant added succesfully!");
-                alert.showAndWait();
-                adminRestaurantManagementPageController.addBox.close();
-
-            }
-            else{
-                alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Adding restaurant");
-                alert.setHeaderText(null);
-                alert.setContentText("something went wrong!\nmaybe the restaurant already exists");
-                alert.showAndWait();
-            }
-            // socket.close();
-        }
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        typeChoiceBox.setItems(types);
+        try{
+            restaurant = (Restaurant)adminClient.fromServer.readObject();
+            previousName = restaurant.getName();
+            restaurantNameTextField.setText(restaurant.getName());
+            typeChoiceBox.getSelectionModel().select(restaurant.getrestaurantType().name());
+            if(restaurant.isOutdoor()){
+                deliveryNumberTextField.setDisable(false);
+                chairNumberTextField.setDisable(true);
+                deliveryNumberTextField.setText(String.valueOf(restaurant.getDeliveryNumber()));
+            }
+            else{
+                deliveryNumberTextField.setDisable(true);
+                chairNumberTextField.setText(String.valueOf(restaurant.getChairNumber()));
+            }
+            addressTextField.setText(restaurant.getRestaurantAddress());
+            // File file = new File(restaurant.getRestaurantImagePath());
+            selectedFile = new File(restaurant.getRestaurantImagePath());
+            selectedImageView.setImage(new Image(DataBase.imageAbsolutePath+selectedFile.getName()));
+            selectedImageLabel.setVisible(false);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        
     }
 
     private boolean checkItems(){
@@ -174,7 +225,7 @@ public class AddRestaurantBoxController implements Initializable{
         boolean status = true;
         String numberStr = tf.getText();
         if(numberStr.length() == 0){
-            status = false;
+               status = false;
         }
         else{
             try{
@@ -187,6 +238,5 @@ public class AddRestaurantBoxController implements Initializable{
         }
         return status;
     }
+
 }
-
-
