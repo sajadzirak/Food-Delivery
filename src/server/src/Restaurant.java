@@ -12,7 +12,7 @@ public class Restaurant implements Serializable{
     private restaurantType restaurantType;
     private ObservableList<Food> foodList;
     private HashMap<Food, Integer> foodQuantity;
-    private boolean outdoor;
+    private boolean outdoor, disable;
     private String restaurantImagePath;
     private int chairNumber, deliveryNumber;
     // implement score for every restaurnat
@@ -30,6 +30,7 @@ public class Restaurant implements Serializable{
         this.restaurantImagePath = restaurantImagePath;
         this.chairNumber = chairNumber;
         this.deliveryNumber = deliveryNumber;
+        disable = false;
     }
 
     public Restaurant(String name, String restaurantAddress, Restaurant.restaurantType restaurantType,
@@ -41,6 +42,7 @@ public class Restaurant implements Serializable{
         this.restaurantImagePath = restaurantImagePath;
         this.chairNumber = chairNumber;
         this.deliveryNumber = deliveryNumber;
+        disable = false;
     }
     
     public String getName() {
@@ -117,6 +119,14 @@ public class Restaurant implements Serializable{
         if(deliveryNumber >= 0){
             this.deliveryNumber = deliveryNumber;
         }
+    }
+
+    public boolean isDisable(){
+        return disable;
+    }
+
+    public void setDisable(boolean status){
+        disable = status;
     }
 
     @Override

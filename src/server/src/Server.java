@@ -28,11 +28,11 @@ public class Server extends Application{
     public void start(Stage primaryStage) throws IOException, ClassNotFoundException{
         db = new DataBase();
         System.out.println(db.getRestaurantList());
-        serverSocket = new ServerSocket(8000);
+        serverSocket = new ServerSocket(Server.PORT);
+        socket = serverSocket.accept();
+        output = new ObjectOutputStream(socket.getOutputStream());
+        input = new ObjectInputStream(socket.getInputStream());
         do{
-            socket = serverSocket.accept();
-            output = new ObjectOutputStream(socket.getOutputStream());
-            input = new ObjectInputStream(socket.getInputStream());
             request = (String) input.readObject(); 
             new RequestHandler(request, output, input);
         }while(!request.equals("exit"));

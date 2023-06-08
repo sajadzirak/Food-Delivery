@@ -30,9 +30,9 @@ public class adminMainPageController implements Initializable{
     }
 
     public void exitLabelClicked() throws IOException{
-        Socket socket = new Socket("127.0.0.1", server.src.Server.PORT);
-        ObjectOutputStream toServer = new ObjectOutputStream(socket.getOutputStream());
-        toServer.writeObject("exit");
+        // Socket socket = new Socket("127.0.0.1", server.src.Server.PORT);
+        // ObjectOutputStream toServer = new ObjectOutputStream(socket.getOutputStream());
+        adminClient.toServer.writeObject("exit");
         adminClient.window.close();
     }
 

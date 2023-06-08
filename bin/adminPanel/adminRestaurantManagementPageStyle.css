@@ -19,6 +19,18 @@
     -fx-background-size: 100%;
 } */
 
+#scrollPane{
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+ }
+
+#mainBorderPane{
+    -fx-background-color: -fx-cream;
+}
+
 #topMenu{
     -fx-padding: 20px;
     -fx-background-color: -fx-cream;
@@ -38,8 +50,8 @@
 }
 
 #centerPane{
-    -fx-background-color: -fx-very-pale-blue;
-    /* -fx-background-color: -fx-cream; */
+    -fx-background-color: -fx-cream;
+    -fx-padding: 50px;
 }
 
 #restaurantsIcon{
@@ -51,3 +63,4 @@
     -fx-text-fill: #fff;
     -fx-font-size: 12px;
 }
+

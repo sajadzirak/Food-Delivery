@@ -68,30 +68,30 @@ public class AddRestaurantBoxController implements Initializable{
         String request;
         checkAnswer = checkItems();
         if(checkAnswer){
-            Socket socket = new Socket("127.0.0.1", 8000);
-            ObjectInputStream fromServer = new ObjectInputStream(socket.getInputStream());
-            ObjectOutputStream toServer = new ObjectOutputStream(socket.getOutputStream());
+        //     Socket socket = new Socket("127.0.0.1", 8000);
+        //     ObjectInputStream fromServer = new ObjectInputStream(socket.getInputStream());
+        //     ObjectOutputStream toServer = new ObjectOutputStream(socket.getOutputStream());
             request = "New Restaurant";
-            toServer.writeObject(request);
-            toServer.writeObject(restaurantNameTextField.getText());
+            adminClient.toServer.writeObject(request);
+            adminClient.toServer.writeObject(restaurantNameTextField.getText());
             // System.out.println("1");
-            toServer.writeObject(addressTextField.getText());
+            adminClient.toServer.writeObject(addressTextField.getText());
             // System.out.println("2");
-            toServer.writeObject(typeChoiceBox.getValue());
+            adminClient.toServer.writeObject(typeChoiceBox.getValue());
             // System.out.println("3");
-            toServer.writeObject(outdoorRadioButton.isSelected());
+            adminClient.toServer.writeObject(outdoorRadioButton.isSelected());
             // System.out.println("4");
-            toServer.writeObject("file:"+selectedFile.getAbsolutePath());
+            adminClient.toServer.writeObject("file:"+selectedFile.getAbsolutePath());
             // System.out.println("5");
             if(!outdoorRadioButton.isSelected()){
-                toServer.writeObject(Integer.parseInt(chairNumberTextField.getText()));
-                toServer.writeObject(0);
+                adminClient.toServer.writeObject(Integer.parseInt(chairNumberTextField.getText()));
+                adminClient.toServer.writeObject(0);
             }
             else{
-                toServer.writeObject(0);
-                toServer.writeObject(Integer.parseInt(deliveryNumberTextField.getText()));
+                adminClient.toServer.writeObject(0);
+                adminClient.toServer.writeObject(Integer.parseInt(deliveryNumberTextField.getText()));
             }
-            respond = (boolean)fromServer.readObject();
+            respond = (boolean)adminClient.fromServer.readObject();
             if(respond){
                 alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle("Adding restaurant");
@@ -108,7 +108,7 @@ public class AddRestaurantBoxController implements Initializable{
                 alert.setContentText("something went wrong!\nmaybe the restaurant already exists");
                 alert.showAndWait();
             }
-            socket.close();
+            // socket.close();
         }
     }
 

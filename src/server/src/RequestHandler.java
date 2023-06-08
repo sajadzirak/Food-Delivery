@@ -4,8 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
-import javax.naming.spi.DirStateFactory.Result;
+import java.util.ArrayList;
 
 import server.src.Restaurant.restaurantType;
 
@@ -19,7 +18,7 @@ public class RequestHandler {
         this.request = request;
         this.output = output;
         this.input = input;
-        determineRequest(input);
+        determineRequest(input, output);
     }
 
     public String getRequest() {
@@ -46,7 +45,7 @@ public class RequestHandler {
         this.output = output;
     }
 
-    public void determineRequest(ObjectInputStream input) throws ClassNotFoundException, IOException{
+    public void determineRequest(ObjectInputStream input, ObjectOutputStream output) throws ClassNotFoundException, IOException{
         System.out.println("first request: "+request);
         if(request.equals("Login Admin")){
             adminLogin(input, output);
@@ -72,7 +71,12 @@ public class RequestHandler {
     }
 
     private void sendRestaurantsList(ObjectInputStream fromClient, ObjectOutputStream toClient) throws IOException{
-        toClient.writeObject(Server.db.getRestaurantList());
+        ArrayList<Restaurant> list = Server.db.getRestaurantList();
+        toClient.writeObject(list.size());
+        // System.out.println("from sender list: "+list);
+        for(int i = 0; i < list.size(); i++){
+            toClient.writeObject(list.get(i));
+        }
     }
 
     private void newRestaurant(ObjectInputStream fromClient, ObjectOutputStream toClient) throws IOException, ClassNotFoundException{

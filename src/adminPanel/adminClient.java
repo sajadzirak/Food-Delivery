@@ -9,10 +9,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import server.src.Server;
 
 public class adminClient extends Application {
 
     public static Stage window;
+    public static Socket clientSocket;
+    public static ObjectOutputStream toServer;
+    public static ObjectInputStream fromServer;
 
     public static void main(String[] args){
         launch(args);
@@ -21,11 +25,12 @@ public class adminClient extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException{
         window = primaryStage;
+        clientSocket = new Socket(Server.IP, Server.PORT);
+        toServer = new ObjectOutputStream(clientSocket.getOutputStream());
+        fromServer = new ObjectInputStream(clientSocket.getInputStream());
         window.setOnCloseRequest(
             e->{
                 try {
-                    Socket socket = new Socket("127.0.0.1", server.src.Server.PORT);
-                    ObjectOutputStream toServer = new ObjectOutputStream(socket.getOutputStream());
                     toServer.writeObject("exit");
                 } catch (Exception e1){
                     e1.printStackTrace();

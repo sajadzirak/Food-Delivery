@@ -28,17 +28,16 @@ public class adminRestaurantManagementPageController implements Initializable {
     private Socket socket;
     private ObjectOutputStream toServer;
     private ObjectInputStream fromServer;
-    private ObservableList tiles;
 
-    {
-        try{
-            socket = new Socket(Server.IP, Server.PORT);
-            toServer = new ObjectOutputStream(socket.getOutputStream());
-            fromServer = new ObjectInputStream(socket.getInputStream());
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
+    // {
+    //     try{
+    //         socket = new Socket(Server.IP, Server.PORT);
+    //         toServer = new ObjectOutputStream(socket.getOutputStream());
+    //         fromServer = new ObjectInputStream(socket.getInputStream());
+    //     }catch(Exception e){
+    //         e.printStackTrace();
+    //     }
+    // }
 
     public void addRestaurantButtonClicked() throws IOException, ClassNotFoundException{
         addBox = new Stage();
@@ -48,14 +47,15 @@ public class adminRestaurantManagementPageController implements Initializable {
         addBox.initModality(Modality.APPLICATION_MODAL);
         addBox.showAndWait();
         System.out.println("before get");
-        addRestaurantsToTilePane(centerTilePane, toServer, fromServer);
+        addRestaurantsToTilePane(centerTilePane, adminClient.toServer, adminClient.fromServer);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
             // tiles = FXCollections.observableArrayList(restaurantsList);
-            addRestaurantsToTilePane(centerTilePane, toServer, fromServer);
+            System.out.println("init");
+            addRestaurantsToTilePane(centerTilePane, adminClient.toServer, adminClient.fromServer);
             // socket.close();
         } catch (Exception e){
             e.printStackTrace();
@@ -63,16 +63,27 @@ public class adminRestaurantManagementPageController implements Initializable {
     }
 
     private void addRestaurantsToTilePane(TilePane pane, ObjectOutputStream toServer, ObjectInputStream fromServer) throws IOException, ClassNotFoundException{
-        ArrayList<Restaurant> restaurantsList;
+        // ArrayList<Restaurant> restaurantsList = new ArrayList<>();
+        int size;
         String request = "Get Restaurants";
-        System.out.println("before sending get command");
         toServer.writeObject(request);
-        System.out.println("after sending request");
-        restaurantsList = (ArrayList<Restaurant>)fromServer.readObject();
-        System.out.println("after recieving list");
         pane.getChildren().clear();
-        for(Restaurant r : restaurantsList){
-            pane.getChildren().add(new ImageTile(r));
+        size = (Integer)fromServer.readObject();
+        for(int i = 0; i < size; i++){
+            pane.getChildren().add(new RestaurantTile((Restaurant)fromServer.readObject()));
+            // list.add((Restaurant)fromServer.readObject());
+        }
+        // readRestaurants(restaurantsList, fromServer, toServer);
+        // for(Restaurant r : restaurantsList){
+        //     pane.getChildren().add(new RestaurantTile(r));
+        // }
+    }
+
+    private void readRestaurants(ArrayList<Restaurant> list, ObjectInputStream fromServer, ObjectOutputStream toClient) throws ClassNotFoundException, IOException{
+        int size;
+        size = (Integer)fromServer.readObject();
+        for(int i = 0; i < size; i++){
+            list.add((Restaurant)fromServer.readObject());
         }
     }
 

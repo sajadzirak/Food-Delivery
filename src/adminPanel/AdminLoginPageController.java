@@ -25,13 +25,14 @@ public class AdminLoginPageController {
         Alert alert;
 
         if(password.length() != 0){
-            Socket socket = new Socket("127.0.0.1", 8000);
-            ObjectOutputStream toServer = new ObjectOutputStream(socket.getOutputStream());
-            ObjectInputStream fromServer = new ObjectInputStream(socket.getInputStream());
-            toServer.writeObject(request);
-            toServer.flush();
-            toServer.writeObject(password);
-            respond = (String) fromServer.readObject();
+            // Socket socket = new Socket("127.0.0.1", 8000);
+            // ObjectOutputStream toServer = new ObjectOutputStream(socket.getOutputStream());
+            // ObjectInputStream fromServer = new ObjectInputStream(socket.getInputStream());
+            adminClient.toServer.writeObject(request);
+            adminClient.toServer.flush();
+            adminClient.toServer.writeObject(password);
+            adminClient.toServer.flush();
+            respond = (String) adminClient.fromServer.readObject();
             if(respond.equals("true")){
                 adminClient.window.close();
                 Parent root = FXMLLoader.load(getClass().getResource("adminMainPage.fxml"));
@@ -46,7 +47,14 @@ public class AdminLoginPageController {
                 alert.setContentText("Wrong password!");
                 alert.showAndWait();
             }
-            socket.close();
-        }    
+            // socket.close();
+        }
+        else{
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error message");
+            alert.setHeaderText(null);
+            alert.setContentText("enter a password");
+            alert.showAndWait(); 
+        }
     }
 }

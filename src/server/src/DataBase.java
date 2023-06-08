@@ -12,11 +12,12 @@ public class DataBase {
     private static String password = "123";
 
     public DataBase() throws ClassNotFoundException, IOException{
-        restaurantList = new ArrayList<Restaurant>();
+        restaurantList = new ArrayList<>();
         readRestaurants();
     }
     
     public ArrayList<Restaurant> getRestaurantList() {
+        System.out.println("from get Restaurant list : "+restaurantList);
         return restaurantList;
     }
 
@@ -48,7 +49,6 @@ public class DataBase {
     public void writeRestaurants() throws IOException{
         FileOutputStream restaurantF = new FileOutputStream("/home/sajad/A/java/myProjects/restaurantManagement/src/DB/files/restaurants.dat");
         ObjectOutputStream output = new ObjectOutputStream(restaurantF);
-        // output.writeObject(new ArrayList<Restaurant>(restaurantList));
         for(Restaurant r : restaurantList){
             output.writeObject(r);
         }
