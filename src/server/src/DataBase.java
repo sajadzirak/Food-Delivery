@@ -67,6 +67,7 @@ public class DataBase {
     public int findRestaurant(String name){
         for(int i = 0; i < restaurantList.size(); i++){
             if(restaurantList.get(i).getName().equals(name)){
+                System.out.println("found in index "+ i);
                 return i;
             }
         }

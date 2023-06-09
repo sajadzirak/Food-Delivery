@@ -118,9 +118,9 @@ public class RequestHandler {
         Restaurant edited;
         String previousName;
         previousName = (String)fromClient.readObject();
-        System.out.println("prev name recieved: "+previousName);
+        // System.out.println("prev name recieved: "+previousName);
         edited = (Restaurant)fromClient.readObject();
-        System.out.println("res recieved: "+edited);
+        // System.out.println("res recieved: "+edited);
         boolean result = Server.db.replaceRestaurant(previousName, edited);
         toClient.writeObject(result);
     }
