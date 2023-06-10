@@ -1,8 +1,8 @@
 package server.src;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
-import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 
 public class Restaurant implements Serializable{
@@ -10,7 +10,7 @@ public class Restaurant implements Serializable{
     public static enum restaurantType{fastfood, Iranian, Chinese, Italian};
     private String name, restaurantAddress;
     private restaurantType restaurantType;
-    private ObservableList<Food> foodList;
+    private ArrayList<Food> foodList;
     private HashMap<Food, Integer> foodQuantity;
     private boolean outdoor, disable;
     private String restaurantImagePath;
@@ -19,7 +19,7 @@ public class Restaurant implements Serializable{
 
     
     public Restaurant(String name, String restaurantAddress, Restaurant.restaurantType restaurantType,
-            ObservableList<Food> foodList, HashMap<Food, Integer> foodQuantity, boolean outdoor,
+            ArrayList<Food> foodList, HashMap<Food, Integer> foodQuantity, boolean outdoor,
             String restaurantImagePath, int chairNumber, int deliveryNumber) {
         this.name = name;
         this.restaurantAddress = restaurantAddress;
@@ -43,6 +43,7 @@ public class Restaurant implements Serializable{
         this.chairNumber = chairNumber;
         this.deliveryNumber = deliveryNumber;
         disable = false;
+        foodList = new ArrayList<>();
     }
     
     public String getName() {
@@ -69,11 +70,11 @@ public class Restaurant implements Serializable{
         this.restaurantType = restaurantType;
     }
 
-    public ObservableList<Food> getFoodList() {
+    public ArrayList<Food> getFoodList() {
         return foodList;
     }
 
-    public void setFoodList(ObservableList<Food> foodList) {
+    public void setFoodList(ArrayList<Food> foodList) {
         this.foodList = foodList;
     }
 

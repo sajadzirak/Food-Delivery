@@ -5,29 +5,24 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.URL;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import server.src.Restaurant;
-import server.src.Server;
 
 public class adminRestaurantManagementPageController implements Initializable {
     
     public static Stage addBox;
     public TilePane centerTilePane;
-    private Socket socket;
-    private ObjectOutputStream toServer;
-    private ObjectInputStream fromServer;
+    // private Socket socket;
+    // private ObjectOutputStream toServer;
+    // private ObjectInputStream fromServer;
 
     // {
     //     try{
@@ -46,7 +41,6 @@ public class adminRestaurantManagementPageController implements Initializable {
         addBox.setTitle("Add Restaurant");
         addBox.initModality(Modality.APPLICATION_MODAL);
         addBox.showAndWait();
-        System.out.println("before get");
         addRestaurantsToTilePane(centerTilePane, adminClient.toServer, adminClient.fromServer);
     }
 

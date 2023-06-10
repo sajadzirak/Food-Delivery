@@ -2,19 +2,12 @@ package adminPanel;
 
 import java.io.File;
 import java.io.IOException;
-
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import server.src.DataBase;
@@ -32,6 +25,17 @@ public class RestaurantTile extends Tile {
         disableButton = new Button("Disable");
         buttonBox.getChildren().add(disableButton);
         disableButton.setCursor(Cursor.HAND);
+        imageLabel.setOnMouseClicked(
+            e -> {
+                try{
+                    adminClient.toServer.writeObject("Get Restaurant");
+                    adminClient.toServer.writeObject(restaurant.getName());                    
+                    adminMainPageController.mainPaneCopy.setCenter(new FxmlLoader().getPage("restaurantFoodManagementPage.fxml"));
+                }catch(Exception e1){
+                    e1.printStackTrace();
+                }
+            }
+        );
         disableButton.setOnAction(
                 e -> {
                     try {

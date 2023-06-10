@@ -16,6 +16,7 @@ public class adminMainPageController implements Initializable{
 
     public Label homeIcon, restaurantsIcon, exitIcon;
     public BorderPane mainPane;
+    public static BorderPane mainPaneCopy;
 
     public void homeLabelClicked() throws IOException{
         mainPane.setCenter(new FxmlLoader().getPage("adminWelcomePage.fxml"));
@@ -39,6 +40,7 @@ public class adminMainPageController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+            mainPaneCopy = mainPane;
             mainPane.setCenter(new FxmlLoader().getPage("adminWelcomePage.fxml"));
         } catch (IOException e) {
             e.printStackTrace();

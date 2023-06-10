@@ -37,7 +37,19 @@
     -fx-spacing: 60px;
 }
 
-#addRestaurantButton{
+.button{
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-background-color: -fx-red;
+    -fx-text-fill: #fff;
+    -fx-effect: dropshadow(three-pass-box, -fx-grey, 8, 0, 3, 3);
+}
+
+.button:hover{
+    -fx-background-color: -fx-red-hover;
+}
+
+/* #addRestaurantButton{
     -fx-border-radius: 20;
     -fx-background-radius: 20;
     -fx-background-color: -fx-red;
@@ -47,7 +59,7 @@
 
 #addRestaurantButton:hover{
     -fx-background-color: -fx-red-hover;
-}
+} */
 
 #centerPane{
     -fx-background-color: -fx-cream;

@@ -8,7 +8,7 @@ public class Food {
     private String foodName;
     private double foodWeight, foodPrice;
     private foodType foodType;
-    private Image foodImage;
+    private String foodImagePath;
 
     public Food(String foodName, double foodWeight, double foodPrice, foodType foodType){
         this.foodName = foodName;
@@ -17,12 +17,12 @@ public class Food {
         this.foodType = foodType;
     }
 
-    public Food(String foodName, double foodWeight, double foodPrice, foodType foodType, Image foodImage){
+    public Food(String foodName, double foodWeight, double foodPrice, foodType foodType, String imagePath){
         this.foodName = foodName;
         this.foodWeight = foodWeight;
         this.foodPrice = foodPrice;
         this.foodType = foodType;
-        this.foodImage = foodImage;
+        this.foodImagePath = imagePath;
     }
 
     public String getFoodName() {
@@ -67,13 +67,12 @@ public class Food {
         this.foodType = foodType;
     }
 
-    public Image getFoodImage() {
-        return foodImage;
+    public String getFoodImagePath() {
+        return foodImagePath;
     }
 
-    public void setFoodImage(Image foodImage) {  // maybe it has to handle exceptions
-        this.foodImage = foodImage;
+    public void setFoodImagePath(String foodImagePath) {
+        this.foodImagePath = foodImagePath;
     }
-
     
 }
