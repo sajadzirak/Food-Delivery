@@ -14,7 +14,7 @@ import server.src.DataBase;
 import server.src.Restaurant;
 import server.src.Restaurant.restaurantType;
 
-public class EditRestaurantBoxController extends RestaurantDetailsBoxController implements Initializable{
+public class EditRestaurantBoxController extends RestaurantDetailsBox implements Initializable{
 
     private Restaurant restaurant;
     private String previousName;

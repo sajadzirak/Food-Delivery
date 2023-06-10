@@ -44,6 +44,7 @@ public class Restaurant implements Serializable{
         this.deliveryNumber = deliveryNumber;
         disable = false;
         foodList = new ArrayList<>();
+        foodQuantity = new HashMap<>();
     }
     
     public String getName() {

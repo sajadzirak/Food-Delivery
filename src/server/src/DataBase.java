@@ -83,4 +83,48 @@ public class DataBase {
         }
         return false;
     }
+
+    public boolean addFoodToRestaurant(String restaurantName, Food food){
+        Restaurant restaurant;
+        int index;
+
+        index = findRestaurant(restaurantName);
+        if(index != -1){
+            restaurant = restaurantList.get(index);
+            System.out.println("add food invoked");
+            if(restaurant.getFoodList().contains(food)){
+                return false;
+            }
+            else{
+                restaurant.getFoodList().add(food);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean setFoodQuantity(String restaurantName, Food food, int quantity){
+        boolean result = false;
+        Restaurant restaurant;
+        int index;
+        index = findRestaurant(restaurantName);
+        System.out.println("set quantity invoked");
+        if(index != -1 && quantity > 0){
+            System.out.println("1");
+            restaurant = restaurantList.get(index);
+            System.out.println("2");
+            if(restaurant.getFoodQuantity().containsKey(food)){
+                System.out.println("3");
+                restaurant.getFoodQuantity().replace(food, quantity);
+                System.out.println("4");
+                result = true;
+            }
+            else{
+                restaurant.getFoodQuantity().put(food, quantity);
+                System.out.println("5");
+                result = true;
+            }
+        }
+        return result;
+    }
 }

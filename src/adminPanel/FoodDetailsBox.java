@@ -20,10 +20,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 
-public class FoodDetailsBox {
+public class FoodDetailsBox{
     
     protected ObservableList<String> types = FXCollections.observableArrayList("fastfood", "Iranian", "Chinese", "Italian");
-    private Alert alert;
+    protected Alert alert;
     protected File selectedFile;
 
     @FXML

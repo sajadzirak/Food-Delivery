@@ -60,6 +60,12 @@ public class RequestHandler {
         else if(request.equals("Edit Restaurant")){
             editRestaurant(input, output);
         }
+        else if(request.equals("New Food")){
+            newFood(input, output);
+        }
+        else if(request.equals("Get Foods")){
+            sendFoodList(input, output);
+        }
     }
 
     private void adminLogin(ObjectInputStream fromClient, ObjectOutputStream toClient) throws IOException, ClassNotFoundException{
@@ -118,11 +124,47 @@ public class RequestHandler {
         Restaurant edited;
         String previousName;
         previousName = (String)fromClient.readObject();
-        // System.out.println("prev name recieved: "+previousName);
         edited = (Restaurant)fromClient.readObject();
-        // System.out.println("res recieved: "+edited);
         boolean result = Server.db.replaceRestaurant(previousName, edited);
         toClient.writeObject(result);
+    }
+
+    private void newFood(ObjectInputStream fromClient, ObjectOutputStream toClient) throws ClassNotFoundException, IOException{
+        Food food;
+        String restaurantName;
+        int quantity;
+        Restaurant restaurant;
+
+        restaurantName = (String) fromClient.readObject();
+        System.out.println("name recieved:"+restaurantName);
+        food = (Food) fromClient.readObject();
+        System.out.println("food recieved : "+food);
+        quantity = (Integer) fromClient.readObject();
+        System.out.println("quantity recieved:"+quantity);
+        boolean addResult = Server.db.addFoodToRestaurant(restaurantName, food);  
+        System.out.println("add result "+addResult);      
+        boolean quantityResult = Server.db.setFoodQuantity(restaurantName, food, quantity);
+        System.out.println("quanresult"+quantityResult);
+        if(addResult && quantityResult){
+            toClient.writeObject(true);
+        }
+        else{
+            toClient.writeObject(false);
+        }
+    }
+
+    private void sendFoodList(ObjectInputStream fromClient, ObjectOutputStream toClient) throws ClassNotFoundException, IOException{
+        String restaurantName;
+        int index;
+        ArrayList<Food> foods;
+
+        restaurantName = (String)fromClient.readObject();
+        index = Server.db.findRestaurant(restaurantName);
+        foods = Server.db.getRestaurantList().get(index).getFoodList();
+        toClient.writeObject(foods.size());
+        for(int i = 0; i < foods.size(); i++){
+            toClient.writeObject(foods.get(i));
+        }
     }
 
 

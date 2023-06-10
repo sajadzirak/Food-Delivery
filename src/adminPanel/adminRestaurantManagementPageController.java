@@ -18,7 +18,8 @@ import server.src.Restaurant;
 
 public class adminRestaurantManagementPageController implements Initializable {
     
-    public static Stage addBox;
+    private Stage addBox;
+    public static Stage addBoxCopy;
     public TilePane centerTilePane;
     // private Socket socket;
     // private ObjectOutputStream toServer;
@@ -36,6 +37,7 @@ public class adminRestaurantManagementPageController implements Initializable {
 
     public void addRestaurantButtonClicked() throws IOException, ClassNotFoundException{
         addBox = new Stage();
+        addBoxCopy = addBox;
         Parent root = FXMLLoader.load(getClass().getResource("addRestaurantBox.fxml"));
         addBox.setScene(new Scene(root));
         addBox.setTitle("Add Restaurant");
@@ -57,7 +59,6 @@ public class adminRestaurantManagementPageController implements Initializable {
     }
 
     private void addRestaurantsToTilePane(TilePane pane, ObjectOutputStream toServer, ObjectInputStream fromServer) throws IOException, ClassNotFoundException{
-        // ArrayList<Restaurant> restaurantsList = new ArrayList<>();
         int size;
         String request = "Get Restaurants";
         toServer.writeObject(request);
@@ -65,12 +66,7 @@ public class adminRestaurantManagementPageController implements Initializable {
         size = (Integer)fromServer.readObject();
         for(int i = 0; i < size; i++){
             pane.getChildren().add(new RestaurantTile((Restaurant)fromServer.readObject()));
-            // list.add((Restaurant)fromServer.readObject());
         }
-        // readRestaurants(restaurantsList, fromServer, toServer);
-        // for(Restaurant r : restaurantsList){
-        //     pane.getChildren().add(new RestaurantTile(r));
-        // }
     }
 
     private void readRestaurants(ArrayList<Restaurant> list, ObjectInputStream fromServer, ObjectOutputStream toClient) throws ClassNotFoundException, IOException{

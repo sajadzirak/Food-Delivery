@@ -22,7 +22,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
-public class RestaurantDetailsBoxController {
+public class RestaurantDetailsBox {
 
     @FXML
     protected TextField addressTextField;

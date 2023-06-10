@@ -1,10 +1,10 @@
 package server.src;
 
-import javafx.scene.image.Image;
+import java.io.Serializable;
 
-public class Food {
+public class Food implements Serializable{
     
-    public static enum foodType{FASTFOOD, IRANIAN, CHINESE, ITALIAN};
+    public static enum foodType{fastfood, Iranian, Chinese, Italian};
     private String foodName;
     private double foodWeight, foodPrice;
     private foodType foodType;
@@ -75,4 +75,12 @@ public class Food {
         this.foodImagePath = foodImagePath;
     }
     
+    @Override
+    public boolean equals(Object o){
+        Food f = (Food) o;
+        if(this.getFoodName().equals(f.getFoodName())){
+            return true;
+        }
+        return false;
+    }
 }
