@@ -2,19 +2,26 @@ package adminPanel;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import server.src.DataBase;
 import server.src.Restaurant;
 
 public class RestaurantTile extends Tile {
     
+    private Alert alert;
     private Restaurant restaurant;
     private Button disableButton;
 
@@ -40,6 +47,7 @@ public class RestaurantTile extends Tile {
                 e -> {
                     try {
                         disableButtonClicked(restaurant);
+                        adminRestaurantManagementPageController.refresh();
                     } catch (Exception e1) {
                         e1.printStackTrace();
                     }
@@ -50,9 +58,28 @@ public class RestaurantTile extends Tile {
                     adminClient.toServer.writeObject("Get Restaurant");
                     adminClient.toServer.writeObject(restaurant.getName());
                     editButtonClicked();
+                    adminRestaurantManagementPageController.refresh();
                 }catch(Exception e1){
                     e1.printStackTrace();
                 }
+            }
+        );
+        delButton.setOnAction(
+            e -> {
+                try{
+                    alert = new Alert(AlertType.CONFIRMATION);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Do you really want to delete the restaurant?");
+                    Optional<ButtonType> buttonType =  alert.showAndWait();
+                    if(buttonType.get().equals(ButtonType.OK)){
+                        adminClient.toServer.writeObject("Delete Restaurant");
+                        adminClient.toServer.writeObject(restaurant);
+                        adminRestaurantManagementPageController.refresh();
+                    }
+                }catch(Exception e1){
+                    e1.printStackTrace();
+                }
+                
             }
         );
         imageView.setImage(new Image(DataBase.imageAbsolutePath + file.getName()));

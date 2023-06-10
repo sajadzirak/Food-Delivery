@@ -21,6 +21,7 @@ public class adminRestaurantManagementPageController implements Initializable {
     private Stage addBox;
     public static Stage addBoxCopy;
     public TilePane centerTilePane;
+    public static TilePane centerTilePaneCopy;
     // private Socket socket;
     // private ObjectOutputStream toServer;
     // private ObjectInputStream fromServer;
@@ -51,6 +52,7 @@ public class adminRestaurantManagementPageController implements Initializable {
         try {
             // tiles = FXCollections.observableArrayList(restaurantsList);
             System.out.println("init");
+            centerTilePaneCopy = centerTilePane;
             addRestaurantsToTilePane(centerTilePane, adminClient.toServer, adminClient.fromServer);
             // socket.close();
         } catch (Exception e){
@@ -58,7 +60,7 @@ public class adminRestaurantManagementPageController implements Initializable {
         }
     }
 
-    private void addRestaurantsToTilePane(TilePane pane, ObjectOutputStream toServer, ObjectInputStream fromServer) throws IOException, ClassNotFoundException{
+    private static void addRestaurantsToTilePane(TilePane pane, ObjectOutputStream toServer, ObjectInputStream fromServer) throws IOException, ClassNotFoundException{
         int size;
         String request = "Get Restaurants";
         toServer.writeObject(request);
@@ -69,12 +71,8 @@ public class adminRestaurantManagementPageController implements Initializable {
         }
     }
 
-    private void readRestaurants(ArrayList<Restaurant> list, ObjectInputStream fromServer, ObjectOutputStream toClient) throws ClassNotFoundException, IOException{
-        int size;
-        size = (Integer)fromServer.readObject();
-        for(int i = 0; i < size; i++){
-            list.add((Restaurant)fromServer.readObject());
-        }
+    public static void refresh() throws ClassNotFoundException, IOException{
+        addRestaurantsToTilePane(centerTilePaneCopy, adminClient.toServer, adminClient.fromServer);
     }
 
 }

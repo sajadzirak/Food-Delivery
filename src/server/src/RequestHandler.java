@@ -66,6 +66,9 @@ public class RequestHandler {
         else if(request.equals("Get Foods")){
             sendFoodList(input, output);
         }
+        else if(request.equals("Delete Restaurant")){
+            deleteRestaurant(input, output);
+        }
     }
 
     private void adminLogin(ObjectInputStream fromClient, ObjectOutputStream toClient) throws IOException, ClassNotFoundException{
@@ -167,5 +170,11 @@ public class RequestHandler {
         }
     }
 
+    private void deleteRestaurant(ObjectInputStream fromClient, ObjectOutputStream toClient) throws ClassNotFoundException, IOException{
+        Restaurant restaurant;
+
+        restaurant = (Restaurant)fromClient.readObject();
+        Server.db.getRestaurantList().remove(restaurant);
+    }
 
 }
