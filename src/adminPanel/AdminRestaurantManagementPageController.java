@@ -3,9 +3,7 @@ package adminPanel;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.Socket;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,7 +14,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import server.src.Restaurant;
 
-public class adminRestaurantManagementPageController implements Initializable {
+public class AdminRestaurantManagementPageController implements Initializable {
     
     private Stage addBox;
     public static Stage addBoxCopy;

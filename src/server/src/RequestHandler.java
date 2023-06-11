@@ -69,6 +69,9 @@ public class RequestHandler {
         else if(request.equals("Delete Restaurant")){
             deleteRestaurant(input, output);
         }
+        else if(request.equals("Set Disable")){
+            disableRestaurant(input, output);
+        }
     }
 
     private void adminLogin(ObjectInputStream fromClient, ObjectOutputStream toClient) throws IOException, ClassNotFoundException{
@@ -136,7 +139,6 @@ public class RequestHandler {
         Food food;
         String restaurantName;
         int quantity;
-        Restaurant restaurant;
 
         restaurantName = (String) fromClient.readObject();
         System.out.println("name recieved:"+restaurantName);
@@ -175,6 +177,17 @@ public class RequestHandler {
 
         restaurant = (Restaurant)fromClient.readObject();
         Server.db.getRestaurantList().remove(restaurant);
+    }
+
+    private void disableRestaurant(ObjectInputStream fromClient, ObjectOutputStream toClient) throws ClassNotFoundException, IOException{
+        boolean status;
+        String name;
+        int index;
+
+        name = (String) fromClient.readObject();
+        status = (Boolean) fromClient.readObject();
+        index = Server.db.findRestaurant(name);
+        Server.db.getRestaurantList().get(index).setDisable(status);
     }
 
 }
