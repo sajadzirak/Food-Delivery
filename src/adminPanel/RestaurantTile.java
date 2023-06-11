@@ -3,7 +3,6 @@ package adminPanel;
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
@@ -15,12 +14,11 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import server.src.DataBase;
 import server.src.Restaurant;
 
 public class RestaurantTile extends Tile {
-    
+
     private Alert alert;
     private Restaurant restaurant;
     private Button disableButton;
@@ -33,64 +31,63 @@ public class RestaurantTile extends Tile {
         buttonBox.getChildren().add(disableButton);
         disableButton.setCursor(Cursor.HAND);
         imageLabel.setOnMouseClicked(
-            e -> {
-                try{
-                    adminClient.toServer.writeObject("Get Restaurant");
-                    adminClient.toServer.writeObject(restaurant.getName());                    
-                    adminMainPageController.mainPaneCopy.setCenter(new FxmlLoader().getPage("restaurantFoodManagementPage.fxml"));
-                }catch(Exception e1){
-                    e1.printStackTrace();
-                }
-            }
-        );
+                e -> {
+                    try {
+                        adminClient.toServer.writeObject("Get Restaurant");
+                        adminClient.toServer.writeObject(restaurant.getName());
+                        adminMainPageController.mainPaneCopy
+                                .setCenter(new FxmlLoader().getPage("restaurantFoodManagementPage.fxml"));
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                });
         disableButton.setOnAction(
                 e -> {
                     try {
-                        disableButtonClicked(restaurant);
-                        adminRestaurantManagementPageController.refresh();
+                        disableRestaurant(restaurant, true);
                     } catch (Exception e1) {
                         e1.printStackTrace();
                     }
                 });
         editButton.setOnAction(
-            e -> {
-                try{
-                    adminClient.toServer.writeObject("Get Restaurant");
-                    adminClient.toServer.writeObject(restaurant.getName());
-                    editButtonClicked();
-                    adminRestaurantManagementPageController.refresh();
-                }catch(Exception e1){
-                    e1.printStackTrace();
-                }
-            }
-        );
-        delButton.setOnAction(
-            e -> {
-                try{
-                    alert = new Alert(AlertType.CONFIRMATION);
-                    alert.setHeaderText(null);
-                    alert.setContentText("Do you really want to delete the restaurant?");
-                    Optional<ButtonType> buttonType =  alert.showAndWait();
-                    if(buttonType.get().equals(ButtonType.OK)){
-                        adminClient.toServer.writeObject("Delete Restaurant");
-                        adminClient.toServer.writeObject(restaurant);
-                        adminRestaurantManagementPageController.refresh();
+                e -> {
+                    try {
+                        adminClient.toServer.writeObject("Get Restaurant");
+                        adminClient.toServer.writeObject(restaurant.getName());
+                        editButtonClicked();
+                        AdminRestaurantManagementPageController.refresh();
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
                     }
-                }catch(Exception e1){
-                    e1.printStackTrace();
-                }
-                
-            }
-        );
+                });
+        delButton.setOnAction(
+                e -> {
+                    try {
+                        alert = new Alert(AlertType.CONFIRMATION);
+                        alert.setHeaderText(null);
+                        alert.setContentText("Do you really want to delete the restaurant?");
+                        Optional<ButtonType> buttonType = alert.showAndWait();
+                        if (buttonType.get().equals(ButtonType.OK)) {
+                            adminClient.toServer.writeObject("Delete Restaurant");
+                            adminClient.toServer.writeObject(restaurant);
+                            AdminRestaurantManagementPageController.refresh();
+                        }
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+
+                });
         imageView.setImage(new Image(DataBase.imageAbsolutePath + file.getName()));
         this.setOnMouseClicked(
-            e->{
-                layout.setDisable(false);
-                restaurant.setDisable(false);
-                this.setCursor(Cursor.DEFAULT);
-            }
-        );
-        if(restaurant.isDisable()){
+                e -> {
+                    try{
+                        disableRestaurant(restaurant, false);
+                    }catch(Exception e1){
+                        e1.printStackTrace();
+                    }
+                    
+                });
+        if (restaurant.isDisable()) {
             layout.setDisable(true);
             this.setCursor(Cursor.HAND);
         }
@@ -101,13 +98,20 @@ public class RestaurantTile extends Tile {
         layout.getChildren().addAll(imageLabel, nameLabel, typeLabel, buttonBox);
     }
 
-    private void disableButtonClicked(Restaurant r) throws IOException {
-        layout.setDisable(true);
-        r.setDisable(true);
-        this.setCursor(Cursor.HAND);
+    private void disableRestaurant(Restaurant r, boolean status) throws IOException {
+        layout.setDisable(status);
+        adminClient.toServer.writeObject("Set Disable");
+        adminClient.toServer.writeObject(r.getName());
+        if(status){
+            this.setCursor(Cursor.HAND);
+        }
+        else{
+            this.setCursor(Cursor.DEFAULT);
+        }
+        adminClient.toServer.writeObject(status);
     }
 
-    private void editButtonClicked() throws IOException{
+    private void editButtonClicked() throws IOException {
         editBox = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("editRestaurantBox.fxml"));
         editBox.setScene(new Scene(root));

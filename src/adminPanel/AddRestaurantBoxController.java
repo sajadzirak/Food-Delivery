@@ -34,7 +34,7 @@ public class AddRestaurantBoxController extends RestaurantDetailsBox implements 
             if(respond){
                 alert.setContentText("Restaurant added succesfully!");
                 alert.showAndWait();
-                adminRestaurantManagementPageController.addBoxCopy.close();
+                AdminRestaurantManagementPageController.addBoxCopy.close();
 
             }
             else{
