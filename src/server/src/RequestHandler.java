@@ -72,6 +72,12 @@ public class RequestHandler {
         else if(request.equals("Set Disable")){
             disableRestaurant(input, output);
         }
+        else if(request.equals("New User")){
+            newUser(input, output);
+        }
+        else if(request.equals("Login User")){
+            userLogin(input, output);
+        }
     }
 
     private void adminLogin(ObjectInputStream fromClient, ObjectOutputStream toClient) throws IOException, ClassNotFoundException{
@@ -89,7 +95,6 @@ public class RequestHandler {
     private void sendRestaurantsList(ObjectInputStream fromClient, ObjectOutputStream toClient) throws IOException{
         ArrayList<Restaurant> list = Server.db.getRestaurantList();
         toClient.writeObject(list.size());
-        // System.out.println("from sender list: "+list);
         for(int i = 0; i < list.size(); i++){
             toClient.writeObject(list.get(i));
         }
@@ -141,15 +146,10 @@ public class RequestHandler {
         int quantity;
 
         restaurantName = (String) fromClient.readObject();
-        System.out.println("name recieved:"+restaurantName);
         food = (Food) fromClient.readObject();
-        System.out.println("food recieved : "+food);
         quantity = (Integer) fromClient.readObject();
-        System.out.println("quantity recieved:"+quantity);
-        boolean addResult = Server.db.addFoodToRestaurant(restaurantName, food);  
-        System.out.println("add result "+addResult);      
+        boolean addResult = Server.db.addFoodToRestaurant(restaurantName, food);       
         boolean quantityResult = Server.db.setFoodQuantity(restaurantName, food, quantity);
-        System.out.println("quanresult"+quantityResult);
         if(addResult && quantityResult){
             toClient.writeObject(true);
         }
@@ -188,6 +188,23 @@ public class RequestHandler {
         status = (Boolean) fromClient.readObject();
         index = Server.db.findRestaurant(name);
         Server.db.getRestaurantList().get(index).setDisable(status);
+    }
+
+    private void newUser(ObjectInputStream fromClient, ObjectOutputStream toClient) throws ClassNotFoundException, IOException{
+        User user;
+        user = (User) fromClient.readObject();
+        boolean result = Server.db.addUser(user);
+        toClient.writeObject(result);
+    }
+
+    private void userLogin(ObjectInputStream fromClient, ObjectOutputStream toClient) throws ClassNotFoundException, IOException{
+        String username, password;
+        boolean respond;
+
+        username = (String) fromClient.readObject();
+        password = (String) fromClient.readObject();
+        respond = Server.db.checkUserPass(username, password);
+        toClient.writeObject(respond);
     }
 
 }

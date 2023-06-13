@@ -1,7 +1,5 @@
 package server.src;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -9,11 +7,14 @@ public class DataBase {
     
     public static String imageAbsolutePath = "file:/home/sajad/A/java/myProjects/restaurantManagement/src/DB/images/";
     private ArrayList<Restaurant> restaurantList;
+    private ArrayList<User> userList;
     private static String password = "123";
 
     public DataBase() throws ClassNotFoundException, IOException{
         restaurantList = new ArrayList<>();
+        userList = new ArrayList<>();
         readRestaurants();
+        readUsers();
     }
     
     public ArrayList<Restaurant> getRestaurantList() {
@@ -23,6 +24,14 @@ public class DataBase {
 
     public void setRestaurantList(ArrayList<Restaurant> restaurantList) {
         this.restaurantList = restaurantList;
+    }
+
+    public ArrayList<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(ArrayList<User> userList){
+        this.userList = userList;
     }
 
     public static String getPassword() {
@@ -35,14 +44,13 @@ public class DataBase {
     
 
     private void readRestaurants() throws IOException, ClassNotFoundException{
-        FileInputStream restaurantF = new FileInputStream("/home/sajad/A/java/myProjects/restaurantManagement/src/DB/files/restaurants.dat");
         ObjectInputStream input;
-        try{
+        try(FileInputStream restaurantF = new FileInputStream("/home/sajad/A/java/myProjects/restaurantManagement/src/DB/files/restaurants.dat");){
             input = new ObjectInputStream(restaurantF);
             while(true){
                 restaurantList.add((Restaurant)input.readObject());
             }
-        }catch (EOFException e){
+        }catch (Exception e){
         }
     }
 
@@ -51,6 +59,26 @@ public class DataBase {
         ObjectOutputStream output = new ObjectOutputStream(restaurantF);
         for(Restaurant r : restaurantList){
             output.writeObject(r);
+        }
+        output.close();
+    }
+
+    public void readUsers() throws ClassNotFoundException, IOException{
+        ObjectInputStream input;
+        try(FileInputStream userF = new FileInputStream("/home/sajad/A/java/myProjects/restaurantManagement/src/DB/files/users.dat");){
+            input = new ObjectInputStream(userF);
+            while(true){
+                userList.add((User)input.readObject());
+            }
+        }catch (Exception e){
+        }
+    }
+
+    public void writeUsers() throws IOException{
+        FileOutputStream userF = new FileOutputStream("/home/sajad/A/java/myProjects/restaurantManagement/src/DB/files/users.dat");
+        ObjectOutputStream output = new ObjectOutputStream(userF);
+        for(User u : userList){
+            output.writeObject(u);
         }
         output.close();
     }
@@ -67,7 +95,6 @@ public class DataBase {
     public int findRestaurant(String name){
         for(int i = 0; i < restaurantList.size(); i++){
             if(restaurantList.get(i).getName().equals(name)){
-                System.out.println("found in index "+ i);
                 return i;
             }
         }
@@ -107,6 +134,7 @@ public class DataBase {
         boolean result = false;
         Restaurant restaurant;
         int index;
+
         index = findRestaurant(restaurantName);
         System.out.println("set quantity invoked");
         if(index != -1 && quantity > 0){
@@ -126,5 +154,35 @@ public class DataBase {
             }
         }
         return result;
+    }
+
+    public boolean addUser(User user){
+        if(userList.contains(user)){
+            return false;
+        }
+        else{
+            userList.add(user);
+            return true;
+        }
+    }
+
+    public int findUser(String name){
+        for(int i = 0; i < userList.size(); i++){
+            if(userList.get(i).getUsername().equals(name))
+                return i;
+        }
+        return -1;
+    }
+
+    public boolean checkUserPass(String username, String password){
+        boolean answer = false;
+        int index;
+         
+        index = findUser(username);
+        if(index != -1){
+            if(userList.get(index).getPassword().equals(password))
+                answer = true;
+        }
+        return answer;
     }
 }

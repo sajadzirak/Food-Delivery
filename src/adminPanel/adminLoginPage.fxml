@@ -14,7 +14,7 @@
       <VBox fx:id="container" alignment="CENTER" layoutX="112.0" layoutY="204.0" prefHeight="328.0" prefWidth="404.0">
          <children>
             <Label fx:id="loginLabel" alignment="CENTER" prefHeight="36.0" prefWidth="215.0" text="Login" />
-            <PasswordField fx:id="passwordField" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="36.0" prefWidth="305.0" promptText="password" />
+            <PasswordField fx:id="passwordField" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="36.0" prefWidth="305.0" promptText="password" styleClass="textField" />
             <Button fx:id="loginButton" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="36.0" prefWidth="305.0" text="Login">
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -27,7 +27,7 @@
       </VBox>
    </children>
    <stylesheets>
-      <URL value="@adminLoginPageStyle.css" />
-      <URL value="@variables.css" />
+      <URL value="@../styles/loginPageStyle.css" />
+      <URL value="@../styles/variables.css" />
    </stylesheets>
 </AnchorPane>

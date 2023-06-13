@@ -38,5 +38,6 @@ public class Server extends Application{
         }while(!request.equals("exit"));
         System.out.println("out");
         db.writeRestaurants();
+        db.writeUsers();
     }
 }
