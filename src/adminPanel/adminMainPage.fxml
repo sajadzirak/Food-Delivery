@@ -58,5 +58,7 @@
    <stylesheets>
       <URL value="@adminMainPageStyle.css" />
       <URL value="@variables.css" />
+      <URL value="@../styles/variables.css" />
+      <URL value="@../styles/mainPageStyle.css" />
    </stylesheets>
 </BorderPane>

@@ -57,6 +57,10 @@ public class UserLoginPageController {
             alert.setAlertType(AlertType.INFORMATION);
             alert.setContentText("logged in successfully!");
             alert.showAndWait();
+            Parent root = FXMLLoader.load(getClass().getResource("userMainPage.fxml"));
+            UserClient.window.setScene(new Scene(root));
+            // UserClient.toServer.writeObject("Get User");
+            // UserClient.toServer.writeObject(usernameField.getText());
         }
         else{
             alert.setContentText("username or password is wrong!");

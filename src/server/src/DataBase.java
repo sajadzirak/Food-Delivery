@@ -158,6 +158,7 @@ public class DataBase {
 
     public boolean addUser(User user){
         if(userList.contains(user)){
+            System.out.println("contains true");
             return false;
         }
         else{

@@ -47,7 +47,6 @@ public class Tile extends AnchorPane{
         typeLabel = new Label();
         typeLabel.setStyle("-fx-text-fill:#04030f;-fx-font-size:15px;-fx-font-family:Ubuntu;"+
         "-fx-font-weight:500;");
-        // layout.getChildren().addAll(imageLabel, nameLabel, typeLabel, buttonBox);
         this.setPrefWidth(350);
         this.setPrefHeight(350);
         this.getChildren().add(layout);

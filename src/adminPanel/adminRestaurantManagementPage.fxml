@@ -26,6 +26,7 @@
    <stylesheets>
       <URL value="@variables.css" />
       <URL value="@adminRestaurantManagementPageStyle.css" />
+      <URL value="@../styles/variables.css" />
    </stylesheets>
    <center>
       <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">

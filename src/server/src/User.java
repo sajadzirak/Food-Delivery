@@ -68,5 +68,12 @@ public class User  implements Serializable{
         this.balance = balance;
     }
 
-    
+    @Override
+    public boolean equals(Object other){
+        User user = (User) other;
+        if(user.getUsername().equals(this.getUsername())){
+            return true;
+        }
+        return false;
+    }
 }
