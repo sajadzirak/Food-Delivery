@@ -3,7 +3,7 @@ package userPanel;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+import adminPanel.FxmlLoader;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -49,8 +49,9 @@ public class UserMainPageController implements Initializable{
     }
 
     @FXML
-    void restaurantsLabelClicked(MouseEvent event) {
+    void restaurantsLabelClicked(MouseEvent event) throws IOException {
         changeOpacity(restaurantsIcon.getId());
+        mainPane.setCenter(new FxmlLoader().getPage("../userPanel/userRestaurantsPage.fxml"));
     }
 
     @FXML

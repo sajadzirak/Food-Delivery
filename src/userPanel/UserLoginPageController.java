@@ -50,19 +50,19 @@ public class UserLoginPageController {
         UserClient.toServer.writeObject(usernameField.getText());
         UserClient.toServer.writeObject(passwordField.getText());
         respond = (Boolean) UserClient.fromServer.readObject();
-        alert = new Alert(AlertType.ERROR);
-        alert.setTitle("User login");
-        alert.setHeaderText(null);
         if(respond){
-            alert.setAlertType(AlertType.INFORMATION);
-            alert.setContentText("logged in successfully!");
-            alert.showAndWait();
+            // alert.setAlertType(AlertType.INFORMATION);
+            // alert.setContentText("logged in successfully!");
+            // alert.showAndWait();
             Parent root = FXMLLoader.load(getClass().getResource("userMainPage.fxml"));
             UserClient.window.setScene(new Scene(root));
             // UserClient.toServer.writeObject("Get User");
             // UserClient.toServer.writeObject(usernameField.getText());
         }
         else{
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("User login");
+            alert.setHeaderText(null);
             alert.setContentText("username or password is wrong!");
             alert.showAndWait();
         }
