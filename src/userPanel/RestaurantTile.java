@@ -9,8 +9,8 @@ import server.src.Restaurant;
 
 public class RestaurantTile extends UserTile{
 
-    Label addressLabel;
-    Restaurant restaurant;
+    private Label addressLabel;
+    private Restaurant restaurant;
 
     public RestaurantTile(Restaurant r){
         super();

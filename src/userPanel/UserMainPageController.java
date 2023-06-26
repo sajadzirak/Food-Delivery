@@ -55,8 +55,9 @@ public class UserMainPageController implements Initializable{
     }
 
     @FXML
-    void userLabelClicked(MouseEvent event) {
+    void userLabelClicked(MouseEvent event) throws IOException {
         changeOpacity(userIcon.getId());
+        mainPane.setCenter(new FxmlLoader().getPage("../userPanel/userProfilePage.fxml"));
     }
 
     @FXML
@@ -66,7 +67,7 @@ public class UserMainPageController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        changeOpacity(userIcon.getId());
+
     }
 
     private void changeOpacity(String id){

@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import server.src.User;
 
 public class UserLoginPageController {
 
@@ -51,13 +52,11 @@ public class UserLoginPageController {
         UserClient.toServer.writeObject(passwordField.getText());
         respond = (Boolean) UserClient.fromServer.readObject();
         if(respond){
-            // alert.setAlertType(AlertType.INFORMATION);
-            // alert.setContentText("logged in successfully!");
-            // alert.showAndWait();
             Parent root = FXMLLoader.load(getClass().getResource("userMainPage.fxml"));
             UserClient.window.setScene(new Scene(root));
-            // UserClient.toServer.writeObject("Get User");
-            // UserClient.toServer.writeObject(usernameField.getText());
+            UserClient.toServer.writeObject("Get User");
+            UserClient.toServer.writeObject(usernameField.getText());
+            UserClient.currentUser = (User) UserClient.fromServer.readObject();
         }
         else{
             alert = new Alert(AlertType.ERROR);

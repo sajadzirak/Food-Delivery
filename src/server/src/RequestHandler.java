@@ -77,6 +77,9 @@ public class RequestHandler {
         else if(request.equals("Login User")){
             userLogin(input, output);
         }
+        else if(request.equals("Get User")){
+            sendUser(input, output);
+        }
     }
 
     private void adminLogin(ObjectInputStream fromClient, ObjectOutputStream toClient) throws IOException, ClassNotFoundException{
@@ -206,4 +209,12 @@ public class RequestHandler {
         toClient.writeObject(respond);
     }
 
+    private void sendUser(ObjectInputStream fromClient, ObjectOutputStream toClient) throws ClassNotFoundException, IOException{
+        String username;
+        int index;
+
+        username = (String) fromClient.readObject();
+        index = Server.db.findUser(username);
+        toClient.writeObject(Server.db.getUserList().get(index));
+    }
 }

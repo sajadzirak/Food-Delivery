@@ -9,9 +9,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import server.src.Server;
+import server.src.User;
 
 public class UserClient extends Application{
 
+    public static User currentUser;
     public static Stage window;
     public static Socket clientSocket;
     public static ObjectOutputStream toServer;
@@ -38,7 +40,7 @@ public class UserClient extends Application{
             }
         );
         Parent root = FXMLLoader.load(getClass().getResource("userLoginPage.fxml"));
-        window.setTitle("User Login");
+        window.setTitle("User Panel");
         window.setScene(new Scene(root, 1280, 720));
         window.show();
     }
