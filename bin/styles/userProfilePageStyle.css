@@ -53,3 +53,6 @@ AnchorPane{
     -fx-spacing: 50;
 }
 
+#signOutButton {
+    -fx-font-size: 18px;
+}

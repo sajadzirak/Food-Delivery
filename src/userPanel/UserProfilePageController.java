@@ -56,6 +56,9 @@ public class UserProfilePageController implements Initializable{
     private Label usernameLabel;
 
     @FXML
+    private Button signOutButton;
+
+    @FXML
     void editButtonClicked(ActionEvent event) {
         
     }
@@ -68,6 +71,11 @@ public class UserProfilePageController implements Initializable{
         paymentStage.setTitle("payment page");
         paymentStage.initModality(Modality.APPLICATION_MODAL);
         paymentStage.showAndWait();
+    }
+
+    @FXML
+    void signOutButtonClicked(ActionEvent event) {
+
     }
 
 

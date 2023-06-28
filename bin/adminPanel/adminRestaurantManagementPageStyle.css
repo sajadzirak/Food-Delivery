@@ -28,12 +28,12 @@
  }
 
 #mainBorderPane{
-    -fx-background-color: -fx-cream;
+    -fx-background-color: -fx-very-pale-blue;
 }
 
 #topMenu{
     -fx-padding: 20px;
-    -fx-background-color: -fx-cream;
+    -fx-background-color: -fx-very-pale-blue;
     -fx-spacing: 60px;
 }
 
@@ -80,5 +80,5 @@
     -fx-text-fill: -fx-dark;
     -fx-font-family: Ubuntu;
     -fx-font-weight: 900;
-    -fx-font-size: 24px;
+    -fx-font-size: 28px;
 }
