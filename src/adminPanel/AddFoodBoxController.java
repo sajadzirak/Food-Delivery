@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -50,6 +52,18 @@ public class AddFoodBoxController extends FoodDetailsBox implements Initializabl
         alert = new Alert(AlertType.INFORMATION);
         alert.setHeaderText(null);
         alert.setTitle("Adding Food");
+        // monthField.textProperty().addListener(new ChangeListener<String>() {
+        // @Override
+        // public void changed(ObservableValue<? extends String> observable, String oldValue, 
+        //     String newValue) {
+        //     if (!newValue.matches("\\d*")) {
+        //         monthField.setText(newValue.replaceAll("[^\\d]", ""));
+        //     }
+        //     if(newValue.length() > 2) {
+        //         monthField.setText(oldValue);
+        //     }
+        // }
+        // });
     }
 
 }

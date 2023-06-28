@@ -1,0 +1,21 @@
+.root {
+    -fx-font-family: Ubuntu;
+    -fx-text-fill: -fx-dark;
+}
+
+.scroll-pane{
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+#mainBorderPane {
+    -fx-background-color: -fx-very-pale-blue;
+}
+
+#titleLabel {
+    -fx-font-weight: 900;
+    -fx-font-size: 24px;
+}

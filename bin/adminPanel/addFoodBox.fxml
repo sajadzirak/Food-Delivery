@@ -89,7 +89,7 @@
    </children>
    <stylesheets>
       <URL value="@addRestaurantBoxStyle.css" />
-      <URL value="@variables.css" />
       <URL value="@addFoodBox.css" />
+      <URL value="@../styles/variables.css" />
    </stylesheets>
 </AnchorPane>
