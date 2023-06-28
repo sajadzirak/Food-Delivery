@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Set;
 
 public class RequestHandler {
     
@@ -162,15 +165,30 @@ public class RequestHandler {
 
     private void sendFoodList(ObjectInputStream fromClient, ObjectOutputStream toClient) throws ClassNotFoundException, IOException{
         String restaurantName;
-        int index;
-        ArrayList<Food> foods;
+        int index, flag;
+        ArrayList<Food> foodArrayList;
+        Object[] foodList, quantities;
+        HashMap<Food, Integer> foodHash;
 
+        flag = (Character) fromClient.readObject();
         restaurantName = (String)fromClient.readObject();
         index = Server.db.findRestaurant(restaurantName);
-        foods = Server.db.getRestaurantList().get(index).getFoodList();
-        toClient.writeObject(foods.size());
-        for(int i = 0; i < foods.size(); i++){
-            toClient.writeObject(foods.get(i));
+        if(flag == 'A') {
+            foodArrayList = Server.db.getRestaurantList().get(index).getFoodList();
+            toClient.writeObject(foodArrayList.size());
+            for(int i = 0; i < foodArrayList.size(); i++){
+                toClient.writeObject(foodArrayList.get(i));
+            }
+        }
+        else if(flag == 'U') {
+            foodHash = Server.db.getRestaurantList().get(index).getFoodQuantity();
+            foodList = foodHash.keySet().toArray();
+            quantities = foodHash.values().toArray();
+            toClient.writeObject(foodHash.size());
+            for(int i = 0; i < foodHash.size(); i++){
+                toClient.writeObject(foodList[i]);
+                toClient.writeObject(quantities[i]);
+            }
         }
     }
 

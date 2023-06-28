@@ -9,6 +9,7 @@ import adminPanel.adminMainPageController;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -26,6 +27,7 @@ public class RestaurantTile extends UserTile{
         restaurant = r;
         File file = new File(restaurant.getRestaurantImagePath());
         imageView.setImage(new Image(DataBase.imageAbsolutePath+file.getName()));
+        imageLabel.setCursor(Cursor.HAND);
         nameLabel.setText(restaurant.getName());
         typeLabel.setText(restaurant.getrestaurantType().name());
         addressLabel = new Label(restaurant.getRestaurantAddress());

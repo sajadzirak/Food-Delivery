@@ -15,7 +15,7 @@ public class UserTile extends AnchorPane{
 
     public UserTile(){
         layout = new VBox(20);
-        layout.setStyle("-fx-padding: 10px;-fx-background-color:#edfdfb;" +
+        layout.setStyle("-fx-padding: 10px;-fx-background-color:#f8e9f2;" +
         "-fx-margin:10px;-fx-border-radius:20;-fx-background-radius:20;");
         layout.setAlignment(Pos.CENTER);
         imageView = new ImageView();
@@ -23,7 +23,6 @@ public class UserTile extends AnchorPane{
         imageView.setFitWidth(300);
         imageLabel = new Label();
         imageLabel.setGraphic(imageView);
-        imageLabel.setCursor(Cursor.HAND);
         nameLabel = new Label();
         nameLabel.setStyle(textLabelStyle+"-fx-font-weight:700;");
         typeLabel = new Label(textLabelStyle+"-fx-font-weight:500;");
