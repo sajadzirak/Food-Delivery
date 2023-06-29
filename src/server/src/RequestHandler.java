@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Set;
 
 public class RequestHandler {
     
@@ -82,6 +80,9 @@ public class RequestHandler {
         }
         else if(request.equals("Get User")){
             sendUser(input, output);
+        }
+        else if(request.equals("Update User")) {
+            updateUser(input, output);
         }
     }
 
@@ -234,5 +235,10 @@ public class RequestHandler {
         username = (String) fromClient.readObject();
         index = Server.db.findUser(username);
         toClient.writeObject(Server.db.getUserList().get(index));
+    }
+
+    private void updateUser(ObjectInputStream fromClient, ObjectOutputStream toClient) throws ClassNotFoundException, IOException {
+        User newUser = (User) fromClient.readObject();
+        Server.db.replaceUser(newUser.getUsername(), newUser);
     }
 }

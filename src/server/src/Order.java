@@ -1,6 +1,8 @@
 package server.src;
 
-public class Order {
+import java.io.Serializable;
+
+public class Order implements Serializable{
     
     private double cost;
     private String restaurantName;

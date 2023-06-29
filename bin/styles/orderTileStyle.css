@@ -1,0 +1,37 @@
+.root {
+    -fx-font-family: Ubuntu;
+    -fx-text-fill: -fx-dark;
+}
+
+.button {
+    -fx-background-color: -fx-red;
+    -fx-text-fill: #fff;
+    -fx-border-radius:20;
+    -fx-background-radius:20;
+}
+
+.button:hover {
+    -fx-background-color: -fx-red-hover;
+}
+
+.imageLabel {
+    -fx-border-radius:20;
+    -fx-background-radius:20;
+}
+
+.tile {
+    -fx-background-color: -fx-cream;   
+    -fx-effect: dropshadow(three-pass-box, -fx-grey, 8, 0, 0, 0);
+    -fx-border-radius:20;
+    -fx-background-radius:20;
+}
+
+.layout {
+    -fx-padding: 18px;
+    -fx-margin: 15;
+}
+
+.nameLabel {
+    -fx-font-size: 16px;
+    -fx-font-weight: 700;
+}

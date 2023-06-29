@@ -32,6 +32,8 @@ public class UserClient extends Application{
         window.setOnCloseRequest(
             e->{
                 try {
+                    toServer.writeObject("Update User");
+                    toServer.writeObject(currentUser);
                     toServer.writeObject("exit");
                 } catch (Exception e1){
                     e1.printStackTrace();

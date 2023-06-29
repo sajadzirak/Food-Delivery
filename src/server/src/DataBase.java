@@ -185,4 +185,14 @@ public class DataBase {
         }
         return answer;
     }
+
+    public boolean replaceUser(String previousName, User u){
+        int index = findUser(previousName);
+        if(index != -1){
+            userList.remove(index);
+            userList.add(index, u);
+            return true;
+        }
+        return false;
+    }
 }

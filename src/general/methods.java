@@ -19,7 +19,7 @@ public class methods {
         size = (Integer)fromServer.readObject();
         if(flag == 'U') {
             for(int i = 0; i < size; i++){
-                pane.getChildren().add(new userPanel.FoodTile((Food) fromServer.readObject(), (Integer) fromServer.readObject()));
+                pane.getChildren().add(new userPanel.FoodTile((Food) fromServer.readObject(), (Integer) fromServer.readObject(), restaurant.getName()));
             }
         }
         else if(flag == 'A') {

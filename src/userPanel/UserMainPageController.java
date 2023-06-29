@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import server.src.User;
 
 public class UserMainPageController implements Initializable{
    
@@ -37,13 +38,16 @@ public class UserMainPageController implements Initializable{
 
 
     @FXML
-    void cartLabelClicked(MouseEvent event) {
+    void cartLabelClicked(MouseEvent event) throws IOException {
         changeOpacity(cartIcon.getId());
+        mainPane.setCenter(new FxmlLoader().getPage("../userPanel/cartPage.fxml"));
     }
 
     @FXML
     void exitLabelClicked(MouseEvent event) throws IOException {
         changeOpacity(exitIcon.getId());
+        UserClient.toServer.writeObject("Update User");
+        UserClient.toServer.writeObject(UserClient.currentUser);
         UserClient.toServer.writeObject("exit");
         UserClient.window.close();
     }

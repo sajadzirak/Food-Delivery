@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import server.src.DataBase;
 import server.src.Food;
+import server.src.Order;
 
 public class FoodTile extends UserTile {
     
@@ -18,17 +19,19 @@ public class FoodTile extends UserTile {
     private Label quantityLabel, priceLabel;
     private Food food;
     private HBox hbox;
-    private TextField amountField;
+    private TextField quantityField;
     private Button plusButton, minusButton, addButton;
+    private String restaurantName;
     private String labelStyle = "-fx-font-family: Ubuntu;-fx-text-fill:#04030f;";
     private String plusButtonStyle = "-fx-background-color: #f02;-fx-text-fill:#fff;";
     private String radius = "-fx-border-radius:20;-fx-background-radius:20;";
     private String shadow = "-fx-effect: dropshadow(three-pass-box, -fx-grey, 10, 0, 0, 0);";
 
-    public FoodTile(Food f, int quantity) {
+    public FoodTile(Food f, int quantity, String restaurantName) {
         super();
         food = f;
         this.quantity = quantity;
+        this.restaurantName = restaurantName;
         quantityLabel = new Label("/"+quantity);
         quantityLabel.setStyle(labelStyle);
         File file = new File(food.getFoodImagePath());
@@ -36,11 +39,11 @@ public class FoodTile extends UserTile {
         nameLabel.setText(food.getFoodName());
         priceLabel = new Label("$ "+food.getFoodPrice());
         priceLabel.setStyle(labelStyle+"-fx-font-weight: 600;-fx-font-size: 16px;");
-        amountField = new TextField();
-        amountField.setText("0");
-        amountField.setEditable(false);
-        amountField.setStyle(radius+"-fx-background-color:#fff;"+shadow);
-        amountField.setPrefWidth(50);
+        quantityField = new TextField();
+        quantityField.setText("0");
+        quantityField.setEditable(false);
+        quantityField.setStyle(radius+"-fx-background-color:#fff;"+shadow);
+        quantityField.setPrefWidth(50);
         plusButton = new Button("+");
         plusButton.setStyle(plusButtonStyle+shadow);
         plusButton.setCursor(Cursor.HAND);
@@ -51,27 +54,33 @@ public class FoodTile extends UserTile {
         addButton.setDisable(true);
         addButton.setStyle(plusButtonStyle+radius+shadow);
         addButton.setCursor(Cursor.HAND);
-        hbox = new HBox(minusButton, plusButton, amountField, quantityLabel, addButton);
+        hbox = new HBox(minusButton, plusButton, quantityField, quantityLabel, addButton);
         hbox.setSpacing(12);
         hbox.setAlignment(Pos.CENTER);
         layout.getChildren().addAll(imageLabel, nameLabel, priceLabel, hbox);
 
         plusButton.setOnAction(
             e -> {
-                int oldValue = Integer.parseInt(amountField.getText());
+                int oldValue = Integer.parseInt(quantityField.getText());
                 if(oldValue == 0)
                     addButton.setDisable(false);
                 if(oldValue < quantity)
-                    amountField.setText((oldValue+1)+"");
+                    quantityField.setText((oldValue+1)+"");
             }
         );
         minusButton.setOnAction(
             e -> {
-                int oldValue = Integer.parseInt(amountField.getText());
+                int oldValue = Integer.parseInt(quantityField.getText());
                 if(oldValue == 1)
                     addButton.setDisable(true);
                 if(oldValue > 0)
-                    amountField.setText((oldValue-1)+"");
+                    quantityField.setText((oldValue-1)+"");
+            }
+        );
+        addButton.setOnAction(
+            e -> {
+                UserClient.currentUser.getCart().addOrder(new Order(restaurantName, food, Integer.parseInt(quantityField.getText())));
+                System.out.println(UserClient.currentUser.getCart().getOrders());
             }
         );
     }

@@ -3,13 +3,15 @@ package server.src;
 import java.io.Serializable;
 
 public class User  implements Serializable{
+
     private String username;
     private String phoneNumber;
     private String email;
     private String password;
     private String address;
     private double balance;
-    
+    private Cart cart;
+
     public User(String username, String phoneNumber, String email, String password,
     String address){
         this.username = username;
@@ -18,6 +20,7 @@ public class User  implements Serializable{
         this.password = password;
         this.address = address;
         balance = 0;
+        cart = new Cart(username);
     }
 
     public String getUsername() {
@@ -75,5 +78,13 @@ public class User  implements Serializable{
             return true;
         }
         return false;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 }

@@ -1,17 +1,18 @@
 package server.src;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Cart {
+public class Cart implements Serializable{
     
     private ArrayList<Order> orders;
     private String username;
     private double cost;
     
-    public Cart(ArrayList<Order> orders, String username, double cost) {
-        this.orders = orders;
+    public Cart(String username) {
         this.username = username;
-        this.cost = cost;
+        orders = new ArrayList<Order>();
+        cost = 0;
     }
 
     public ArrayList<Order> getOrders() {
@@ -37,4 +38,10 @@ public class Cart {
     public void setCost(double cost) {
         this.cost = cost;
     }    
+
+    public boolean addOrder(Order order) {
+        boolean result;
+        result = orders.add(order);
+        return result;
+    }
 }
