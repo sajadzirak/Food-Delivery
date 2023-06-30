@@ -71,6 +71,7 @@ public class UserProfilePageController implements Initializable{
         paymentStage.setTitle("payment page");
         paymentStage.initModality(Modality.APPLICATION_MODAL);
         paymentStage.showAndWait();
+        initialize(null, null);
     }
 
     @FXML

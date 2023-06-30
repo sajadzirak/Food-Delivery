@@ -1,11 +1,15 @@
 package userPanel;
 
 import java.io.File;
+import java.util.Optional;
 
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -15,6 +19,7 @@ import server.src.DataBase;
 import server.src.Order;
 
 public class OrderTile extends AnchorPane {
+    private Alert alert;
     private Order order;
     private HBox layout;
     private ImageView imageView;
@@ -26,8 +31,6 @@ public class OrderTile extends AnchorPane {
         this.order = order;
         layout = new HBox(15);
         layout.setAlignment(Pos.CENTER);
-        // layout.setStyle("-fx-padding:10px;-fx-background-color:#f8e9f2;"+
-        // "-fx-margin:10px;-fx-border-radius:20;-fx-background-radius:20;");
         imageView = new ImageView();
         imageView.setFitHeight(150);
         imageView.setFitWidth(200);
@@ -51,5 +54,17 @@ public class OrderTile extends AnchorPane {
         imageLabel.getStyleClass().add("imageLabel");
         foodNameLabel.getStyleClass().add("nameLabel");
         this.getStylesheets().addAll("styles/variables.css", "styles/orderTileStyle.css");
+
+        cancelButton.setOnAction(
+            e -> {
+                alert = new Alert(AlertType.CONFIRMATION);
+                alert.setHeaderText(null);
+                alert.setContentText("Do you really want to cancel the order?");
+                Optional<ButtonType> buttonType = alert.showAndWait();
+                if (buttonType.get().equals(ButtonType.OK)) {
+                    UserClient.currentUser.getCart().getOrders().remove(order);
+                }
+            }
+        );
     }
 }

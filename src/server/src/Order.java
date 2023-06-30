@@ -48,5 +48,16 @@ public class Order implements Serializable{
         this.cost = cost;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        boolean result = false;
+        if(this.restaurantName.equals(((Order)other).getRestaurantName())) {
+            if(this.food.equals(((Order) other).getFood())) {
+                result = true;
+            }
+        }
+        return result;
+    }
+
     
 }

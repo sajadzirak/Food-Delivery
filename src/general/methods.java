@@ -3,6 +3,8 @@ package general;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+
+import javafx.scene.control.TextField;
 import javafx.scene.layout.TilePane;
 import server.src.Food;
 import server.src.Restaurant;
@@ -27,5 +29,13 @@ public class methods {
                 pane.getChildren().add(new adminPanel.FoodTile((Food) fromServer.readObject()));
             }
         }
+    }
+
+    public static boolean checkForEmptyTextField(TextField...fields) {
+        for(TextField tf : fields) {
+            if(tf.getText().equals(""))
+                return false;
+        }
+        return true;
     }
 }

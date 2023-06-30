@@ -79,7 +79,19 @@ public class FoodTile extends UserTile {
         );
         addButton.setOnAction(
             e -> {
-                UserClient.currentUser.getCart().addOrder(new Order(restaurantName, food, Integer.parseInt(quantityField.getText())));
+                boolean exist = false;
+                Order newOrder = new Order(restaurantName, food, Integer.parseInt(quantityField.getText()));
+                for(Order o : UserClient.currentUser.getCart().getOrders()) {
+                    if(o.equals(newOrder)) {
+                        if(o.getQuantity()+newOrder.getQuantity() > quantity)
+                            o.setQuantity(quantity);
+                        else
+                            o.setQuantity(o.getQuantity()+newOrder.getQuantity());
+                        exist = true;
+                    }
+                }
+                if(!exist)
+                    UserClient.currentUser.getCart().addOrder(newOrder);
                 System.out.println(UserClient.currentUser.getCart().getOrders());
             }
         );
