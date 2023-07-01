@@ -13,7 +13,7 @@
 
 <BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userPanel.cartPageController">
    <center>
-      <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <content>
             <TilePane fx:id="centerTilePane" hgap="30.0" nodeOrientation="LEFT_TO_RIGHT" prefColumns="2" prefHeight="619.0" prefRows="3" prefWidth="1178.0" tileAlignment="TOP_CENTER" vgap="30.0">
                <padding>
@@ -27,10 +27,16 @@
       <URL value="@../styles/restaurantFoodsPageStyle.css" />
    </stylesheets>
    <top>
-      <AnchorPane fx:id="topMenu" prefHeight="100.0" prefWidth="1180.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="100.0" prefWidth="1180.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="titleLabel" layoutX="535.0" layoutY="46.0" text="Your Cart" />
-            <HBox fx:id="buttonBox" alignment="CENTER" layoutX="826.0" layoutY="5.0" prefHeight="100.0" prefWidth="301.0" styleClass="HBox">
+            <Label fx:id="titleLabel" layoutX="535.0" layoutY="36.0" text="Your Cart" />
+         </children>
+      </AnchorPane>
+   </top>
+   <bottom>
+      <AnchorPane prefHeight="86.0" prefWidth="1180.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox fx:id="buttonBox" alignment="CENTER" layoutX="774.0" layoutY="9.0" prefHeight="68.0" prefWidth="340.0" styleClass="HBox">
                <children>
                   <Button mnemonicParsing="false" onAction="#cahrgeButtonClicked" prefHeight="42.0" prefWidth="142.0" text="charge wallet">
                      <cursor>
@@ -47,7 +53,9 @@
                   </Button>
                </children>
             </HBox>
+            <Label fx:id="totalCostLabel" layoutX="76.0" layoutY="24.0" prefHeight="36.0" prefWidth="157.0" styleClass="my-label" textAlignment="CENTER" />
+            <Label fx:id="balanceLabel" layoutX="244.0" layoutY="23.0" prefHeight="37.0" prefWidth="196.0" styleClass="my-label" />
          </children>
       </AnchorPane>
-   </top>
+   </bottom>
 </BorderPane>

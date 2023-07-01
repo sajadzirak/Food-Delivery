@@ -84,6 +84,9 @@ public class RequestHandler {
         else if(request.equals("Update User")) {
             updateUser(input, output);
         }
+        else if(request.equals("Buy")) {
+            buy(input, output);
+        }
     }
 
     private void adminLogin(ObjectInputStream fromClient, ObjectOutputStream toClient) throws IOException, ClassNotFoundException{
@@ -240,5 +243,25 @@ public class RequestHandler {
     private void updateUser(ObjectInputStream fromClient, ObjectOutputStream toClient) throws ClassNotFoundException, IOException {
         User newUser = (User) fromClient.readObject();
         Server.db.replaceUser(newUser.getUsername(), newUser);
+    }
+
+    private void buy(ObjectInputStream fromClient, ObjectOutputStream toClient) throws ClassNotFoundException, IOException {
+        int size = (Integer) fromClient.readObject();
+        int quantity, resIndex;
+        String restaurantName;
+        Food food;
+        Restaurant restaurant;
+        for(int i = 0; i < size; i++) {
+            restaurantName = (String) fromClient.readObject();
+            food = (Food) fromClient.readObject();
+            quantity = (Integer) fromClient.readObject();
+            resIndex = Server.db.findRestaurant(restaurantName);
+            restaurant = Server.db.getRestaurantList().get(resIndex);
+            System.out.println(restaurant.getFoodQuantity());
+            System.out.println(food);
+            System.out.println(restaurant.getFoodQuantity().get(food));
+            System.out.println(restaurant.getFoodQuantity().containsKey(food));
+            restaurant.getFoodQuantity().replace(food, restaurant.getFoodQuantity().get(food)-quantity);
+        }
     }
 }

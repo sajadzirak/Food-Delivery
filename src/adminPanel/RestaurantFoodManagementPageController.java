@@ -5,6 +5,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import general.methods;
 import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,6 +23,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import server.src.Food;
 import server.src.Restaurant;
+import userPanel.UserClient;
 
 public class RestaurantFoodManagementPageController implements Initializable {
 
@@ -55,14 +58,16 @@ public class RestaurantFoodManagementPageController implements Initializable {
         addBox.setTitle("Add Food");
         addBox.initModality(Modality.APPLICATION_MODAL);
         addBox.showAndWait();
-        addFoodsToTilePane(centerTilePane, adminClient.toServer, adminClient.fromServer);
+        methods.addFoodsToTilePane(centerTilePane, restaurant, 'A', adminClient.toServer, adminClient.fromServer);
+        // addFoodsToTilePane(centerTilePane, adminClient.toServer, adminClient.fromServer);
     }
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try{
             restaurant = (Restaurant)adminClient.fromServer.readObject();
-            addFoodsToTilePane(centerTilePane, adminClient.toServer, adminClient.fromServer);
+            // addFoodsToTilePane(centerTilePane, adminClient.toServer, adminClient.fromServer);
+            methods.addFoodsToTilePane(centerTilePane, restaurant, 'A', adminClient.toServer, adminClient.fromServer);
         }catch(Exception e){
             e.printStackTrace();
         }

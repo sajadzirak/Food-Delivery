@@ -63,8 +63,13 @@ public class OrderTile extends AnchorPane {
                 Optional<ButtonType> buttonType = alert.showAndWait();
                 if (buttonType.get().equals(ButtonType.OK)) {
                     UserClient.currentUser.getCart().getOrders().remove(order);
+                    cartPageController.refresh();
                 }
             }
         );
+    }
+
+    public Order getOrder() {
+        return order;
     }
 }

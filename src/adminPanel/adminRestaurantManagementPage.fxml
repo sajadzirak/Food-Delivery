@@ -24,7 +24,6 @@
       </HBox>
    </top>
    <stylesheets>
-      <URL value="@variables.css" />
       <URL value="@adminRestaurantManagementPageStyle.css" />
       <URL value="@../styles/variables.css" />
    </stylesheets>

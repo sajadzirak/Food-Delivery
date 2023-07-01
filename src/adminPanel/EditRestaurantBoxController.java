@@ -28,7 +28,7 @@ public class EditRestaurantBoxController extends RestaurantDetailsBox implements
             Restaurant newRestaurant;
             File f = new File("file:"+selectedFile.getAbsolutePath());
             newRestaurant = new Restaurant(restaurantNameTextField.getText(), addressTextField.getText(), 
-            restaurantType.valueOf(typeChoiceBox.getValue()), outdoorRadioButton.isSelected(), 
+            restaurantType.valueOf(typeChoiceBox.getValue()), restaurant.getFoodList(), restaurant.getFoodQuantity(), outdoorRadioButton.isSelected(), 
             f.toURI().toString(), outdoorRadioButton.isSelected()?0:Integer.parseInt(chairNumberTextField.getText()), 
             outdoorRadioButton.isSelected()?Integer.parseInt(deliveryNumberTextField.getText()):0);
             adminClient.toServer.writeObject(request);

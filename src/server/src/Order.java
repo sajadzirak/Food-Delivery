@@ -38,6 +38,7 @@ public class Order implements Serializable{
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+        cost = food.getFoodPrice()*this.quantity;
     }
 
     public double getCost() {

@@ -1,7 +1,9 @@
-.root {
+/* .root {
     -fx-font-family: Ubuntu;
     -fx-text-fill: -fx-dark;
-}
+    -fx-font-size: 20px;
+    -fx-font-weight: 800;
+} */
 
 .scroll-pane{
     -fx-background-color: transparent;
@@ -17,7 +19,7 @@
 
 #titleLabel {
     -fx-font-weight: 900;
-    -fx-font-size: 24px;
+    -fx-font-size: 26px;
 }
 
 /* following lines maybe not needed */
@@ -36,4 +38,11 @@
 
 .HBox {
     -fx-spacing: 20px;
+}
+
+.my-label {
+    -fx-font-family: Ubuntu;
+    -fx-text-fill: -fx-dark;
+    -fx-font-size: 18px;
+    -fx-font-weight: 600;
 }
