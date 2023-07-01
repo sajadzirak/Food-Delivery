@@ -86,6 +86,9 @@ public class cartPageController implements Initializable{
                 }
                 UserClient.currentUser.setBalance(UserClient.currentUser.getBalance()-findTotalCost());
                 UserClient.currentUser.getCart().getOrders().clear();
+                addOrdersToTilePane(centerTilePane);
+                totalCostLabel.setText("Total: $"+findTotalCost());
+                balanceLabel.setText("Your Balance: $"+UserClient.currentUser.getBalance());
             }            
         }
     }

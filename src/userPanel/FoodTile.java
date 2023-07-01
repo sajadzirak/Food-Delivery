@@ -62,19 +62,21 @@ public class FoodTile extends UserTile {
         plusButton.setOnAction(
             e -> {
                 int oldValue = Integer.parseInt(quantityField.getText());
-                if(oldValue == 0)
-                    addButton.setDisable(false);
                 if(oldValue < quantity)
-                    quantityField.setText((oldValue+1)+"");
+                quantityField.setText((oldValue+1)+"");
+                int newValue = Integer.parseInt(quantityField.getText());
+                if(newValue > 0)
+                    addButton.setDisable(false);
             }
         );
         minusButton.setOnAction(
             e -> {
                 int oldValue = Integer.parseInt(quantityField.getText());
-                if(oldValue == 1)
-                    addButton.setDisable(true);
                 if(oldValue > 0)
                     quantityField.setText((oldValue-1)+"");
+                int newValue = Integer.parseInt(quantityField.getText());
+                if(newValue == 0)
+                    addButton.setDisable(true);
             }
         );
         addButton.setOnAction(

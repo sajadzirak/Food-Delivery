@@ -257,11 +257,17 @@ public class RequestHandler {
             quantity = (Integer) fromClient.readObject();
             resIndex = Server.db.findRestaurant(restaurantName);
             restaurant = Server.db.getRestaurantList().get(resIndex);
-            System.out.println(restaurant.getFoodQuantity());
-            System.out.println(food);
-            System.out.println(restaurant.getFoodQuantity().get(food));
-            System.out.println(restaurant.getFoodQuantity().containsKey(food));
-            restaurant.getFoodQuantity().replace(food, restaurant.getFoodQuantity().get(food)-quantity);
+            // System.out.println(restaurant.getFoodQuantity());
+            // System.out.println(food);
+            // System.out.println(restaurant.getFoodQuantity().get(food));
+            // System.out.println(restaurant.getFoodQuantity().containsKey(food));
+            for (Food f: restaurant.getFoodQuantity().keySet()) {
+                if(f.equals(food)) {
+                    // System.out.println(restaurant.getFoodQuantity().get(f));  
+                    restaurant.getFoodQuantity().replace(f, restaurant.getFoodQuantity().get(f)-quantity);     
+                }
+            }
+            // restaurant.getFoodQuantity().replace(food, restaurant.getFoodQuantity().get(food)-quantity);
         }
     }
 }

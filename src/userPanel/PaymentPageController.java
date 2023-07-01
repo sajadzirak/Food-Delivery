@@ -176,6 +176,28 @@ public class PaymentPageController implements Initializable{
             }
         }
         });
+
+        cardNumberField.textProperty().addListener(new ChangeListener<String>() {
+        @Override
+        public void changed(ObservableValue<? extends String> observable, String oldValue, 
+            String newValue) {
+            if(newValue.length() > 0) {
+                if (!newValue.substring(newValue.length()-1).matches("\\d*")) {
+                    cardNumberField.setText(oldValue+newValue.substring(newValue.length()-1).replaceAll("[^\\d]", ""));
+                }
+                else if(newValue.length() > 19) {
+                    cardNumberField.setText(oldValue);
+                }
+                else if(newValue.length()%5 == 1){
+                }
+                else if(newValue.replaceAll(" ", "").length()%4 == 1) {
+                    String cardNo;
+                    cardNo = newValue.substring(0, newValue.length()-1)+" "+newValue.substring(newValue.length()-1);
+                    cardNumberField.setText(cardNo);
+                }
+                }
+        }
+        });
     
         // cardNumberField.textProperty().addListener(new ChangeListener<String>() {
         // @Override
