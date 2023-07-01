@@ -15,7 +15,6 @@ public class methods {
         int size;
         String request = "Get Foods";
         toServer.writeObject(request);
-        toServer.writeObject(flag);
         toServer.writeObject(restaurant.getName());
         pane.getChildren().clear();
         size = (Integer)fromServer.readObject();
@@ -26,7 +25,7 @@ public class methods {
         }
         else if(flag == 'A') {
             for(int i = 0; i < size; i++){
-                pane.getChildren().add(new adminPanel.FoodTile((Food) fromServer.readObject()));
+                pane.getChildren().add(new adminPanel.FoodTile((Food) fromServer.readObject(), (Integer) fromServer.readObject(), restaurant.getName()));
             }
         }
     }

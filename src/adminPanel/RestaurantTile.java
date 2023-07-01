@@ -30,6 +30,7 @@ public class RestaurantTile extends Tile {
         disableButton = new Button("Disable");
         buttonBox.getChildren().add(disableButton);
         disableButton.setCursor(Cursor.HAND);
+        imageLabel.setCursor(Cursor.HAND);
         imageLabel.setOnMouseClicked(
                 e -> {
                     try {
@@ -54,7 +55,7 @@ public class RestaurantTile extends Tile {
                     try {
                         adminClient.toServer.writeObject("Get Restaurant");
                         adminClient.toServer.writeObject(restaurant.getName());
-                        editButtonClicked();
+                        editButtonClicked("editRestaurantBox.fxml", "Edit Restaurant");
                         AdminRestaurantManagementPageController.refresh();
                     } catch (Exception e1) {
                         e1.printStackTrace();
@@ -111,14 +112,12 @@ public class RestaurantTile extends Tile {
         adminClient.toServer.writeObject(status);
     }
 
-    private void editButtonClicked() throws IOException {
-        editBox = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("editRestaurantBox.fxml"));
-        editBox.setScene(new Scene(root));
-        editBox.setTitle("Edit Restaurant");
-        // adminClient.toServer.writeObject("Get Restaurant");
-        // adminClient.toServer.writeObject(restaurant.getName());
-        editBox.initModality(Modality.APPLICATION_MODAL);
-        editBox.showAndWait();
-    }
+    // private void editButtonClicked() throws IOException {
+    //     editBox = new Stage();
+    //     Parent root = FXMLLoader.load(getClass().getResource("editRestaurantBox.fxml"));
+    //     editBox.setScene(new Scene(root));
+    //     editBox.setTitle("Edit Restaurant");
+    //     editBox.initModality(Modality.APPLICATION_MODAL);
+    //     editBox.showAndWait();
+    // }
 }

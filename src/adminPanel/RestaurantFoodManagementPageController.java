@@ -74,17 +74,17 @@ public class RestaurantFoodManagementPageController implements Initializable {
         titleLabel.setText(restaurant.getName());
     }
 
-    private void addFoodsToTilePane(TilePane pane, ObjectOutputStream toServer, ObjectInputStream fromServer) throws IOException, ClassNotFoundException{
-        int size;
-        String request = "Get Foods";
-        toServer.writeObject(request);
-        toServer.writeObject(restaurant.getName());
-        pane.getChildren().clear();
-        size = (Integer)fromServer.readObject();
-        for(int i = 0; i < size; i++){
-            pane.getChildren().add(new FoodTile((Food) adminClient.fromServer.readObject()));
-        }
-    }
+    // private void addFoodsToTilePane(TilePane pane, ObjectOutputStream toServer, ObjectInputStream fromServer) throws IOException, ClassNotFoundException{
+    //     int size;
+    //     String request = "Get Foods";
+    //     toServer.writeObject(request);
+    //     toServer.writeObject(restaurant.getName());
+    //     pane.getChildren().clear();
+    //     size = (Integer)fromServer.readObject();
+    //     for(int i = 0; i < size; i++){
+    //         pane.getChildren().add(new FoodTile((Food) adminClient.fromServer.readObject()));
+    //     }
+    // }
     
 
 }

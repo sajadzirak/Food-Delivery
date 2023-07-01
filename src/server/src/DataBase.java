@@ -195,4 +195,35 @@ public class DataBase {
         }
         return false;
     }
+
+    public boolean replaceFood(String restaurantName, String previousName, Food food, int quantity) {
+        int resIndex, foodIndex;
+        Restaurant restaurant;
+        boolean result = false;
+
+        resIndex = findRestaurant(restaurantName);
+        restaurant = restaurantList.get(resIndex);
+        foodIndex = findFood(previousName, restaurant);
+        if(foodIndex != -1) {
+            restaurant.getFoodList().remove(foodIndex);
+            restaurant.getFoodList().add(foodIndex, food);
+            for(Food f : restaurant.getFoodQuantity().keySet()) {
+                if(f.getFoodName().equals(previousName)) {
+                    restaurant.getFoodQuantity().remove(f);
+                    restaurant.getFoodQuantity().put(food, quantity);
+                }
+            }
+            result = true;
+        }
+        return result;
+    }
+
+    private int findFood(String food, Restaurant restaurant) {
+        for(int i = 0; i < restaurant.getFoodList().size(); i++) {
+            if(restaurant.getFoodList().get(i).getFoodName().equals(food)) {
+                return i;
+            }
+        }
+        return -1;
+    }
 }

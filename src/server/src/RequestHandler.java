@@ -87,6 +87,12 @@ public class RequestHandler {
         else if(request.equals("Buy")) {
             buy(input, output);
         }
+        else if(request.equals("Get Food")) {
+            sendFood(input, output);
+        }
+        else if(request.equals("Edit Food")) {
+            editFood(input, output);
+        }
     }
 
     private void adminLogin(ObjectInputStream fromClient, ObjectOutputStream toClient) throws IOException, ClassNotFoundException{
@@ -169,31 +175,21 @@ public class RequestHandler {
 
     private void sendFoodList(ObjectInputStream fromClient, ObjectOutputStream toClient) throws ClassNotFoundException, IOException{
         String restaurantName;
-        int index, flag;
+        int index;
         ArrayList<Food> foodArrayList;
         Object[] foodList, quantities;
         HashMap<Food, Integer> foodHash;
 
-        flag = (Character) fromClient.readObject();
         restaurantName = (String)fromClient.readObject();
         index = Server.db.findRestaurant(restaurantName);
-        if(flag == 'A') {
-            foodArrayList = Server.db.getRestaurantList().get(index).getFoodList();
-            toClient.writeObject(foodArrayList.size());
-            for(int i = 0; i < foodArrayList.size(); i++){
-                toClient.writeObject(foodArrayList.get(i));
-            }
-        }
-        else if(flag == 'U') {
-            foodHash = Server.db.getRestaurantList().get(index).getFoodQuantity();
-            foodList = foodHash.keySet().toArray();
-            quantities = foodHash.values().toArray();
-            toClient.writeObject(foodHash.size());
-            for(int i = 0; i < foodHash.size(); i++){
-                toClient.writeObject(foodList[i]);
-                toClient.writeObject(quantities[i]);
-            }
-        }
+        foodHash = Server.db.getRestaurantList().get(index).getFoodQuantity();
+        foodList = foodHash.keySet().toArray();
+        quantities = foodHash.values().toArray();
+        toClient.writeObject(foodHash.size());
+        for(int i = 0; i < foodHash.size(); i++){
+            toClient.writeObject(foodList[i]);
+            toClient.writeObject(quantities[i]);
+        }  
     }
 
     private void deleteRestaurant(ObjectInputStream fromClient, ObjectOutputStream toClient) throws ClassNotFoundException, IOException{
@@ -267,7 +263,41 @@ public class RequestHandler {
                     restaurant.getFoodQuantity().replace(f, restaurant.getFoodQuantity().get(f)-quantity);     
                 }
             }
+            // I don't know why below .get(food) returns null even it exists
             // restaurant.getFoodQuantity().replace(food, restaurant.getFoodQuantity().get(food)-quantity);
         }
+    }
+
+    private void sendFood(ObjectInputStream fromClient, ObjectOutputStream toClient) throws ClassNotFoundException, IOException {
+        String restaurantName;
+        int resIndex;
+        Food food;
+        Restaurant restaurant;
+
+        restaurantName = (String) fromClient.readObject();
+        food = (Food) fromClient.readObject();
+        resIndex = Server.db.findRestaurant(restaurantName);
+        restaurant = Server.db.getRestaurantList().get(resIndex);
+        for(Food f : restaurant.getFoodQuantity().keySet()) {
+            if(f.equals(food)) {
+                toClient.writeObject(restaurantName);
+                toClient.writeObject(f);
+                toClient.writeObject(restaurant.getFoodQuantity().get(f));
+            }
+        }
+    }
+
+    private void editFood(ObjectInputStream fromClient, ObjectOutputStream toClient) throws ClassNotFoundException, IOException {
+        String restaurantName, previousName;
+        Food newFood;
+        int newQuantity;
+        boolean respond;
+
+        restaurantName = (String) fromClient.readObject();
+        previousName = (String) fromClient.readObject();
+        newFood = (Food) fromClient.readObject();
+        newQuantity = (Integer) fromClient.readObject();
+        respond = Server.db.replaceFood(restaurantName, previousName, newFood, newQuantity);
+        toClient.writeObject(respond);
     }
 }

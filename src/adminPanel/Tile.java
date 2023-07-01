@@ -1,13 +1,19 @@
 package adminPanel;
 
+import java.io.IOException;
+
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class Tile extends AnchorPane{
@@ -41,7 +47,6 @@ public class Tile extends AnchorPane{
         imageView.setFitWidth(300);
         imageLabel = new Label();
         imageLabel.setGraphic(imageView);
-        imageLabel.setCursor(Cursor.HAND);
         nameLabel = new Label();
         nameLabel.setStyle(textLabelStyle+"-fx-font-weight:700;");
         typeLabel = new Label();
@@ -51,5 +56,14 @@ public class Tile extends AnchorPane{
         this.getChildren().add(layout);
         this.setStyle("-fx-border-radius:20;-fx-background-radius:20;-fx-margin:10px;"+
         "-fx-effect: dropshadow(three-pass-box, -fx-grey, 8, 0, 3, 3);");
+    }
+
+    protected void editButtonClicked(String fxmlName, String title) throws IOException {
+        editBox = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource(fxmlName));
+        editBox.setScene(new Scene(root));
+        editBox.setTitle(title);
+        editBox.initModality(Modality.APPLICATION_MODAL);
+        editBox.showAndWait();
     }
 }
