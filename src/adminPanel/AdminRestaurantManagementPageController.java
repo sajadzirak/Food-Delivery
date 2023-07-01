@@ -48,7 +48,6 @@ public class AdminRestaurantManagementPageController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            // tiles = FXCollections.observableArrayList(restaurantsList);
             System.out.println("init");
             centerTilePaneCopy = centerTilePane;
             addRestaurantsToTilePane(centerTilePane, adminClient.toServer, adminClient.fromServer);

@@ -15,9 +15,9 @@
          <children>
             <Label fx:id="homeIcon" onMouseClicked="#homeLabelClicked" prefHeight="43.0" prefWidth="51.0">
                <graphic>
-                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../DB/images/NicePng_home-logo-png_1153942.png" />
+                        <Image url="@../DB/images/house-chimney.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -29,7 +29,7 @@
                <graphic>
                   <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../DB/images/hiclipart.com.png" />
+                        <Image url="@../DB/images/room-service.png" />
                      </image>
                      <viewport>
                         <Rectangle2D />
@@ -42,9 +42,9 @@
             </Label>
             <Label fx:id="exitIcon" onMouseClicked="#exitLabelClicked">
                <graphic>
-                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../DB/images/NicePng_shutdown-png_4093737.png" />
+                        <Image url="@../DB/images/circle-xmark.png" />
                      </image>
                   </ImageView>
                </graphic>

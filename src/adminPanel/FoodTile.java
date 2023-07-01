@@ -36,11 +36,20 @@ public class FoodTile extends Tile{
                     adminClient.toServer.writeObject(restaurantName);
                     adminClient.toServer.writeObject(food);
                     editButtonClicked("editFoodBox.fxml", "Edit Food");
-                } catch (IOException e1) {
+                    RestaurantFoodManagementPageController.refresh();
+                } catch (Exception e1) {
                     e1.printStackTrace();
                 }
             }
         );
+
+        // delButton.setOnAction(
+        //     e -> {
+        //         System.out.println(super.getParent());
+        //         super.getParent().getScene().getWindow().setHeight(1080);
+        //     }
+        // );
+
     }
 
     // private void editButtonClicked() throws IOException {

@@ -36,6 +36,7 @@ public class RestaurantFoodManagementPageController implements Initializable {
 
     @FXML
     private TilePane centerTilePane;
+    public static TilePane centerTilePaneCopy;
 
     @FXML
     private BorderPane mainBorderPane;
@@ -65,6 +66,7 @@ public class RestaurantFoodManagementPageController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try{
+            centerTilePaneCopy = centerTilePane;
             restaurant = (Restaurant)adminClient.fromServer.readObject();
             // addFoodsToTilePane(centerTilePane, adminClient.toServer, adminClient.fromServer);
             methods.addFoodsToTilePane(centerTilePane, restaurant, 'A', adminClient.toServer, adminClient.fromServer);
@@ -86,5 +88,7 @@ public class RestaurantFoodManagementPageController implements Initializable {
     //     }
     // }
     
-
+    public static void refresh() throws ClassNotFoundException, IOException {
+        methods.addFoodsToTilePane(centerTilePaneCopy, restaurant, 'A', adminClient.toServer, adminClient.fromServer);
+    }
 }
