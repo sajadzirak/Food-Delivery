@@ -29,14 +29,16 @@ public class Server extends Application{
         db = new DataBase();
         System.out.println(db.getRestaurantList());
         serverSocket = new ServerSocket(Server.PORT);
-        socket = serverSocket.accept();
-        output = new ObjectOutputStream(socket.getOutputStream());
-        input = new ObjectInputStream(socket.getInputStream());
-        do{
-            request = (String) input.readObject(); 
-            new RequestHandler(request, output, input);
-        }while(!request.equals("exit"));
-        db.writeRestaurants();
-        db.writeUsers();
+        while(true) {
+            socket = serverSocket.accept();
+            output = new ObjectOutputStream(socket.getOutputStream());
+            input = new ObjectInputStream(socket.getInputStream());
+            do{
+                request = (String) input.readObject(); 
+                new RequestHandler(request, output, input);
+            }while(!request.equals("exit"));
+            db.writeRestaurants();
+            db.writeUsers();
+        }
     }
 }
