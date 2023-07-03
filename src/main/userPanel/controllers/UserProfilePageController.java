@@ -19,7 +19,6 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import main.classes.FxmlLoader;
 import main.server.DataBase;
 import main.userPanel.UserClient;
 

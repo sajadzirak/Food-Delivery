@@ -161,7 +161,6 @@ public class RequestHandler {
     private void sendFoodList(ObjectInputStream fromClient, ObjectOutputStream toClient) throws ClassNotFoundException, IOException{
         String restaurantName;
         int index;
-        ArrayList<Food> foodArrayList;
         Object[] foodList, quantities;
         HashMap<Food, Integer> foodHash;
 
