@@ -15,7 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
-public class DetailsBox {
+public  abstract class DetailsBox {
  
     @FXML
     protected AnchorPane mainAnchor;

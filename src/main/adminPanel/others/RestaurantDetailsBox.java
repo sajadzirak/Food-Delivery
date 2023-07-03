@@ -10,7 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 
-public class RestaurantDetailsBox extends DetailsBox{
+public abstract class RestaurantDetailsBox extends DetailsBox{
 
     @FXML
     protected TextField addressTextField;

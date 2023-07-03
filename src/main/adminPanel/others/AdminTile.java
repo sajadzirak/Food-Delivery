@@ -17,7 +17,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.server.DataBase;
 
-public class AdminTile extends AnchorPane{
+public  abstract class AdminTile extends AnchorPane{
     
     protected Stage editBox;
     protected VBox layout;

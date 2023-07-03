@@ -49,10 +49,9 @@ public class EditRestaurantBoxController extends RestaurantDetailsBox implements
         }
         else {
             Restaurant newRestaurant;
-            File f = new File(selectedFile.getAbsolutePath());
             newRestaurant = new Restaurant(restaurantNameTextField.getText(), addressTextField.getText(), 
             restaurantType.valueOf(typeChoiceBox.getValue()), restaurant.getFoodList(), restaurant.getFoodQuantity(), outdoorRadioButton.isSelected(), 
-            f.toURI().toString(), outdoorRadioButton.isSelected()?0:Integer.parseInt(chairNumberTextField.getText()), 
+            selectedFile==null?restaurant.getRestaurantImagePath():new File(selectedFile.getAbsolutePath()).toURI().toString(), outdoorRadioButton.isSelected()?0:Integer.parseInt(chairNumberTextField.getText()), 
             outdoorRadioButton.isSelected()?Integer.parseInt(deliveryNumberTextField.getText()):0);
             AdminClient.toServer.writeObject(request);
             AdminClient.toServer.writeObject(previousName);
@@ -114,7 +113,6 @@ public class EditRestaurantBoxController extends RestaurantDetailsBox implements
                 chairNumberTextField.setText(String.valueOf(restaurant.getChairNumber()));
             }
             addressTextField.setText(restaurant.getRestaurantAddress());
-            selectedFile = new File(restaurant.getRestaurantImagePath());
             selectedImageView.setImage(new Image(restaurant.getRestaurantImagePath()));
             selectedImageLabel.setVisible(false);
         }catch(Exception e){

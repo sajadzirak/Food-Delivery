@@ -51,9 +51,9 @@ public class EditFoodBoxController extends FoodDetailsBox implements Initializab
         }
         else {
             Food newFood;
-            File f = new File(selectedFile.getAbsolutePath());
             newFood = new Food(foodNameTextField.getText(), Double.parseDouble(weightField.getText()), 
-            Double.parseDouble(priceField.getText()), foodType.valueOf(typeChoiceBox.getValue()), f.toURI().toString());
+            Double.parseDouble(priceField.getText()), foodType.valueOf(typeChoiceBox.getValue()),
+            selectedFile==null?food.getFoodImagePath():new File(selectedFile.getAbsolutePath()).toURI().toString());
             AdminClient.toServer.writeObject(request);
             AdminClient.toServer.writeObject(restaurantName);
             AdminClient.toServer.writeObject(previousName);
@@ -142,7 +142,6 @@ public class EditFoodBoxController extends FoodDetailsBox implements Initializab
             weightField.setText(food.getFoodWeight()+"");
             priceField.setText(food.getFoodPrice()+"");
             quantityField.setText(quantity+"");
-            selectedFile = new File(food.getFoodImagePath());
             selectedImageView.setImage(new Image(food.getFoodImagePath()));
             selectedImageLabel.setVisible(false);
             alert = new Alert(AlertType.INFORMATION);
