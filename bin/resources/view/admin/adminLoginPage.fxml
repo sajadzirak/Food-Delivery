@@ -27,7 +27,8 @@
       </VBox>
    </children>
    <stylesheets>
-      <URL value="@../../styles/loginPageStyle.css" />
       <URL value="@../../styles/variables.css" />
+      <URL value="@../../styles/generalStyle.css" />
+      <URL value="@../../styles/loginPageStyle.css" />
    </stylesheets>
 </AnchorPane>

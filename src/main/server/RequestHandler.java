@@ -99,13 +99,13 @@ public class RequestHandler {
     }
 
     private void adminLogin(ObjectInputStream fromClient, ObjectOutputStream toClient) throws IOException, ClassNotFoundException{
-        String respond;
+        boolean respond;
         String password = (String) fromClient.readObject();
         if(password.equals(DataBase.getPassword())){
-            respond = "true";
+            respond = true;
         }
         else{
-            respond = "false";
+            respond = false;
         }
         toClient.writeObject(respond);
     }
@@ -119,26 +119,9 @@ public class RequestHandler {
     }
 
     private void newRestaurant(ObjectInputStream fromClient, ObjectOutputStream toClient) throws IOException, ClassNotFoundException{
-        // int chairNumber, deliveryNumber;
-        // String name, address, imagePath;
-        // restaurantType type;
-        // boolean outdoor;
-
-        // name = (String)fromClient.readObject();
-        // address = (String) fromClient.readObject();
-        // type = restaurantType.valueOf((String) fromClient.readObject());
-        // outdoor = (Boolean) fromClient.readObject();
-        // imagePath = (String) fromClient.readObject();
-        // chairNumber = (Integer) fromClient.readObject();
-        // deliveryNumber = (Integer) fromClient.readObject();
-        // File file = new File(imagePath);
-
-        // Restaurant nr = new Restaurant(name, address, type, outdoor, file.toURI().toString(), chairNumber, deliveryNumber);
         Restaurant nr = (Restaurant) fromClient.readObject();
-        System.out.println("before adding");
         boolean result = Server.db.addRestaurant(nr);
         toClient.writeObject(result);
-        System.out.println("end of new res result: "+result);
     }
     
     private void sendRestaurant(ObjectInputStream fromClient, ObjectOutputStream toClient) throws ClassNotFoundException, IOException{
@@ -241,7 +224,10 @@ public class RequestHandler {
 
     private void updateUser(ObjectInputStream fromClient, ObjectOutputStream toClient) throws ClassNotFoundException, IOException {
         User newUser = (User) fromClient.readObject();
-        Server.db.replaceUser(newUser.getUsername(), newUser);
+        try{
+            Server.db.replaceUser(newUser.getUsername(), newUser);
+        }catch(NullPointerException e){
+        }
     }
 
     private void buy(ObjectInputStream fromClient, ObjectOutputStream toClient) throws ClassNotFoundException, IOException {

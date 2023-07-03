@@ -3,15 +3,16 @@ package main.adminPanel.controllers;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ResourceBundle;
 
 import main.adminPanel.AdminClient;
 import main.adminPanel.others.FoodDetailsBox;
 import main.classes.Food;
+import main.classes.methods;
 import main.classes.Food.foodType;
-import main.server.DataBase;
 
-import java.util.ResourceBundle;
-
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -29,12 +30,29 @@ public class EditFoodBoxController extends FoodDetailsBox implements Initializab
 
     @FXML
     void confirmButtonClicked(ActionEvent event) throws IOException, ClassNotFoundException {
-        boolean checkAnswer, respond;
+        boolean checkEmptyFields, respond;
         String request = "Edit Food";
-        checkAnswer = checkItems();
-        if(checkAnswer) {
+        checkEmptyFields = methods.checkForEmptyTextField(foodNameTextField, weightField,
+        priceField, quantityField);
+
+        if(!checkEmptyFields) {
+            alert.setAlertType(AlertType.ERROR);
+            alert.setContentText("Please fill all the fields!!");
+            alert.showAndWait();
+        }
+        else if(typeChoiceBox.getValue() == null) {
+            alert.setAlertType(AlertType.ERROR);
+            alert.setContentText("Please select a type!!");
+            alert.showAndWait();
+        }
+        else if(selectedImageView.getImage() == null) {
+            alert.setAlertType(AlertType.ERROR);
+            alert.setContentText("Please select an image!!");
+            alert.showAndWait();
+        }
+        else {
             Food newFood;
-            File f = new File("file:"+selectedFile.getAbsolutePath());
+            File f = new File(selectedFile.getAbsolutePath());
             newFood = new Food(foodNameTextField.getText(), Double.parseDouble(weightField.getText()), 
             Double.parseDouble(priceField.getText()), foodType.valueOf(typeChoiceBox.getValue()), f.toURI().toString());
             AdminClient.toServer.writeObject(request);
@@ -56,10 +74,64 @@ public class EditFoodBoxController extends FoodDetailsBox implements Initializab
                 alert.showAndWait();
             }
         }
+
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        quantityField.textProperty().addListener(new ChangeListener<String>() {
+        @Override
+        public void changed(ObservableValue<? extends String> observable, String oldValue, 
+            String newValue) {
+            if (!newValue.matches("\\d*")) {
+                quantityField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        }
+        });
+
+        priceField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("[0-9](\\.[0-9]*)?")) {
+                    priceField.setText(newValue.replaceAll("[^\\d.]", ""));
+                    StringBuilder aus = new StringBuilder(newValue);
+                    boolean firstPointFound = false;
+                    for (int i = 0; i < aus.length(); i++){
+                        if(aus.charAt(i) == '.') {
+                            if(!firstPointFound)
+                                firstPointFound = true;
+                            else
+                                aus.deleteCharAt(i);
+                        }
+                    }
+                    newValue = aus.toString();
+                    priceField.setText(newValue);
+                }
+            }
+        });
+
+        weightField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("[0-9](\\.[0-9]*)?")) {
+                    weightField.setText(newValue.replaceAll("[^\\d.]", ""));
+                    StringBuilder aus = new StringBuilder(newValue);
+                    boolean firstPointFound = false;
+                    for (int i = 0; i < aus.length(); i++){
+                        if(aus.charAt(i) == '.') {
+                            if(!firstPointFound)
+                                firstPointFound = true;
+                            else
+                                aus.deleteCharAt(i);
+                        }
+                    }
+                    newValue = aus.toString();
+                    weightField.setText(newValue);
+                }
+            }
+        });
+
         try{
             typeChoiceBox.setItems(types);
             restaurantName = (String) AdminClient.fromServer.readObject();
@@ -72,7 +144,7 @@ public class EditFoodBoxController extends FoodDetailsBox implements Initializab
             priceField.setText(food.getFoodPrice()+"");
             quantityField.setText(quantity+"");
             selectedFile = new File(food.getFoodImagePath());
-            selectedImageView.setImage(new Image(DataBase.imageAbsolutePath+selectedFile.getName()));
+            selectedImageView.setImage(new Image(food.getFoodImagePath()));
             selectedImageLabel.setVisible(false);
             alert = new Alert(AlertType.INFORMATION);
             alert.setHeaderText(null);

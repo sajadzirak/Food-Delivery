@@ -8,6 +8,10 @@ import java.util.ArrayList;
 
 public class DataBase {
     
+    public static String adminFxmlLoaderPath = "../../resources/view/admin/";
+    public static String adminViewPath = "../../../resources/view/admin/";
+    public static String userFxmlLoaderPath = "../../resources/view/user/";
+    public static String userViewPath = "../../../resources/view/user/";
     public static String filePath = "src/resources/files/";
     public static String imageAbsolutePath = "file:/home/sajad/A/java/myProjects/restaurantManagement/src/DB/images/";
     private ArrayList<Restaurant> restaurantList;
@@ -127,7 +131,6 @@ public class DataBase {
         index = findRestaurant(restaurantName);
         if(index != -1){
             restaurant = restaurantList.get(index);
-            System.out.println("add food invoked");
             if(restaurant.getFoodList().contains(food)){
                 return false;
             }
@@ -145,20 +148,14 @@ public class DataBase {
         int index;
 
         index = findRestaurant(restaurantName);
-        System.out.println("set quantity invoked");
         if(index != -1 && quantity > 0){
-            System.out.println("1");
             restaurant = restaurantList.get(index);
-            System.out.println("2");
             if(restaurant.getFoodQuantity().containsKey(food)){
-                System.out.println("3");
                 restaurant.getFoodQuantity().replace(food, quantity);
-                System.out.println("4");
                 result = true;
             }
             else{
                 restaurant.getFoodQuantity().put(food, quantity);
-                System.out.println("5");
                 result = true;
             }
         }

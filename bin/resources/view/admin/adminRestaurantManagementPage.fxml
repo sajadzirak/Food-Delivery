@@ -10,12 +10,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.TilePane?>
 
-<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="adminPanel.AdminRestaurantManagementPageController">
+<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.adminPanel.controllers.AdminRestaurantManagementPageController">
    <top>
       <HBox fx:id="topMenu" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <Label fx:id="titleLabel" text="Restaurant Management" />
-            <Button fx:id="addRestaurantButton" mnemonicParsing="false" onAction="#addRestaurantButtonClicked" prefHeight="42.0" prefWidth="120.0" text="Add Restaurant">
+            <Button fx:id="addRestaurantButton" mnemonicParsing="false" onAction="#addRestaurantButtonClicked" prefHeight="42.0" prefWidth="169.0" text="Add Restaurant">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -24,8 +24,9 @@
       </HBox>
    </top>
    <stylesheets>
-      <URL value="@adminRestaurantManagementPageStyle.css" />
-      <URL value="@../styles/variables.css" />
+      <URL value="@../../styles/adminRestaurantManagementPageStyle.css" />
+      <URL value="@../../styles/variables.css" />
+      <URL value="@../../styles/generalStyle.css" />
    </stylesheets>
    <center>
       <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">

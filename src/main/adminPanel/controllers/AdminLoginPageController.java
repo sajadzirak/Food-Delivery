@@ -1,61 +1,76 @@
 package main.adminPanel.controllers;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import main.adminPanel.AdminClient;
+import main.server.DataBase;
 
-public class AdminLoginPageController {
+public class AdminLoginPageController implements Initializable{
 
-    public PasswordField passwordField;
-    public Label reportLabel;
-    
-    public void loginButtonClicked() throws UnknownHostException, IOException, ClassNotFoundException{
+    private Alert alert;
+
+    @FXML
+    private AnchorPane background;
+
+    @FXML
+    private VBox container;
+
+    @FXML
+    private Button loginButton;
+
+    @FXML
+    private Label loginLabel;
+
+    @FXML
+    private PasswordField passwordField;
+
+    @FXML
+    void loginButtonClicked(ActionEvent event) throws IOException, ClassNotFoundException {
         String password = passwordField.getText();
         String request = "Login Admin";
-        String respond;
-        Alert alert;
+        boolean respond;
 
         if(password.length() != 0){
-            // Socket socket = new Socket("127.0.0.1", 8000);
-            // ObjectOutputStream toServer = new ObjectOutputStream(socket.getOutputStream());
-            // ObjectInputStream fromServer = new ObjectInputStream(socket.getInputStream());
             AdminClient.toServer.writeObject(request);
-            AdminClient.toServer.flush();
             AdminClient.toServer.writeObject(password);
-            AdminClient.toServer.flush();
-            respond = (String) AdminClient.fromServer.readObject();
-            if(respond.equals("true")){
+            respond = (Boolean) AdminClient.fromServer.readObject();
+            if(respond){
                 AdminClient.window.close();
-                Parent root = FXMLLoader.load(getClass().getResource("adminMainPage.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource(DataBase.adminViewPath+"adminMainPage.fxml"));
                 AdminClient.window.setTitle("Admin Panel");
                 AdminClient.window.setScene(new Scene(root, 1280, 720));
                 AdminClient.window.show();
             }
             else{
-                alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Error message");
-                alert.setHeaderText(null);
                 alert.setContentText("Wrong password!");
                 alert.showAndWait();
             }
-            // socket.close();
         }
         else{
-            alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error message");
-            alert.setHeaderText(null);
             alert.setContentText("enter a password");
             alert.showAndWait(); 
         }
+    }
+    
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error message");
+        alert.setHeaderText(null);
     }
 }

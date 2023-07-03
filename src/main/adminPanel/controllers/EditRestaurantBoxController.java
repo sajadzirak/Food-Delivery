@@ -3,16 +3,16 @@ package main.adminPanel.controllers;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ResourceBundle;
 
 import main.adminPanel.AdminClient;
 import main.adminPanel.others.RestaurantDetailsBox;
-import main.adminPanel.others.RestaurantTile;
 import main.classes.Restaurant;
+import main.classes.methods;
 import main.classes.Restaurant.restaurantType;
-import main.server.DataBase;
 
-import java.util.ResourceBundle;
-
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,12 +28,28 @@ public class EditRestaurantBoxController extends RestaurantDetailsBox implements
 
     @FXML
     void confirmButtonClicked(ActionEvent event) throws IOException, ClassNotFoundException {
-        boolean checkAnswer, respond;
+        boolean checkEmptyFields, respond;
         String request = "Edit Restaurant";
-        checkAnswer = checkItems();
-        if(checkAnswer){
+        checkEmptyFields = methods.checkForEmptyTextField(restaurantNameTextField, 
+        outdoorRadioButton.isSelected()?deliveryNumberTextField:chairNumberTextField, addressTextField);
+        if(!checkEmptyFields) {
+            alert.setAlertType(AlertType.ERROR);
+            alert.setContentText("Please fill all the fields!!");
+            alert.showAndWait();
+        }
+        else if(typeChoiceBox.getValue() == null) {
+            alert.setAlertType(AlertType.ERROR);
+            alert.setContentText("Please select a type!!");
+            alert.showAndWait();
+        }
+        else if(selectedImageView.getImage() == null) {
+            alert.setAlertType(AlertType.ERROR);
+            alert.setContentText("Please select an image!!");
+            alert.showAndWait();
+        }
+        else {
             Restaurant newRestaurant;
-            File f = new File("file:"+selectedFile.getAbsolutePath());
+            File f = new File(selectedFile.getAbsolutePath());
             newRestaurant = new Restaurant(restaurantNameTextField.getText(), addressTextField.getText(), 
             restaurantType.valueOf(typeChoiceBox.getValue()), restaurant.getFoodList(), restaurant.getFoodQuantity(), outdoorRadioButton.isSelected(), 
             f.toURI().toString(), outdoorRadioButton.isSelected()?0:Integer.parseInt(chairNumberTextField.getText()), 
@@ -43,20 +59,15 @@ public class EditRestaurantBoxController extends RestaurantDetailsBox implements
             AdminClient.toServer.writeObject(newRestaurant);
             respond = (boolean)AdminClient.fromServer.readObject();
             if(respond){
-                alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle("Editing restaurant");
-                alert.setHeaderText(null);
+                alert.setAlertType(AlertType.INFORMATION);
                 alert.setContentText("Restaurant edited succesfully!");
                 alert.showAndWait();
                 Stage window = (Stage) confirmButton.getScene().getWindow();
                 window.close();
-    
             }
             else{
-                alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Editing restaurant");
-                alert.setHeaderText(null);
-                alert.setContentText("something went wrong!\nmaybe the restaurant already exists");
+                alert.setAlertType(AlertType.ERROR);
+                alert.setContentText("something went wrong!!");
                 alert.showAndWait();
             }
         }
@@ -64,6 +75,29 @@ public class EditRestaurantBoxController extends RestaurantDetailsBox implements
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        alert = new Alert(AlertType.ERROR);
+        alert.setHeaderText(null);
+        alert.setTitle("Editing restaurant");
+        chairNumberTextField.textProperty().addListener(new ChangeListener<String>() {
+        @Override
+        public void changed(ObservableValue<? extends String> observable, String oldValue, 
+            String newValue) {
+            if (!newValue.matches("\\d*")) {
+                chairNumberTextField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        }
+        });
+        deliveryNumberTextField.textProperty().addListener(new ChangeListener<String>() {
+        @Override
+        public void changed(ObservableValue<? extends String> observable, String oldValue, 
+            String newValue) {
+            if (!newValue.matches("\\d*")) {
+                deliveryNumberTextField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        }
+        });
+
         try{
             typeChoiceBox.setItems(types);
             restaurant = (Restaurant)AdminClient.fromServer.readObject();
@@ -80,9 +114,8 @@ public class EditRestaurantBoxController extends RestaurantDetailsBox implements
                 chairNumberTextField.setText(String.valueOf(restaurant.getChairNumber()));
             }
             addressTextField.setText(restaurant.getRestaurantAddress());
-            // File file = new File(restaurant.getRestaurantImagePath());
             selectedFile = new File(restaurant.getRestaurantImagePath());
-            selectedImageView.setImage(new Image(DataBase.imageAbsolutePath+selectedFile.getName()));
+            selectedImageView.setImage(new Image(restaurant.getRestaurantImagePath()));
             selectedImageLabel.setVisible(false);
         }catch(Exception e){
             e.printStackTrace();

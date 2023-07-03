@@ -1,43 +1,18 @@
 #loginLabel, #signupLabel{
-    -fx-text-fill: -fx-dark;
     -fx-font-weight: 900;
     -fx-font-size: 35px;
-    -fx-font-family: Ubuntu;
 }
 
 #background{
-    -fx-background-image: url("../DB/images/pexels-pixabay-326278.jpg");
+    -fx-background-image: url("../images/pexels-pixabay-326278.jpg");
     -fx-background-size: cover;
 }
 
 #container{
-    -fx-background-color: -fx-very-pale-blue;
+    -fx-background-color: -fx-pale-green;
     -fx-border-radius: 20;
     -fx-background-radius: 20;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.275), 20, 0, 0, 0);
     -fx-padding: 15px;
     -fx-spacing: 35;
-}
-
-.button{
-    -fx-font-size: 20;
-    -fx-font-family: Ubuntu;
-    -fx-text-fill: #fff;
-    -fx-border-radius: 20;
-    -fx-background-radius: 20;
-    -fx-background-color: -fx-red;
-    -fx-effect: dropshadow(three-pass-box, -fx-grey, 15, 0, 3, 3);
-}
-
-.button:hover{
-    -fx-background-color: -fx-red-hover;
-}
-
-.textField{
-    -fx-background-color: #fff;
-    -fx-effect: dropshadow(three-pass-box, -fx-grey, 12, 0, 3, 3);
-    -fx-border: 1px;
-    -fx-border-radius: 20;
-    -fx-background-radius: 20;
-    -fx-margin: 0 50;
 }

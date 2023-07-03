@@ -4,6 +4,14 @@
 		{
 			"vmArgs": "--module-path \"/home/sajad/A/java/javafx/dependencies/openjfx-20.0.1_linux-x64_bin-sdk/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml",
 			"type": "java",
+			"name": "UserClient",
+			"request": "launch",
+			"mainClass": "main.userPanel.UserClient",
+			"projectName": "restaurantManagement_38d85a9b"
+		},
+		{
+			"vmArgs": "--module-path \"/home/sajad/A/java/javafx/dependencies/openjfx-20.0.1_linux-x64_bin-sdk/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml",
+			"type": "java",
 			"name": "AdminClient",
 			"request": "launch",
 			"mainClass": "main.adminPanel.AdminClient",

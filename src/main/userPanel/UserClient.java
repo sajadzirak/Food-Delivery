@@ -4,6 +4,7 @@ import main.classes.User;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+
 import main.server.Server;
 
 import javafx.application.Application;
@@ -42,7 +43,7 @@ public class UserClient extends Application{
 
             }
         );
-        Parent root = FXMLLoader.load(getClass().getResource("userLoginPage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../../resources/view/user/userLoginPage.fxml"));
         window.setTitle("User Panel");
         window.setScene(new Scene(root, 1280, 720));
         window.show();

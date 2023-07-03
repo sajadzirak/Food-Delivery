@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane fx:id="mainAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="494.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="adminPanel.AddRestaurantBoxController">
+<AnchorPane fx:id="mainAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="494.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.adminPanel.controllers.AddRestaurantBoxController">
    <children>
       <GridPane fx:id="mainGrid" layoutX="21.0" layoutY="38.0" prefHeight="579.0" prefWidth="452.0">
         <columnConstraints>
@@ -60,7 +60,7 @@
             <Label text="Image:" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
             <AnchorPane prefHeight="185.0" prefWidth="291.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <children>
-                  <Button fx:id="selectImageButton" layoutX="163.0" layoutY="173.0" mnemonicParsing="false" onAction="#selectImageButtonClicked" prefHeight="37.0" prefWidth="114.0" text="Select Image">
+                  <Button fx:id="selectImageButton" layoutX="143.0" layoutY="173.0" mnemonicParsing="false" onAction="#selectImageButtonClicked" prefHeight="37.0" prefWidth="134.0" text="Select Image">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -76,15 +76,15 @@
             </TextField>
          </children>
       </GridPane>
-      <Button fx:id="confirmButton" layoutX="326.0" layoutY="645.0" mnemonicParsing="false" onAction="#confirmButtonClicked" prefHeight="37.0" prefWidth="114.0" text="Confirm">
+      <Button fx:id="confirmButton" layoutX="306.0" layoutY="645.0" mnemonicParsing="false" onAction="#confirmButtonClicked" prefHeight="37.0" prefWidth="134.0" text="Confirm">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Label fx:id="reportLabel" layoutX="46.0" layoutY="649.0" prefHeight="30.0" prefWidth="260.0" />
    </children>
    <stylesheets>
-      <URL value="@addRestaurantBoxStyle.css" />
-      <URL value="@../styles/variables.css" />
+      <URL value="@../../styles/addRestaurantBoxStyle.css" />
+      <URL value="@../../styles/variables.css" />
+      <URL value="@../../styles/generalStyle.css" />
    </stylesheets>
 </AnchorPane>

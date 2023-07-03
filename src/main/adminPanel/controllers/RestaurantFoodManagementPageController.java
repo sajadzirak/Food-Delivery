@@ -9,6 +9,7 @@ import main.adminPanel.AdminClient;
 import main.classes.Food;
 import main.classes.Restaurant;
 import main.classes.methods;
+import main.server.DataBase;
 import main.userPanel.UserClient;
 
 import java.util.ResourceBundle;
@@ -32,7 +33,6 @@ public class RestaurantFoodManagementPageController implements Initializable {
 
     public static Restaurant restaurant;
     private Stage addBox;
-    public static Stage addBoxCopy;
 
     @FXML
     private Button addFoodButton;
@@ -56,14 +56,12 @@ public class RestaurantFoodManagementPageController implements Initializable {
     @FXML
     void addFoodButtonClicked(ActionEvent event) throws IOException, ClassNotFoundException {
         addBox = new Stage();
-        addBoxCopy = addBox;
-        Parent root = FXMLLoader.load(getClass().getResource("addFoodBox.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource(DataBase.adminViewPath+"addFoodBox.fxml"));
         addBox.setScene(new Scene(root));
         addBox.setTitle("Add Food");
         addBox.initModality(Modality.APPLICATION_MODAL);
         addBox.showAndWait();
         methods.addFoodsToTilePane(centerTilePane, restaurant, 'A', AdminClient.toServer, AdminClient.fromServer);
-        // addFoodsToTilePane(centerTilePane, adminClient.toServer, adminClient.fromServer);
     }
     
     @Override
@@ -71,7 +69,6 @@ public class RestaurantFoodManagementPageController implements Initializable {
         try{
             centerTilePaneCopy = centerTilePane;
             restaurant = (Restaurant)AdminClient.fromServer.readObject();
-            // addFoodsToTilePane(centerTilePane, adminClient.toServer, adminClient.fromServer);
             methods.addFoodsToTilePane(centerTilePane, restaurant, 'A', AdminClient.toServer, AdminClient.fromServer);
         }catch(Exception e){
             e.printStackTrace();

@@ -1,24 +1,3 @@
-/* #logoLabel{
-    -fx-background-image: url("../DB/images/logo.png");
-    -fx-background-size: 65px;
-}
-
-#mainAnchorPane{
-    -fx-background-color: rgba(34, 38, 46, 0.935);
-} */
-
-/* #leftMenu{
-    -fx-background-color: rgb(27, 32, 40);
-    -fx-border-radius: 0 10 10 0;
-    -fx-background-radius: 0 10 10 0;
-    -fx-padding: 10px;
-}
-
-#restaurantsLabel{
-    -fx-background-image: url("../DB/images/restaurant-256.png");
-    -fx-background-size: 100%;
-} */
-
 #scrollPane{
     -fx-background-color: transparent;
 }
@@ -28,57 +7,21 @@
  }
 
 #mainBorderPane{
-    -fx-background-color: -fx-very-pale-blue;
+    -fx-background-color: -fx-pale-green;
 }
 
 #topMenu{
     -fx-padding: 20px;
-    -fx-background-color: -fx-very-pale-blue;
+    -fx-background-color: -fx-pale-green;
     -fx-spacing: 60px;
 }
-
-.button{
-    -fx-border-radius: 20;
-    -fx-background-radius: 20;
-    -fx-background-color: -fx-red;
-    -fx-text-fill: #fff;
-    -fx-effect: dropshadow(three-pass-box, -fx-grey, 8, 0, 3, 3);
-}
-
-.button:hover{
-    -fx-background-color: -fx-red-hover;
-}
-
-/* #addRestaurantButton{
-    -fx-border-radius: 20;
-    -fx-background-radius: 20;
-    -fx-background-color: -fx-red;
-    -fx-text-fill: #fff;
-    -fx-effect: dropshadow(three-pass-box, -fx-grey, 8, 0, 3, 3);
-}
-
-#addRestaurantButton:hover{
-    -fx-background-color: -fx-red-hover;
-} */
 
 #centerPane{
     -fx-background-color: -fx-cream;
     -fx-padding: 50px;
 }
 
-#restaurantsIcon{
-    -fx-background-image: url("../DB/images/hiclipart.com.png");
-    -fx-background-size: 80px;
-}
-
-#restaurantsTextLabel{
-    -fx-text-fill: #fff;
-    -fx-font-size: 12px;
-}
-
 #titleLabel{
-    -fx-text-fill: -fx-dark;
-    -fx-font-family: Ubuntu;
     -fx-font-weight: 900;
     -fx-font-size: 28px;
 }

@@ -1,0 +1,22 @@
+#nameLabel {
+    -fx-font-weight:700;
+}
+
+#typeLabel {
+    -fx-font-weight:500;
+}
+
+#layout {
+    -fx-border-radius:20;
+    -fx-background-radius:20;
+    -fx-margin:10px;
+    -fx-background-color: -fx-cream;
+    -fx-padding: 10px;
+}
+
+#tile {
+    -fx-border-radius:20;
+    -fx-background-radius:20;
+    -fx-margin:10px;
+    -fx-effect: dropshadow(three-pass-box, -fx-grey, 8, 0, 3, 3);
+}
