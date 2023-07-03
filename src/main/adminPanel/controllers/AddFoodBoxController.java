@@ -89,20 +89,23 @@ public class AddFoodBoxController extends FoodDetailsBox implements Initializabl
         priceField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("[0-9](\\.[0-9]*)?")) {
-                    priceField.setText(newValue.replaceAll("[^\\d.]", ""));
-                    StringBuilder aus = new StringBuilder(newValue);
-                    boolean firstPointFound = false;
-                    for (int i = 0; i < aus.length(); i++){
-                        if(aus.charAt(i) == '.') {
-                            if(!firstPointFound)
-                                firstPointFound = true;
-                            else
-                                aus.deleteCharAt(i);
+                if(newValue.length() > 0) {
+                    if (!newValue.matches("[0-9](\\.[0-9]*)?")) {
+                        priceField.setText(newValue.replaceAll("[^\\d.]", ""));
+                        StringBuilder aus = new StringBuilder(newValue);
+                        boolean firstPointFound = false;
+                        for (int i = 0; i < aus.length(); i++){
+                            if(aus.charAt(i) == '.') {
+                                if(!firstPointFound)
+                                    firstPointFound = true;
+                                else
+                                    aus.deleteCharAt(i);
+                            }
                         }
+                        newValue = aus.toString();
+                        if (newValue.matches("[0-9](\\.[0-9]*)?"))
+                            priceField.setText(newValue);
                     }
-                    newValue = aus.toString();
-                    priceField.setText(newValue);
                 }
             }
         });
@@ -110,20 +113,23 @@ public class AddFoodBoxController extends FoodDetailsBox implements Initializabl
         weightField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("[0-9](\\.[0-9]*)?")) {
-                    weightField.setText(newValue.replaceAll("[^\\d.]", ""));
-                    StringBuilder aus = new StringBuilder(newValue);
-                    boolean firstPointFound = false;
-                    for (int i = 0; i < aus.length(); i++){
-                        if(aus.charAt(i) == '.') {
-                            if(!firstPointFound)
-                                firstPointFound = true;
-                            else
-                                aus.deleteCharAt(i);
+                if(newValue.length() > 0) {
+                    if (!newValue.matches("[0-9](\\.[0-9]*)?")) {
+                        weightField.setText(newValue.replaceAll("[^\\d.]", ""));
+                        StringBuilder aus = new StringBuilder(newValue);
+                        boolean firstPointFound = false;
+                        for (int i = 0; i < aus.length(); i++){
+                            if(aus.charAt(i) == '.') {
+                                if(!firstPointFound)
+                                    firstPointFound = true;
+                                else
+                                    aus.deleteCharAt(i);
+                            }
                         }
+                        newValue = aus.toString();
+                        if (newValue.matches("[0-9](\\.[0-9]*)?"))
+                            weightField.setText(newValue);
                     }
-                    newValue = aus.toString();
-                    weightField.setText(newValue);
                 }
             }
         });

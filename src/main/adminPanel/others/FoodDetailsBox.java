@@ -12,7 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
-public abstract class FoodDetailsBox extends DetailsBox{
+public class FoodDetailsBox extends DetailsBox{
     
     protected ObservableList<String> types = FXCollections.observableArrayList("fastfood", "Iranian", "Chinese", "Italian");
     protected Alert alert;

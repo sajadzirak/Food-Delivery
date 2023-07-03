@@ -128,6 +128,7 @@ public class RequestHandler {
         name = (String) fromClient.readObject();
         int index;
         index = Server.db.findRestaurant(name);
+        System.out.println(Server.db.getRestaurantList().get(index).getFoodList());
         toClient.writeObject(Server.db.getRestaurantList().get(index));
     }
     

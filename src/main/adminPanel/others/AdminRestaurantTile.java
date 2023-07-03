@@ -19,7 +19,7 @@ import javafx.scene.layout.BorderPane;
 public class AdminRestaurantTile extends AdminTile {
 
     private Alert alert;
-    public static Restaurant restaurant;
+    private Restaurant restaurant;
     private Button disableButton;
 
     public AdminRestaurantTile(Restaurant r) {

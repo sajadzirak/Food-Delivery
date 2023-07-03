@@ -64,6 +64,7 @@ public class RestaurantFoodManagementPageController implements Initializable {
         try{
             centerTilePaneCopy = centerTilePane;
             restaurant = (Restaurant)AdminClient.fromServer.readObject();
+            System.out.println(restaurant.getFoodList());
             methods.addFoodsToTilePane(centerTilePane, restaurant, 'A', AdminClient.toServer, AdminClient.fromServer);
         }catch(Exception e){
             e.printStackTrace();

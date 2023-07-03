@@ -100,6 +100,7 @@ public class EditRestaurantBoxController extends RestaurantDetailsBox implements
         try{
             typeChoiceBox.setItems(types);
             restaurant = (Restaurant)AdminClient.fromServer.readObject();
+            System.out.println(restaurant.getFoodList());
             previousName = restaurant.getName();
             restaurantNameTextField.setText(restaurant.getName());
             if(restaurant.isOutdoor()) {

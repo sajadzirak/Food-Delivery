@@ -131,20 +131,23 @@ public class PaymentPageController implements Initializable{
         moneyField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("[0-9](\\.[0-9]*)?")) {
-                    moneyField.setText(newValue.replaceAll("[^\\d.]", ""));
-                    StringBuilder aus = new StringBuilder(newValue);
-                    boolean firstPointFound = false;
-                    for (int i = 0; i < aus.length(); i++){
-                        if(aus.charAt(i) == '.') {
-                            if(!firstPointFound)
-                                firstPointFound = true;
-                            else
-                                aus.deleteCharAt(i);
+                if(newValue.length() > 0) {
+                    if (!newValue.matches("[0-9](\\.[0-9]*)?")) {
+                        moneyField.setText(newValue.replaceAll("[^\\d.]", ""));
+                        StringBuilder aus = new StringBuilder(newValue);
+                        boolean firstPointFound = false;
+                        for (int i = 0; i < aus.length(); i++){
+                            if(aus.charAt(i) == '.') {
+                                if(!firstPointFound)
+                                    firstPointFound = true;
+                                else
+                                    aus.deleteCharAt(i);
+                            }
                         }
+                        newValue = aus.toString();
+                        if (newValue.matches("[0-9](\\.[0-9]*)?"))
+                            moneyField.setText(newValue);
                     }
-                    newValue = aus.toString();
-                    moneyField.setText(newValue);
                 }
             }
         });

@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-public abstract class UserTile extends AnchorPane{
+public class UserTile extends AnchorPane{
     protected VBox layout;
     protected ImageView imageView;
     protected Label nameLabel, typeLabel, imageLabel;
