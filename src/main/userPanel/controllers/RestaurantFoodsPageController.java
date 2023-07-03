@@ -1,13 +1,9 @@
 package main.userPanel.controllers;
 
-import main.classes.Food;
 import main.classes.Restaurant;
 import main.classes.methods;
 import main.userPanel.UserClient;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userPanel.UserProfilePageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.userPanel.controllers.UserProfilePageController">
    <children>
       <AnchorPane fx:id="mainContainer" layoutX="31.0" layoutY="25.0" prefHeight="671.0" prefWidth="1118.0" styleClass="container" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="25.0">
          <children>
@@ -19,7 +19,7 @@
                <children>
                   <ImageView fitHeight="128.0" fitWidth="135.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../DB/images/user(2).png" />
+                        <Image url="@../../images/user(2).png" />
                      </image>
                   </ImageView>
                   <Label fx:id="usernameLabel" />
@@ -41,14 +41,14 @@
                <children>
                   <Label text="Balance :" />
                   <Label fx:id="balanceLabel" />
-                  <Button mnemonicParsing="false" onAction="#paymentButtonClicked" prefHeight="41.0" prefWidth="96.0" text="payment">
+                  <Button mnemonicParsing="false" onAction="#paymentButtonClicked" prefHeight="41.0" prefWidth="110.0" text="payment">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
                </children>
             </HBox>
-            <Button fx:id="signOutButton" layoutX="785.0" layoutY="513.0" mnemonicParsing="false" onAction="#signOutButtonClicked" prefHeight="46.0" prefWidth="161.0" text="Sign Out">
+            <Button fx:id="signOutButton" layoutX="792.0" layoutY="513.0" mnemonicParsing="false" onAction="#signOutButtonClicked" prefHeight="46.0" prefWidth="161.0" text="Sign Out">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -57,7 +57,8 @@
       </AnchorPane>
    </children>
    <stylesheets>
-      <URL value="@../styles/variables.css" />
-      <URL value="@../styles/userProfilePageStyle.css" />
+      <URL value="@../../styles/generalStyle.css" />
+      <URL value="@../../styles/variables.css" />
+      <URL value="@../../styles/userProfilePageStyle.css" />
    </stylesheets>
 </AnchorPane>

@@ -1,12 +1,8 @@
 package main.userPanel.controllers;
 
-import main.classes.Restaurant;
+import main.classes.methods;
 import main.userPanel.UserClient;
-import main.userPanel.others.UserRestaurantTile;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -37,20 +33,9 @@ public class UserRestaurantsPageController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try{
-            addRestaurantsToTilePane(centerTilePane, UserClient.toServer, UserClient.fromServer);
+            methods.addRestaurantsToTilePane(centerTilePane, 'U', UserClient.toServer, UserClient.fromServer);
         }catch(Exception e){
             e.printStackTrace();
-        }
-    }
-
-    private static void addRestaurantsToTilePane(TilePane pane, ObjectOutputStream toServer, ObjectInputStream fromServer) throws IOException, ClassNotFoundException{
-        int size;
-        String request = "Get Restaurants";
-        toServer.writeObject(request);
-        pane.getChildren().clear();
-        size = (Integer)fromServer.readObject();
-        for(int i = 0; i < size; i++){
-            pane.getChildren().add(new UserRestaurantTile((Restaurant)fromServer.readObject()));
         }
     }
     

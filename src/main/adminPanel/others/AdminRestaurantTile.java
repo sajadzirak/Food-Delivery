@@ -1,14 +1,11 @@
 package main.adminPanel.others;
 
 import java.io.IOException;
-
 import main.adminPanel.AdminClient;
 import main.adminPanel.controllers.AdminRestaurantManagementPageController;
-import main.adminPanel.controllers.AdminMainPageController;
 import main.classes.FxmlLoader;
 import main.classes.Restaurant;
 import main.server.DataBase;
-
 import java.util.Optional;
 
 import javafx.scene.Cursor;
@@ -28,7 +25,6 @@ public class AdminRestaurantTile extends AdminTile {
     public AdminRestaurantTile(Restaurant r) {
         super();
         restaurant = r;
-        // File file = new File(restaurant.getRestaurantImagePath());
         disableButton = new Button("Disable");
         buttonBox.getChildren().add(disableButton);
         disableButton.setCursor(Cursor.HAND);
@@ -40,8 +36,6 @@ public class AdminRestaurantTile extends AdminTile {
                         AdminClient.toServer.writeObject(restaurant.getName());
                         BorderPane pane = (BorderPane)super.getParent().getParent().getParent().getParent().getParent().getParent();
                         pane.setCenter(new FxmlLoader().getPage(DataBase.adminFxmlLoaderPath+"restaurantFoodManagementPage.fxml"));
-                        // AdminMainPageController.mainPaneCopy
-                        //         .setCenter(new FxmlLoader().getPage("restaurantFoodManagementPage.fxml"));
                     } catch (Exception e1) {
                         e1.printStackTrace();
                     }
@@ -82,7 +76,6 @@ public class AdminRestaurantTile extends AdminTile {
                     }
 
                 });
-        // imageView.setImage(new Image(DataBase.imageAbsolutePath + file.getName()));
         imageView.setImage(new Image(restaurant.getRestaurantImagePath()));
         this.setOnMouseClicked(
                 e -> {
@@ -114,13 +107,4 @@ public class AdminRestaurantTile extends AdminTile {
         }
         AdminClient.toServer.writeObject(status);
     }
-
-    // private void editButtonClicked() throws IOException {
-    //     editBox = new Stage();
-    //     Parent root = FXMLLoader.load(getClass().getResource("editRestaurantBox.fxml"));
-    //     editBox.setScene(new Scene(root));
-    //     editBox.setTitle("Edit Restaurant");
-    //     editBox.initModality(Modality.APPLICATION_MODAL);
-    //     editBox.showAndWait();
-    // }
 }

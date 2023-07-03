@@ -1,7 +1,6 @@
 package main.userPanel.controllers;
 
-import main.classes.Order;
-import main.classes.User;
+import main.server.DataBase;
 import main.userPanel.UserClient;
 import main.userPanel.others.OrderTile;
 
@@ -21,7 +20,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
@@ -59,7 +57,7 @@ public class cartPageController implements Initializable{
     @FXML
     void cahrgeButtonClicked(ActionEvent event) throws IOException {
         paymentStage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("paymentPage.fxml")); 
+        Parent root = FXMLLoader.load(getClass().getResource(DataBase.userViewPath+"paymentPage.fxml")); 
         paymentStage.setScene(new Scene(root));
         paymentStage.setTitle("payment page");
         paymentStage.initModality(Modality.APPLICATION_MODAL);

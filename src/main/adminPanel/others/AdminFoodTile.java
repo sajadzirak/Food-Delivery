@@ -16,7 +16,6 @@ public class AdminFoodTile extends AdminTile{
         food = f;
         this.quantity = quantity;
         this.restaurantName = restaurantName;
-        // File file = new File(food.getFoodImagePath());
         imageView.setImage(new Image(food.getFoodImagePath()));
         nameLabel.setText(food.getFoodName());
         typeLabel.setText(food.getFoodType().name());

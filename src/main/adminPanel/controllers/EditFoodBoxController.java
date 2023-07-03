@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import main.adminPanel.AdminClient;
 import main.adminPanel.others.FoodDetailsBox;
 import main.classes.Food;

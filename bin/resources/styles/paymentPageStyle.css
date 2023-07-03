@@ -1,22 +1,5 @@
-.root {
-    -fx-font-family: Ubuntu;
-}
-
 #mainAnchor {
-    -fx-background-color: -fx-very-pale-blue;
-}
-
-.label {
-    -fx-text-fill: -fx-dark;
-    -fx-font-size: 16px;
-}
-
-.textField {
-    -fx-background-color: #fff;
-    -fx-effect: dropshadow(three-pass-box, -fx-grey, 10, 0, 3, 3);
-    -fx-border: 1px;
-    -fx-border-radius: 20;
-    -fx-background-radius: 20;
+    -fx-background-color: -fx-pale-green;
 }
 
 .container{
@@ -25,18 +8,6 @@
     -fx-border-radius: 20;
     -fx-background-radius: 20;
     -fx-effect: dropshadow(three-pass-box, -fx-grey, 5, 0, 3, 3);
-}
-
-.button {
-    -fx-border-radius: 20;
-    -fx-background-radius: 20;
-    -fx-text-fill: #fff;
-    -fx-font-size: 20px;
-    -fx-background-color: -fx-red;
-}
-
-.button:hover {
-    -fx-background-color: -fx-red-hover;
 }
 
 #payButton {

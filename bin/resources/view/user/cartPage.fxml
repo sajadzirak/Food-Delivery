@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.TilePane?>
 
-<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userPanel.cartPageController">
+<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.userPanel.controllers.cartPageController">
    <center>
       <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <content>
@@ -23,8 +23,9 @@
       </ScrollPane>
    </center>
    <stylesheets>
-      <URL value="@../styles/variables.css" />
-      <URL value="@../styles/restaurantFoodsPageStyle.css" />
+      <URL value="@../../styles/variables.css" />
+      <URL value="@../../styles/restaurantFoodsPageStyle.css" />
+      <URL value="@../../styles/generalStyle.css" />
    </stylesheets>
    <top>
       <AnchorPane prefHeight="100.0" prefWidth="1180.0" BorderPane.alignment="CENTER">

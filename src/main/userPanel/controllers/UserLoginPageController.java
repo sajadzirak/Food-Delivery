@@ -55,7 +55,7 @@ public class UserLoginPageController {
         UserClient.toServer.writeObject(passwordField.getText());
         respond = (Boolean) UserClient.fromServer.readObject();
         if(respond){
-            Parent root = FXMLLoader.load(getClass().getResource("userMainPage.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(DataBase.userViewPath+"userMainPage.fxml"));
             UserClient.window.setScene(new Scene(root));
             UserClient.toServer.writeObject("Get User");
             UserClient.toServer.writeObject(usernameField.getText());

@@ -1,17 +1,11 @@
 package main.adminPanel.controllers;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.URL;
-
 import main.adminPanel.AdminClient;
-import main.classes.Food;
 import main.classes.Restaurant;
 import main.classes.methods;
 import main.server.DataBase;
-import main.userPanel.UserClient;
-
 import java.util.ResourceBundle;
 
 import javafx.fxml.Initializable;
@@ -75,18 +69,6 @@ public class RestaurantFoodManagementPageController implements Initializable {
         }
         titleLabel.setText(restaurant.getName());
     }
-
-    // private void addFoodsToTilePane(TilePane pane, ObjectOutputStream toServer, ObjectInputStream fromServer) throws IOException, ClassNotFoundException{
-    //     int size;
-    //     String request = "Get Foods";
-    //     toServer.writeObject(request);
-    //     toServer.writeObject(restaurant.getName());
-    //     pane.getChildren().clear();
-    //     size = (Integer)fromServer.readObject();
-    //     for(int i = 0; i < size; i++){
-    //         pane.getChildren().add(new FoodTile((Food) adminClient.fromServer.readObject()));
-    //     }
-    // }
     
     public static void refresh() throws ClassNotFoundException, IOException {
         methods.addFoodsToTilePane(centerTilePaneCopy, restaurant, 'A', AdminClient.toServer, AdminClient.fromServer);

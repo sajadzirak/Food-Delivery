@@ -6,33 +6,15 @@ AnchorPane{
     -fx-border-radius: 25;
     -fx-background-radius: 25;
     -fx-effect: dropshadow(three-pass-box, -fx-grey, 15, 0, 0, 0);
-    -fx-font-family: Ubuntu;
-    -fx-text-fill: -fx-dark;
 }
 
 #mainContainer{
-    -fx-background-color: -fx-very-pale-blue;;
+    -fx-background-color: -fx-pale-green;
 }
 
 #mainInfoContainer{
     -fx-background-color: -fx-cream;
     -fx-spacing: 40;
-}
-
-.button{
-    -fx-background-color: -fx-red;
-    -fx-text-fill: #fff;
-    -fx-border-radius: 25;
-    -fx-background-radius: 25;
-    -fx-font-size: 16px;
-}
-
-.button:hover{
-    -fx-background-color: -fx-red-hover;
-}
-
-.label{
-    -fx-font-size: 16px;
 }
 
 #phoneNumberLabel{

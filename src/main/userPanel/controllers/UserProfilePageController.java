@@ -20,6 +20,7 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.classes.FxmlLoader;
+import main.server.DataBase;
 import main.userPanel.UserClient;
 
 public class UserProfilePageController implements Initializable{
@@ -67,7 +68,7 @@ public class UserProfilePageController implements Initializable{
     @FXML
     void paymentButtonClicked(ActionEvent event) throws IOException {
         paymentStage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("paymentPage.fxml")); 
+        Parent root = FXMLLoader.load(getClass().getResource(DataBase.userViewPath+"paymentPage.fxml")); 
         paymentStage.setScene(new Scene(root));
         paymentStage.setTitle("payment page");
         paymentStage.initModality(Modality.APPLICATION_MODAL);
@@ -86,7 +87,8 @@ public class UserProfilePageController implements Initializable{
         usernameLabel.setText(UserClient.currentUser.getUsername());
         phoneNumberLabel.setText(UserClient.currentUser.getPhoneNumber());
         emailLabel.setText("email: "+UserClient.currentUser.getEmail());
-        addressTextFlow.getChildren().add(new Text("Address: "+UserClient.currentUser.getAddress()));
+        addressTextFlow.getChildren().clear();
+        addressTextFlow.getChildren().add(new Text("\nAddress: "+UserClient.currentUser.getAddress()));
         balanceLabel.setText("$ "+UserClient.currentUser.getBalance());
     }
     

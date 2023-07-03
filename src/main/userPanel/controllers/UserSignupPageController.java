@@ -84,7 +84,7 @@ public class UserSignupPageController implements Initializable{
             alert.showAndWait();
         }
         else if(!checkPasswordField()){
-            alert.setContentText("Password must include at least 4 characters!");
+            alert.setContentText("Password must include at least 6 characters!");
             alert.showAndWait();
         }
         else if(!checkPasswordConfirm()){
@@ -99,9 +99,9 @@ public class UserSignupPageController implements Initializable{
             respond = (Boolean) UserClient.fromServer.readObject();
             if(respond){
                 alert.setAlertType(AlertType.INFORMATION);
-                alert.setContentText("Signed uped successfully!");
+                alert.setContentText("Signed up successfully!");
                 alert.showAndWait();
-                Parent root = FXMLLoader.load(getClass().getResource("userLoginPage.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource(DataBase.userViewPath+"userLoginPage.fxml"));
                 UserClient.window.setScene(new Scene(root));
             }
             else{
@@ -123,11 +123,11 @@ public class UserSignupPageController implements Initializable{
     }
 
     private boolean checkPhoneNumberField(){
-        return Pattern.matches("[0-9]{5}", phoneNumberField.getText());
+        return Pattern.matches("[0-9]{11}", phoneNumberField.getText());
     }
 
     private boolean checkPasswordField(){
-        return passwordField.getText().length()>3?true:false;
+        return passwordField.getText().length()>2?true:false;
     }
 
     private boolean checkPasswordConfirm(){
@@ -138,7 +138,6 @@ public class UserSignupPageController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         alert = new Alert(AlertType.ERROR);
         alert.setHeaderText(null);
-        alert.setTitle("Error");
     }
 
 }

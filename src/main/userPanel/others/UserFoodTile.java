@@ -2,9 +2,8 @@ package main.userPanel.others;
 
 import main.classes.Food;
 import main.classes.Order;
-import java.io.File;
-import main.server.DataBase;
 import main.userPanel.UserClient;
+
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
@@ -22,10 +21,6 @@ public class UserFoodTile extends UserTile {
     private TextField quantityField;
     private Button plusButton, minusButton, addButton;
     private String restaurantName;
-    private String labelStyle = "-fx-font-family: Ubuntu;-fx-text-fill:#04030f;";
-    private String plusButtonStyle = "-fx-background-color: #f02;-fx-text-fill:#fff;";
-    private String radius = "-fx-border-radius:20;-fx-background-radius:20;";
-    private String shadow = "-fx-effect: dropshadow(three-pass-box, -fx-grey, 10, 0, 0, 0);";
 
     public UserFoodTile(Food f, int quantity, String restaurantName) {
         super();
@@ -33,26 +28,22 @@ public class UserFoodTile extends UserTile {
         this.quantity = quantity;
         this.restaurantName = restaurantName;
         quantityLabel = new Label("/"+quantity);
-        quantityLabel.setStyle(labelStyle);
-        File file = new File(food.getFoodImagePath());
-        imageView.setImage(new Image(DataBase.imageAbsolutePath+file.getName()));
+        // File file = new File(food.getFoodImagePath());
+        // imageView.setImage(new Image(DataBase.imageAbsolutePath+file.getName()));
+        imageView.setImage(new Image(food.getFoodImagePath()));
         nameLabel.setText(food.getFoodName());
         priceLabel = new Label("$ "+food.getFoodPrice());
-        priceLabel.setStyle(labelStyle+"-fx-font-weight: 600;-fx-font-size: 16px;");
         quantityField = new TextField();
         quantityField.setText("0");
         quantityField.setEditable(false);
-        quantityField.setStyle(radius+"-fx-background-color:#fff;"+shadow);
         quantityField.setPrefWidth(50);
+        quantityField.getStyleClass().add("textField");
         plusButton = new Button("+");
-        plusButton.setStyle(plusButtonStyle+shadow);
         plusButton.setCursor(Cursor.HAND);
         minusButton = new Button("-");
-        minusButton.setStyle(plusButtonStyle+shadow);
         minusButton.setCursor(Cursor.HAND);
         addButton = new Button("Add to cart");
         addButton.setDisable(true);
-        addButton.setStyle(plusButtonStyle+radius+shadow);
         addButton.setCursor(Cursor.HAND);
         hbox = new HBox(minusButton, plusButton, quantityField, quantityLabel, addButton);
         hbox.setSpacing(12);
@@ -94,7 +85,6 @@ public class UserFoodTile extends UserTile {
                 }
                 if(!exist)
                     UserClient.currentUser.getCart().addOrder(newOrder);
-                System.out.println(UserClient.currentUser.getCart().getOrders());
             }
         );
     }

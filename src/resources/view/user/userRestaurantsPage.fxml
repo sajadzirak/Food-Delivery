@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.TilePane?>
 
-<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userPanel.UserRestaurantsPageController">
+<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.userPanel.controllers.UserRestaurantsPageController">
    <top>
       <HBox fx:id="topMenu" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -17,8 +17,9 @@
       </HBox>
    </top>
    <stylesheets>
-      <URL value="@../adminPanel/adminRestaurantManagementPageStyle.css" />
-      <URL value="@../styles/variables.css" />
+      <URL value="@../../styles/adminRestaurantManagementPageStyle.css" />
+      <URL value="@../../styles/variables.css" />
+      <URL value="@../../styles/generalStyle.css" />
    </stylesheets>
    <center>
       <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">

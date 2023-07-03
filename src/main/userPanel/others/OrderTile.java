@@ -1,11 +1,8 @@
 package main.userPanel.others;
 
 import main.classes.Order;
-import java.io.File;
-import main.server.DataBase;
 import main.userPanel.UserClient;
 import main.userPanel.controllers.cartPageController;
-
 import java.util.Optional;
 
 import javafx.geometry.Pos;
@@ -39,8 +36,7 @@ public class OrderTile extends AnchorPane {
         imageView.setFitWidth(200);
         imageLabel = new Label();
         imageLabel.setGraphic(imageView);
-        File file = new File(order.getFood().getFoodImagePath());
-        imageView.setImage(new Image(DataBase.imageAbsolutePath+file.getName()));
+        imageView.setImage(new Image(order.getFood().getFoodImagePath()));
         foodNameLabel = new Label(order.getFood().getFoodName());
         restaurantNameLabel = new Label(order.getRestaurantName());
         quantityLabel = new Label("quantity: "+order.getQuantity());
@@ -56,7 +52,8 @@ public class OrderTile extends AnchorPane {
         layout.getStyleClass().add("layout");
         imageLabel.getStyleClass().add("imageLabel");
         foodNameLabel.getStyleClass().add("nameLabel");
-        this.getStylesheets().addAll("styles/variables.css", "styles/orderTileStyle.css");
+        this.getStylesheets().addAll("resources/styles/variables.css", "resources/styles/generalStyle.css", 
+        "resources/styles/orderTileStyle.css");
 
         cancelButton.setOnAction(
             e -> {

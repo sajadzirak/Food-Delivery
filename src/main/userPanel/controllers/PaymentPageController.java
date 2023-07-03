@@ -35,6 +35,9 @@ public class PaymentPageController implements Initializable{
     private RadioButton bank2;
 
     @FXML
+    private RadioButton bank3;
+
+    @FXML
     private ToggleGroup bankToggle;
 
     @FXML
@@ -71,29 +74,43 @@ public class PaymentPageController implements Initializable{
     void payButtonClicked(ActionEvent event) {
         alert = new Alert(AlertType.ERROR);
         alert.setHeaderText(null);
-        // if(!methods.checkForEmptyTextField(cardNumberField, cvv2Field, moneyField, monthField, passwordField, yearField)) {
-        //     alert.setContentText("Please fill all of the fields!");
-        //     alert.showAndWait();
-        // }
-        // else if(monthField.getText().length() != 2 || yearField.getText().length() != 2) {
-        //     alert.setContentText("Invalid month or year!!");
-        //     alert.showAndWait();
-        // }
-        // else if(cardNumberField.getText().length() != 19) {
-        //     alert.setContentText("Invalid card number!!");
-        //     alert.showAndWait();
-        // }
-        // else if(bankToggle.getSelectedToggle() == null) {
-        //     alert.setContentText("Please select a bank gate!!");
-        //     alert.showAndWait();
-        // }
-        // else
+        if(!methods.checkForEmptyTextField(cardNumberField, cvv2Field, moneyField, monthField, passwordField, yearField)) {
+            alert.setContentText("Please fill all of the fields!");
+            alert.showAndWait();
+        }
+        else if(monthField.getText().length() != 2 || yearField.getText().length() != 2) {
+            alert.setContentText("Invalid month or year!!");
+            alert.showAndWait();
+        }
+        else if(cardNumberField.getText().length() != 19) {
+            alert.setContentText("Invalid card number!!");
+            alert.showAndWait();
+        }
+        else if(bankToggle.getSelectedToggle() == null) {
+            alert.setContentText("Please select a bank gate!!");
+            alert.showAndWait();
+        }
+        else {
             if(bankToggle.getSelectedToggle() == bank2) {
                 tax = 0.05;
             }
-            UserClient.currentUser.setBalance(UserClient.currentUser.getBalance()+(Double.parseDouble(moneyField.getText())*(1-tax)));
-            Stage window = (Stage) payButton.getScene().getWindow();
-            window.close();
+            else {
+                tax = 0;
+            }
+            if(bankToggle.getSelectedToggle() == bank3 && Double.parseDouble(moneyField.getText()) < 50) {
+                alert.setAlertType(AlertType.ERROR);
+                alert.setContentText("you should at least pay $50 !!");
+                alert.showAndWait();
+            }
+            else {
+                UserClient.currentUser.setBalance(UserClient.currentUser.getBalance()+(Double.parseDouble(moneyField.getText())*(1-tax)));
+                alert.setAlertType(AlertType.INFORMATION);
+                alert.setContentText("Payment succeed!");
+                alert.showAndWait();
+                Stage window = (Stage) payButton.getScene().getWindow();
+                window.close();
+            }
+        }
     }
 
     @Override
@@ -105,8 +122,7 @@ public class PaymentPageController implements Initializable{
             new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent e) {
-                Button b = (Button) e.getSource();
-                Stage window = (Stage) b.getScene().getWindow();
+                Stage window = (Stage) cancelButton.getScene().getWindow();
                 window.close();
             }
         }
@@ -200,48 +216,5 @@ public class PaymentPageController implements Initializable{
                 }
         }
         });
-    
-        // cardNumberField.textProperty().addListener(new ChangeListener<String>() {
-        // @Override
-        // public void changed(ObservableValue<? extends String> observable, String oldValue, 
-        //     String newValue) {
-        //     if (!newValue.matches("\\d*") && newValue.length()%5!=0) {
-        //         cardNumberField.setText(newValue.replaceAll("[^\\d]", ""));
-        //     }
-        //     if(newValue.length() > 19) {
-        //         cardNumberField.setText(oldValue);
-        //     }
-        //     if(newValue.length()%5!=0){
-        //         String cardNum = newValue.replaceAll(" ", "");
-        //         System.out.println("newValue "+newValue);
-        //         System.out.println("cardNum "+cardNum);
-        //         if(cardNum.length() > 0) {
-        //             // System.out.println("#######################################"+cardNum);
-        //             if((cardNum.length())%4 == 0) {
-        //                 cardNumberField.setText(newValue+" ");
-        //                 // System.out.println(newValue+" .");
-        //             }
-        //         }
-        //     }
-            // String formattedValue = newValue.replaceAll("\\s", "");
-            // if (formattedValue.length() > 0) {
-            //     formattedValue = formattedValue.replaceAll("(\\d{4})", "$1 ");
-            // }
-            // cardNumberField.setText(formattedValue);
-        // }
-        // });
-
-
-        // cardNumberField.textProperty().addListener((observable, oldValue, newValue) -> {
-        //     if (!newValue.matches("\\d{0,16}")) { // Restrict to 16 digits
-        //         cardNumberField.setText(oldValue);
-        //     }
-        //     // Format the input to match the credit card number format
-        //     String formattedValue = newValue.replaceAll("\\s", "");
-        //     if (formattedValue.length() > 0) {
-        //         formattedValue = formattedValue.replaceAll("(\\d{4})", "$1 ");
-        //     }
-        //     cardNumberField.setText(formattedValue);
-        // });
     }
 }

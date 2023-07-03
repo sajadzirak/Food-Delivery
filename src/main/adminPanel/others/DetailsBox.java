@@ -41,7 +41,7 @@ public class DetailsBox {
     private void selectImageButtonClicked() throws FileNotFoundException{
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose an image");
-        fileChooser.setInitialDirectory(new File("/~"));
+        fileChooser.setInitialDirectory(new File("."));
         fileChooser.getExtensionFilters().addAll(new ExtensionFilter("jpg", "*.jpg"),
         new ExtensionFilter("png", "*.png"), new ExtensionFilter("jpeg", "*.jpeg"));
         selectedFile = fileChooser.showOpenDialog(null);
