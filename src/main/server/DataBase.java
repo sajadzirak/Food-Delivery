@@ -13,7 +13,6 @@ public class DataBase {
     public static String userFxmlLoaderPath = "../../resources/view/user/";
     public static String userViewPath = "../../../resources/view/user/";
     public static String filePath = "src/resources/files/";
-    public static String imageAbsolutePath = "file:/home/sajad/A/java/myProjects/restaurantManagement/src/DB/images/";
     private ArrayList<Restaurant> restaurantList;
     private ArrayList<User> userList;
     private static String password = "123";
