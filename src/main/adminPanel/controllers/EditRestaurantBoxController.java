@@ -102,6 +102,9 @@ public class EditRestaurantBoxController extends RestaurantDetailsBox implements
             restaurant = (Restaurant)AdminClient.fromServer.readObject();
             previousName = restaurant.getName();
             restaurantNameTextField.setText(restaurant.getName());
+            if(restaurant.isOutdoor()) {
+                outdoorRadioButton.setSelected(true);
+            }
             typeChoiceBox.getSelectionModel().select(restaurant.getrestaurantType().name());
             if(restaurant.isOutdoor()){
                 deliveryNumberTextField.setDisable(false);
