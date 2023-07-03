@@ -27,7 +27,6 @@ public class Server extends Application{
     @Override
     public void start(Stage primaryStage) throws IOException, ClassNotFoundException{
         db = new DataBase();
-        System.out.println(db.getRestaurantList());
         serverSocket = new ServerSocket(Server.PORT);
         while(true) {
             socket = serverSocket.accept();

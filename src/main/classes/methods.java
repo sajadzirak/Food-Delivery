@@ -68,7 +68,9 @@ public class methods {
         }
         else if(flag == 'U') {
             for(int i = 0; i < size; i++){
-                pane.getChildren().add(new UserRestaurantTile((Restaurant)fromServer.readObject()));
+                Restaurant restaurant = (Restaurant)fromServer.readObject();
+                if(!restaurant.isDisable())
+                    pane.getChildren().add(new UserRestaurantTile(restaurant));
             }
         }
     }

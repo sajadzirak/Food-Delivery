@@ -28,8 +28,6 @@ public class UserFoodTile extends UserTile {
         this.quantity = quantity;
         this.restaurantName = restaurantName;
         quantityLabel = new Label("/"+quantity);
-        // File file = new File(food.getFoodImagePath());
-        // imageView.setImage(new Image(DataBase.imageAbsolutePath+file.getName()));
         imageView.setImage(new Image(food.getFoodImagePath()));
         nameLabel.setText(food.getFoodName());
         priceLabel = new Label("$ "+food.getFoodPrice());

@@ -42,6 +42,7 @@ public class AdminClient extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("../../resources/view/admin/adminLoginPage.fxml"));
         window.setTitle("Admin Login");
         window.setScene(new Scene(root, 1280, 720));
+        window.setResizable(false);
         window.show();
     }
 }

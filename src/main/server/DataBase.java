@@ -26,7 +26,6 @@ public class DataBase {
     }
     
     public ArrayList<Restaurant> getRestaurantList() {
-        System.out.println("from get Restaurant list : "+restaurantList);
         return restaurantList;
     }
 

@@ -41,9 +41,6 @@ public class Food implements Serializable{
         if(foodWeight > 0){
             this.foodWeight = foodWeight;
         }
-        else{
-            // have to implement this section
-        }
     }
 
     public double getFoodPrice() {

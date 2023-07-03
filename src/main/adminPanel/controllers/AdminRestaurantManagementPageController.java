@@ -27,6 +27,7 @@ public class AdminRestaurantManagementPageController implements Initializable {
         addBox.setScene(new Scene(root));
         addBox.setTitle("Add Restaurant");
         addBox.initModality(Modality.APPLICATION_MODAL);
+        addBox.setResizable(false);
         addBox.showAndWait();
         methods.addRestaurantsToTilePane(centerTilePane, 'A', AdminClient.toServer, AdminClient.fromServer);
     }

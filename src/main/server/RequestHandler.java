@@ -47,7 +47,6 @@ public class RequestHandler {
     }
 
     public void determineRequest(ObjectInputStream input, ObjectOutputStream output) throws ClassNotFoundException, IOException{
-        System.out.println("first request: "+request);
         if(request.equals("Login Admin")){
             adminLogin(input, output);
         }
@@ -242,13 +241,8 @@ public class RequestHandler {
             quantity = (Integer) fromClient.readObject();
             resIndex = Server.db.findRestaurant(restaurantName);
             restaurant = Server.db.getRestaurantList().get(resIndex);
-            // System.out.println(restaurant.getFoodQuantity());
-            // System.out.println(food);
-            // System.out.println(restaurant.getFoodQuantity().get(food));
-            // System.out.println(restaurant.getFoodQuantity().containsKey(food));
             for (Food f: restaurant.getFoodQuantity().keySet()) {
-                if(f.equals(food)) {
-                    // System.out.println(restaurant.getFoodQuantity().get(f));  
+                if(f.equals(food)) { 
                     restaurant.getFoodQuantity().replace(f, restaurant.getFoodQuantity().get(f)-quantity);     
                 }
             }

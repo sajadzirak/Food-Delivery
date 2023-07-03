@@ -60,6 +60,7 @@ public class AdminTile extends AnchorPane{
         editBox.setScene(new Scene(root));
         editBox.setTitle(title);
         editBox.initModality(Modality.APPLICATION_MODAL);
+        editBox.setResizable(false);
         editBox.showAndWait();
     }
 }

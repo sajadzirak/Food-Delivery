@@ -72,6 +72,7 @@ public class UserProfilePageController implements Initializable{
         paymentStage.setScene(new Scene(root));
         paymentStage.setTitle("payment page");
         paymentStage.initModality(Modality.APPLICATION_MODAL);
+        paymentStage.setResizable(false);
         paymentStage.showAndWait();
         initialize(null, null);
     }

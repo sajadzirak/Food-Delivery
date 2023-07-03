@@ -45,6 +45,7 @@ public class UserClient extends Application{
         Parent root = FXMLLoader.load(getClass().getResource("../../resources/view/user/userLoginPage.fxml"));
         window.setTitle("User Panel");
         window.setScene(new Scene(root, 1280, 720));
+        window.setResizable(false);
         window.show();
     }
 

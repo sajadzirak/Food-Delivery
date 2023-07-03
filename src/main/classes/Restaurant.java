@@ -3,7 +3,6 @@ package main.classes;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import javafx.scene.image.Image;
 
 public class Restaurant implements Serializable{
 
@@ -15,7 +14,6 @@ public class Restaurant implements Serializable{
     private boolean outdoor, disable;
     private String restaurantImagePath;
     private int chairNumber, deliveryNumber;
-    // implement score for every restaurnat
 
     
     public Restaurant(String name, String restaurantAddress, Restaurant.restaurantType restaurantType,
@@ -139,8 +137,4 @@ public class Restaurant implements Serializable{
         }
         return false;
     }
-
-    // public String toString(){
-    //     return name;
-    // }
 }

@@ -61,6 +61,7 @@ public class cartPageController implements Initializable{
         paymentStage.setScene(new Scene(root));
         paymentStage.setTitle("payment page");
         paymentStage.initModality(Modality.APPLICATION_MODAL);
+        paymentStage.setResizable(false);
         paymentStage.showAndWait();
         balanceLabel.setText("Your Balance: $"+UserClient.currentUser.getBalance());
     }
