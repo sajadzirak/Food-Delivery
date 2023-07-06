@@ -50,7 +50,7 @@ public class EditRestaurantBoxController extends RestaurantDetailsBox implements
         else {
             Restaurant newRestaurant;
             newRestaurant = new Restaurant(restaurantNameTextField.getText(), addressTextField.getText(), 
-            restaurantType.valueOf(typeChoiceBox.getValue()), restaurant.getFoodList(), restaurant.getFoodQuantity(), outdoorRadioButton.isSelected(), 
+            restaurantType.valueOf(typeChoiceBox.getValue()), outdoorRadioButton.isSelected(), 
             selectedFile==null?restaurant.getRestaurantImagePath():new File(selectedFile.getAbsolutePath()).toURI().toString(), outdoorRadioButton.isSelected()?0:Integer.parseInt(chairNumberTextField.getText()), 
             outdoorRadioButton.isSelected()?Integer.parseInt(deliveryNumberTextField.getText()):0);
             AdminClient.toServer.writeObject(request);
@@ -66,7 +66,7 @@ public class EditRestaurantBoxController extends RestaurantDetailsBox implements
             }
             else{
                 alert.setAlertType(AlertType.ERROR);
-                alert.setContentText("something went wrong!!");
+                alert.setContentText("something went wrong!!\nMaybe your new retaurant name already exists.");
                 alert.showAndWait();
             }
         }

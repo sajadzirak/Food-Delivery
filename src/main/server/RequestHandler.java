@@ -132,12 +132,22 @@ public class RequestHandler {
     }
     
     private void editRestaurant(ObjectInputStream fromClient, ObjectOutputStream toClient) throws ClassNotFoundException, IOException{
-        Restaurant edited;
+        Restaurant edited, perviousRestaurant;
         String previousName;
+        int index;
+
         previousName = (String)fromClient.readObject();
+        index = Server.db.findRestaurant(previousName);
+        perviousRestaurant = Server.db.getRestaurantList().get(index);
         edited = (Restaurant)fromClient.readObject();
-        boolean result = Server.db.replaceRestaurant(previousName, edited);
-        toClient.writeObject(result);
+        if(previousName != edited.getName() && Server.db.findRestaurant(edited.getName()) != -1)
+            toClient.writeObject(false);
+        else {
+            edited.setFoodList(perviousRestaurant.getFoodList());
+            edited.setFoodQuantity(perviousRestaurant.getFoodQuantity());
+            boolean result = Server.db.replaceRestaurant(previousName, edited);
+            toClient.writeObject(result);
+        }
     }
 
     private void newFood(ObjectInputStream fromClient, ObjectOutputStream toClient) throws ClassNotFoundException, IOException{
