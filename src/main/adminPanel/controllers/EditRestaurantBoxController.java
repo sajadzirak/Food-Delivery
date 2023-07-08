@@ -11,8 +11,6 @@ import main.classes.Restaurant;
 import main.classes.methods;
 import main.classes.Restaurant.restaurantType;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

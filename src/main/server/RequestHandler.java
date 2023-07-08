@@ -293,7 +293,12 @@ public class RequestHandler {
         previousName = (String) fromClient.readObject();
         newFood = (Food) fromClient.readObject();
         newQuantity = (Integer) fromClient.readObject();
-        respond = Server.db.replaceFood(restaurantName, previousName, newFood, newQuantity);
-        toClient.writeObject(respond);
+        if(!previousName.equals(newFood.getFoodName()) && Server.db.findFood(newFood.getFoodName(), restaurantName) != -1) {
+            toClient.writeObject(false);
+        }
+        else{
+            respond = Server.db.replaceFood(restaurantName, previousName, newFood, newQuantity);
+            toClient.writeObject(respond);
+        }
     }
 }

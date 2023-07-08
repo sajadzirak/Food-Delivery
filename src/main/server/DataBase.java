@@ -207,7 +207,7 @@ public class DataBase {
 
         resIndex = findRestaurant(restaurantName);
         restaurant = restaurantList.get(resIndex);
-        foodIndex = findFood(previousName, restaurant);
+        foodIndex = findFood(previousName, restaurant.getName());
         if(foodIndex != -1) {
             restaurant.getFoodList().remove(foodIndex);
             restaurant.getFoodList().add(foodIndex, food);
@@ -222,7 +222,9 @@ public class DataBase {
         return result;
     }
 
-    private int findFood(String food, Restaurant restaurant) {
+    public int findFood(String food, String restaurantName) {
+        int index = findRestaurant(restaurantName);
+        Restaurant restaurant = restaurantList.get(index);
         for(int i = 0; i < restaurant.getFoodList().size(); i++) {
             if(restaurant.getFoodList().get(i).getFoodName().equals(food)) {
                 return i;

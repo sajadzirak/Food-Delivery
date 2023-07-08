@@ -80,7 +80,7 @@ public class UserSignupPageController implements Initializable{
             alert.showAndWait();
         }
         else if(!checkPhoneNumberField()){
-            alert.setContentText("Invalid phone number!");
+            alert.setContentText("Invalid phone number!\nmust have 11 digits.");
             alert.showAndWait();
         }
         else if(!checkPasswordField()){
@@ -127,7 +127,7 @@ public class UserSignupPageController implements Initializable{
     }
 
     private boolean checkPasswordField(){
-        return passwordField.getText().length()>2?true:false;
+        return passwordField.getText().length()>5?true:false;
     }
 
     private boolean checkPasswordConfirm(){

@@ -10,8 +10,6 @@ import main.classes.Food;
 import main.classes.methods;
 import main.classes.Food.foodType;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
