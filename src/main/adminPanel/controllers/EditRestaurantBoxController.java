@@ -78,24 +78,9 @@ public class EditRestaurantBoxController extends RestaurantDetailsBox implements
         alert = new Alert(AlertType.ERROR);
         alert.setHeaderText(null);
         alert.setTitle("Editing restaurant");
-        chairNumberTextField.textProperty().addListener(new ChangeListener<String>() {
-        @Override
-        public void changed(ObservableValue<? extends String> observable, String oldValue, 
-            String newValue) {
-            if (!newValue.matches("\\d*")) {
-                chairNumberTextField.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        }
-        });
-        deliveryNumberTextField.textProperty().addListener(new ChangeListener<String>() {
-        @Override
-        public void changed(ObservableValue<? extends String> observable, String oldValue, 
-            String newValue) {
-            if (!newValue.matches("\\d*")) {
-                deliveryNumberTextField.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        }
-        });
+        
+        methods.addListenerToNumericField(chairNumberTextField);
+        methods.addListenerToNumericField(deliveryNumberTextField);
 
         try{
             typeChoiceBox.setItems(types);

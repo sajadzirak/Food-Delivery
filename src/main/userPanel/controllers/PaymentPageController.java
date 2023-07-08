@@ -128,29 +128,7 @@ public class PaymentPageController implements Initializable{
         }
         );
 
-        moneyField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if(newValue.length() > 0) {
-                    if (!newValue.matches("[0-9](\\.[0-9]*)?")) {
-                        moneyField.setText(newValue.replaceAll("[^\\d.]", ""));
-                        StringBuilder aus = new StringBuilder(newValue);
-                        boolean firstPointFound = false;
-                        for (int i = 0; i < aus.length(); i++){
-                            if(aus.charAt(i) == '.') {
-                                if(!firstPointFound)
-                                    firstPointFound = true;
-                                else
-                                    aus.deleteCharAt(i);
-                            }
-                        }
-                        newValue = aus.toString();
-                        if (newValue.matches("[0-9](\\.[0-9]*)?"))
-                            moneyField.setText(newValue);
-                    }
-                }
-            }
-        });
+        methods.addListenerToDoublyFields(moneyField);
         
         monthField.textProperty().addListener(new ChangeListener<String>() {
         @Override
@@ -178,25 +156,8 @@ public class PaymentPageController implements Initializable{
         }
         });
 
-        cvv2Field.textProperty().addListener(new ChangeListener<String>() {
-        @Override
-        public void changed(ObservableValue<? extends String> observable, String oldValue, 
-            String newValue) {
-            if (!newValue.matches("\\d*")) {
-                cvv2Field.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        }
-        });
-
-        passwordField.textProperty().addListener(new ChangeListener<String>() {
-        @Override
-        public void changed(ObservableValue<? extends String> observable, String oldValue, 
-            String newValue) {
-            if (!newValue.matches("\\d*")) {
-                passwordField.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        }
-        });
+        methods.addListenerToNumericField(cvv2Field);
+        methods.addListenerToNumericField(passwordField);
 
         cardNumberField.textProperty().addListener(new ChangeListener<String>() {
         @Override

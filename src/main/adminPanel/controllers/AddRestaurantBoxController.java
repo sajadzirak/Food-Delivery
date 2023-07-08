@@ -73,24 +73,8 @@ public class AddRestaurantBoxController extends RestaurantDetailsBox implements 
         alert.setHeaderText(null);
         alert.setTitle("Adding restaurant");
 
-        chairNumberTextField.textProperty().addListener(new ChangeListener<String>() {
-        @Override
-        public void changed(ObservableValue<? extends String> observable, String oldValue, 
-            String newValue) {
-            if (!newValue.matches("\\d*")) {
-                chairNumberTextField.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        }
-        });
-        deliveryNumberTextField.textProperty().addListener(new ChangeListener<String>() {
-        @Override
-        public void changed(ObservableValue<? extends String> observable, String oldValue, 
-            String newValue) {
-            if (!newValue.matches("\\d*")) {
-                deliveryNumberTextField.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        }
-        });
+        methods.addListenerToNumericField(chairNumberTextField);
+        methods.addListenerToNumericField(deliveryNumberTextField);
     }
 }
 

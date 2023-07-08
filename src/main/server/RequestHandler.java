@@ -140,7 +140,7 @@ public class RequestHandler {
         index = Server.db.findRestaurant(previousName);
         perviousRestaurant = Server.db.getRestaurantList().get(index);
         edited = (Restaurant)fromClient.readObject();
-        if(previousName != edited.getName() && Server.db.findRestaurant(edited.getName()) != -1)
+        if(!previousName.equals(edited.getName()) && Server.db.findRestaurant(edited.getName()) != -1)
             toClient.writeObject(false);
         else {
             edited.setFoodList(perviousRestaurant.getFoodList());
@@ -154,12 +154,16 @@ public class RequestHandler {
         Food food;
         String restaurantName;
         int quantity;
+        boolean addResult, quantityResult = false;
 
         restaurantName = (String) fromClient.readObject();
         food = (Food) fromClient.readObject();
         quantity = (Integer) fromClient.readObject();
-        boolean addResult = Server.db.addFoodToRestaurant(restaurantName, food);       
-        boolean quantityResult = Server.db.setFoodQuantity(restaurantName, food, quantity);
+        addResult = Server.db.addFoodToRestaurant(restaurantName, food);
+        if(addResult)       
+            quantityResult = Server.db.setFoodQuantity(restaurantName, food, quantity);
+        System.out.println(addResult);
+        System.out.println(quantityResult);
         if(addResult && quantityResult){
             toClient.writeObject(true);
         }

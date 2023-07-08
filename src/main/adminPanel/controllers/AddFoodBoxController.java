@@ -76,63 +76,9 @@ public class AddFoodBoxController extends FoodDetailsBox implements Initializabl
         alert.setHeaderText(null);
         alert.setTitle("Adding Food");
         
-        quantityField.textProperty().addListener(new ChangeListener<String>() {
-        @Override
-        public void changed(ObservableValue<? extends String> observable, String oldValue, 
-            String newValue) {
-            if (!newValue.matches("\\d*")) {
-                quantityField.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        }
-        });
-
-        priceField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if(newValue.length() > 0) {
-                    if (!newValue.matches("[0-9](\\.[0-9]*)?")) {
-                        priceField.setText(newValue.replaceAll("[^\\d.]", ""));
-                        StringBuilder aus = new StringBuilder(newValue);
-                        boolean firstPointFound = false;
-                        for (int i = 0; i < aus.length(); i++){
-                            if(aus.charAt(i) == '.') {
-                                if(!firstPointFound)
-                                    firstPointFound = true;
-                                else
-                                    aus.deleteCharAt(i);
-                            }
-                        }
-                        newValue = aus.toString();
-                        if (newValue.matches("[0-9](\\.[0-9]*)?"))
-                            priceField.setText(newValue);
-                    }
-                }
-            }
-        });
-
-        weightField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if(newValue.length() > 0) {
-                    if (!newValue.matches("[0-9](\\.[0-9]*)?")) {
-                        weightField.setText(newValue.replaceAll("[^\\d.]", ""));
-                        StringBuilder aus = new StringBuilder(newValue);
-                        boolean firstPointFound = false;
-                        for (int i = 0; i < aus.length(); i++){
-                            if(aus.charAt(i) == '.') {
-                                if(!firstPointFound)
-                                    firstPointFound = true;
-                                else
-                                    aus.deleteCharAt(i);
-                            }
-                        }
-                        newValue = aus.toString();
-                        if (newValue.matches("[0-9](\\.[0-9]*)?"))
-                            weightField.setText(newValue);
-                    }
-                }
-            }
-        });
+        methods.addListenerToNumericField(quantityField);
+        methods.addListenerToDoublyFields(priceField);
+        methods.addListenerToDoublyFields(weightField);
     }
 
 }

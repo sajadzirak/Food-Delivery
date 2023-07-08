@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
@@ -73,5 +76,55 @@ public class methods {
                     pane.getChildren().add(new UserRestaurantTile(restaurant));
             }
         }
+    }
+
+    public static void addListenerToDoublyFields(TextField tf) {
+            tf.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if(newValue.length() == 1 && newValue.equals(".")){
+                    tf.setText("");
+                }
+                else if (!newValue.matches("[0-9]*\\.[0-9]*")) {
+                    newValue = newValue.replaceAll("[^\\d.]", "");
+                    StringBuilder aus = new StringBuilder(newValue);
+                    boolean firstPointFound = false;
+                    for (int i = 0; i < aus.length(); i++){
+                        if(aus.charAt(i) == '.') {
+                            if(!firstPointFound)
+                                firstPointFound = true;
+                            else
+                                aus.deleteCharAt(i);
+                        }
+                    }
+                    newValue = aus.toString();
+                    tf.setText(newValue);
+                }
+            }
+        });
+    }
+
+    public static void addListenerToNumericField(TextField tf) {
+        tf.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, 
+                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    tf.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+            });
+    }
+
+    public static void addListenerToNumericField(PasswordField pf) {
+        pf.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, 
+                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    pf.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+            });
     }
 }
