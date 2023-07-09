@@ -162,8 +162,6 @@ public class RequestHandler {
         addResult = Server.db.addFoodToRestaurant(restaurantName, food);
         if(addResult)       
             quantityResult = Server.db.setFoodQuantity(restaurantName, food, quantity);
-        System.out.println(addResult);
-        System.out.println(quantityResult);
         if(addResult && quantityResult){
             toClient.writeObject(true);
         }
