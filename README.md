@@ -13,7 +13,7 @@ system and unzip to a desired location.
 
 - Make sure you have the [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack) installed in your Visual Studio Code.
 
-- clone the project open `restaurntMangement` folder in Visual Studio Code. Open any of the Java files to import the project.
+- clone the project open `food-delivery` folder in Visual Studio Code. Open any of the Java files to import the project.
 
 - open `.vscode/settings.json`, replace the `<JavaFX_lib_path>` with your JavaFX lib folder path.
 
