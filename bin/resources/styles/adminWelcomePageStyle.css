@@ -1,9 +1,0 @@
-#welcomeLabel{
-    -fx-text-fill: -fx-red;
-    -fx-font-size: 64px;
-    -fx-font-weight: 700;
-}
-
-#centerPane{
-    -fx-background-color: -fx-pale-green;
-}
